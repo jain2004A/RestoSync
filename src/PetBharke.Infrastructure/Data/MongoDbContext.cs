@@ -12,11 +12,20 @@ public class MongoDbContext : IMongoDbContext
 
     public MongoDbContext(IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("MongoDb") 
-            ?? configuration["MongoDB:ConnectionString"] 
-            ?? throw new InvalidOperationException("MongoDB connection string must be configured via ConnectionStrings:MongoDb or MongoDB:ConnectionString.");
+        var envConn = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING")
+            ?? Environment.GetEnvironmentVariable("MONGODB_URI")
+            ?? Environment.GetEnvironmentVariable("MONGO_URL")
+            ?? configuration["MONGODB_CONNECTION_STRING"];
+
+        var connectionString = !string.IsNullOrWhiteSpace(envConn) && !envConn.Contains("<username>")
+            ? envConn
+            : configuration.GetConnectionString("MongoDb") 
+              ?? configuration["MongoDB:ConnectionString"] 
+              ?? throw new InvalidOperationException("MongoDB connection string must be configured via .env (MONGODB_CONNECTION_STRING) or ConnectionStrings:MongoDb.");
             
-        var databaseName = configuration["MongoDB:DatabaseName"] ?? "petbharke";
+        var databaseName = Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME")
+            ?? configuration["MongoDB:DatabaseName"] 
+            ?? "QuantroBill";
 
         var settings = MongoClientSettings.FromConnectionString(connectionString);
         settings.ServerApi = new ServerApi(ServerApiVersion.V1);

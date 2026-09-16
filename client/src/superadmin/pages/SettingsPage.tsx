@@ -24,7 +24,7 @@ export const SettingsPage: React.FC = () => {
     smtpPort: 587,
     smtpUser: 'support@quantromind.com',
     smtpFromEmail: 'noreply@quantromind.com',
-    razorpayKeyId: 'rzp_live_quantrobill2026',
+    razorpayKeyId: 'rzp_test_placeholder',
     maintenanceMode: false,
   });
 

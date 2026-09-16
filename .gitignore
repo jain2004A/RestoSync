@@ -51,6 +51,10 @@ release/
 *.deb
 *.rpm
 *.AppImage
+desktop-electron/cache/
+desktop-electron/spooler/
+**/spooler/*.txt
+**/cache/menu_catalog*.json
 
 # ==========================================
 # .NET / C# (PetBharke.sln & src/)
@@ -113,18 +117,21 @@ _ReSharper*/
 # ==========================================
 # Environment Variables & Secrets
 # ==========================================
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env.*.local
+**/.env
+**/.env.*
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+**/.env.*.local
 secrets.json
 appsettings*.local.json
+appsettings.Local.json
+*.local.json
 
 # Keep template/example env files tracked
-!.env.example
-!.env.template
+!**/.env.example
+!**/.env.template
 
 # ==========================================
 # OS & System Files

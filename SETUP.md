@@ -43,7 +43,7 @@ npm install
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `MongoDB:ConnectionString` | MongoDB Atlas connection string | `mongodb+srv://user:pass@cluster.mongodb.net/QuantroBill?retryWrites=true&w=majority` |
+| `MongoDB:ConnectionString` | MongoDB Atlas connection string | `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/QuantroBill?retryWrites=true&w=majority` |
 | `Jwt:Key` | JWT signing key (min 32 chars, random) | `YourSuperSecretKeyAtLeast32CharsLong!` |
 | `Jwt:Issuer` | JWT issuer identifier | `QuantroBill` |
 | `Jwt:Audience` | JWT audience identifier | `QuantroBillUsers` |
@@ -58,7 +58,7 @@ cd src/PetBharke.API
 dotnet user-secrets init
 
 # Set secrets
-dotnet user-secrets set "MongoDB:ConnectionString" "mongodb+srv://YOUR_USER:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/QuantroBill?retryWrites=true&w=majority"
+dotnet user-secrets set "MongoDB:ConnectionString" "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/QuantroBill?retryWrites=true&w=majority"
 dotnet user-secrets set "Jwt:Key" "YOUR_RANDOM_SECRET_KEY_AT_LEAST_32_CHARS"
 ```
 

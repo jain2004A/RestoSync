@@ -2,7 +2,10 @@ node_modules/
 dist/
 out/
 release/
+cache/
+spooler/
 *.log
 .env
+.env.*
 .env.local
 !.env.example

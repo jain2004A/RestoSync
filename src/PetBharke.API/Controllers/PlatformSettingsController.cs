@@ -34,11 +34,11 @@ public class SettingsController : ControllerBase
                 DefaultCurrency = "INR",
                 DefaultTaxRate = 5.0m,
                 DefaultTrialDays = 14,
-                SmtpHost = "smtp.sendgrid.net",
-                SmtpPort = 587,
-                SmtpUser = "quantrobill_mailer",
-                SmtpFromEmail = "notifications@quantromind.com",
-                RazorpayKeyId = "rzp_live_quantrobill_masked_key",
+                SmtpHost = Environment.GetEnvironmentVariable("SMTP_HOST") ?? "smtp.example.com",
+                SmtpPort = int.TryParse(Environment.GetEnvironmentVariable("SMTP_PORT"), out var smtpP) ? smtpP : 587,
+                SmtpUser = Environment.GetEnvironmentVariable("SMTP_USER") ?? "mailer",
+                SmtpFromEmail = Environment.GetEnvironmentVariable("SMTP_FROM_EMAIL") ?? "notifications@quantromind.com",
+                RazorpayKeyId = Environment.GetEnvironmentVariable("RAZORPAY_KEY_ID") ?? "rzp_test_placeholder",
                 MaintenanceMode = false,
                 UpdatedAt = DateTime.UtcNow
             };

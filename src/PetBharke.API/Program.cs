@@ -15,6 +15,9 @@ using PetBharke.Infrastructure.Repositories;
 using PetBharke.Infrastructure.Security;
 using PetBharke.Infrastructure.Services;
 
+// Load .env configuration if present (from current directory or parent solution directories)
+DotEnvLoader.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Add Services to the container
@@ -212,3 +215,97 @@ app.Run();
 
 // Make Program accessible to integration tests via WebApplicationFactory<Program>
 public partial class Program { }
+
+public static class DotEnvLoader
+{
+    public static void Load()
+    {
+        try
+        {
+            var searchDir = new DirectoryInfo(Directory.GetCurrentDirectory());
+            FileInfo? envFile = null;
+
+            for (int i = 0; i < 5 && searchDir != null; i++)
+            {
+                var candidate = Path.Combine(searchDir.FullName, ".env");
+                if (File.Exists(candidate))
+                {
+                    envFile = new FileInfo(candidate);
+                    break;
+                }
+                searchDir = searchDir.Parent;
+            }
+
+            if (envFile == null || !envFile.Exists) return;
+
+            foreach (var rawLine in File.ReadAllLines(envFile.FullName))
+            {
+                var line = rawLine.Trim();
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#')) continue;
+
+                var idx = line.IndexOf('=');
+                if (idx <= 0) continue;
+
+                var key = line.Substring(0, idx).Trim();
+                var val = line.Substring(idx + 1).Trim();
+
+                if ((val.StartsWith('"') && val.EndsWith('"')) || (val.StartsWith('\'') && val.EndsWith('\'')))
+                {
+                    val = val.Substring(1, val.Length - 2);
+                }
+
+                if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(key)))
+                {
+                    Environment.SetEnvironmentVariable(key, val);
+                }
+
+                // Map standard configuration aliases for ASP.NET Core
+                if (key == "MONGODB_CONNECTION_STRING")
+                {
+                    Environment.SetEnvironmentVariable("ConnectionStrings__MongoDb", val);
+                    Environment.SetEnvironmentVariable("MongoDB__ConnectionString", val);
+                }
+                else if (key == "MONGODB_DATABASE_NAME")
+                {
+                    Environment.SetEnvironmentVariable("MongoDB__DatabaseName", val);
+                }
+                else if (key == "JWT_KEY")
+                {
+                    Environment.SetEnvironmentVariable("Jwt__Key", val);
+                }
+                else if (key == "JWT_ISSUER")
+                {
+                    Environment.SetEnvironmentVariable("Jwt__Issuer", val);
+                }
+                else if (key == "JWT_AUDIENCE")
+                {
+                    Environment.SetEnvironmentVariable("Jwt__Audience", val);
+                }
+                else if (key == "SWAGGER_ENABLED")
+                {
+                    Environment.SetEnvironmentVariable("Swagger__Enabled", val);
+                }
+                else if (key == "SMTP_HOST")
+                {
+                    Environment.SetEnvironmentVariable("Smtp__Host", val);
+                }
+                else if (key == "SMTP_PORT")
+                {
+                    Environment.SetEnvironmentVariable("Smtp__Port", val);
+                }
+                else if (key == "SMTP_USER")
+                {
+                    Environment.SetEnvironmentVariable("Smtp__User", val);
+                }
+                else if (key == "SMTP_FROM_EMAIL")
+                {
+                    Environment.SetEnvironmentVariable("Smtp__FromEmail", val);
+                }
+            }
+        }
+        catch
+        {
+            // Silently fallback if .env cannot be read
+        }
+    }
+}

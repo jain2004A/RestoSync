@@ -221,19 +221,19 @@ public class PlatformSetting
     public int DefaultTrialDays { get; set; } = 14;
 
     [BsonElement("smtpHost")]
-    public string SmtpHost { get; set; } = "smtp.sendgrid.net";
+    public string SmtpHost { get; set; } = "smtp.example.com";
 
     [BsonElement("smtpPort")]
     public int SmtpPort { get; set; } = 587;
 
     [BsonElement("smtpUser")]
-    public string SmtpUser { get; set; } = "apikey";
+    public string SmtpUser { get; set; } = "mailer";
 
     [BsonElement("smtpFromEmail")]
     public string SmtpFromEmail { get; set; } = "noreply@quantromind.com";
 
     [BsonElement("razorpayKeyId")]
-    public string RazorpayKeyId { get; set; } = "rzp_live_quantrobill_sample";
+    public string RazorpayKeyId { get; set; } = "rzp_test_placeholder";
 
     [BsonElement("maintenanceMode")]
     public bool MaintenanceMode { get; set; } = false;
