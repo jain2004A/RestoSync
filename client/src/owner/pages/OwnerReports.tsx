@@ -41,14 +41,7 @@ export const OwnerReports: React.FC = () => {
         itemMap.set(name, cur);
       });
     });
-    const list = Array.from(itemMap.values()).sort((a, b) => b.qty - a.qty);
-    if (list.length > 0) return list;
-    return [
-      { name: 'Paneer Butter Masala', category: 'Main Course', qty: 34, revenue: 9520 },
-      { name: 'Butter Naan', category: 'Breads & Rice', qty: 112, revenue: 6720 },
-      { name: 'Chicken Biryani', category: 'Main Course', qty: 18, revenue: 6120 },
-      { name: 'Cold Coffee with Ice Cream', category: 'Beverages', qty: 14, revenue: 2100 },
-    ];
+    return Array.from(itemMap.values()).sort((a, b) => b.qty - a.qty);
   }, [sales]);
 
   // Mock Tax breakdown
@@ -60,11 +53,8 @@ export const OwnerReports: React.FC = () => {
     netCollection: liveGrossSales + liveTaxAmount,
   };
 
-  // Mock Voids
-  const voidData = [
-    { kotNo: 'KOT-104', table: 'Table RM4', item: 'Chilli Chicken Dry', qty: 1, reason: 'Guest changed mind before cooking', time: '13:10', staff: 'raju' },
-    { kotNo: 'KOT-098', table: 'Table 6', item: 'Fresh Lime Soda', qty: 2, reason: 'Duplicate punch by captain', time: '12:05', staff: 'gayathri' },
-  ];
+  // Voids (dynamic - empty until real void tracking is implemented)
+  const voidData: { kotNo: string; table: string; item: string; qty: number; reason: string; time: string; staff: string }[] = [];
 
   return (
     <div className="space-y-4 max-w-7xl mx-auto font-sans text-slate-900">

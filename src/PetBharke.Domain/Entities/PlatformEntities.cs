@@ -241,3 +241,45 @@ public class PlatformSetting
     [BsonElement("updatedAt")]
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }
+
+[BsonIgnoreExtraElements]
+public class PublicEnquiry
+{
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; } = string.Empty;
+
+    [BsonElement("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [BsonElement("email")]
+    public string Email { get; set; } = string.Empty;
+
+    [BsonElement("phone")]
+    public string Phone { get; set; } = string.Empty;
+
+    [BsonElement("businessName")]
+    public string? BusinessName { get; set; }
+
+    [BsonElement("city")]
+    public string? City { get; set; }
+
+    [BsonElement("outletsCount")]
+    public string? OutletsCount { get; set; }
+
+    [BsonElement("message")]
+    public string Message { get; set; } = string.Empty;
+
+    [BsonElement("interestedProduct")]
+    public string InterestedProduct { get; set; } = "QuantroBill POS";
+
+    [BsonElement("formType")]
+    public string FormType { get; set; } = "Demo Enquiry";
+
+    [BsonElement("status")]
+    public string Status { get; set; } = "New"; // "New", "Contacted", "Demo Scheduled", "Converted", "Closed"
+
+    [BsonElement("createdAt")]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+

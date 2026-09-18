@@ -146,7 +146,8 @@ public class ReportsController : ControllerBase
     public async Task<IActionResult> GetSalesSummary([FromQuery] int days = 7)
     {
         var tenantId = _currentUser.TenantId;
-        var startDate = DateTime.UtcNow.Date.AddDays(-days);
+        var now = DateTime.UtcNow;
+        var startDate = now.Date.AddDays(days == 1 ? 0 : -days);
 
         var orders = await _context.Orders
             .Find(o => o.TenantId == tenantId && o.PlacedAt >= startDate && o.Status != OrderStatus.Cancelled)
@@ -157,28 +158,96 @@ public class ReportsController : ControllerBase
         var totalSgst = orders.Sum(o => o.SgstAmount);
         var averageOrderValue = orders.Count > 0 ? totalRevenue / orders.Count : 0;
 
-        // Daily breakdown
-        var dailySales = orders
-            .GroupBy(o => o.PlacedAt.ToString("yyyy-MM-dd"))
+        // Previous period comparison
+        var prevStart = startDate.AddDays(days == 1 ? -1 : -days);
+        var prevEnd = startDate;
+        var prevOrders = await _context.Orders
+            .Find(o => o.TenantId == tenantId && o.PlacedAt >= prevStart && o.PlacedAt < prevEnd && o.Status != OrderStatus.Cancelled)
+            .ToListAsync();
+        var prevRevenue = prevOrders.Sum(o => o.TotalAmount);
+        var revenueChangePercent = prevRevenue > 0
+            ? Math.Round((double)((totalRevenue - prevRevenue) / prevRevenue * 100), 1)
+            : (totalRevenue > 0 ? 100.0 : 0.0);
+
+        // Daily breakdown with formatted dates
+        var dailySales = new List<object>();
+        if (days == 1)
+        {
+            // Hourly buckets for Today
+            for (var hour = 0; hour < 24; hour += 2)
+            {
+                var bucketStart = now.Date.AddHours(hour);
+                var bucketEnd = bucketStart.AddHours(2);
+                var bucketOrders = orders.Where(o => o.PlacedAt >= bucketStart && o.PlacedAt < bucketEnd).ToList();
+                if (bucketOrders.Count > 0 || hour <= now.Hour)
+                {
+                    dailySales.Add(new
+                    {
+                        date = $"{hour:D2}:00",
+                        revenue = bucketOrders.Sum(o => o.TotalAmount),
+                        count = bucketOrders.Count
+                    });
+                }
+            }
+        }
+        else
+        {
+            // Daily buckets with human-readable dates
+            for (var d = startDate; d <= now.Date; d = d.AddDays(1))
+            {
+                var dayOrders = orders.Where(o => o.PlacedAt.Date == d).ToList();
+                dailySales.Add(new
+                {
+                    date = d.ToString("dd MMM"),
+                    revenue = dayOrders.Sum(o => o.TotalAmount),
+                    count = dayOrders.Count
+                });
+            }
+        }
+
+        // Channel breakdown with display names
+        string GetChannelName(Order o)
+        {
+            if (o.AggregatorSource == AggregatorSource.Zomato) return "Zomato (Online)";
+            if (o.AggregatorSource == AggregatorSource.Swiggy) return "Swiggy (Online)";
+            if (o.OrderType == OrderType.DineIn) return "Dine In (Restaurant)";
+            if (o.OrderType == OrderType.TakeAway || o.OrderType == OrderType.PickUp || o.OrderType == OrderType.Parcel)
+                return "Takeaway / Pick Up";
+            if (o.OrderType == OrderType.Delivery) return "Delivery (Direct)";
+            return "Other";
+        }
+
+        var channelSales = orders
+            .GroupBy(o => GetChannelName(o))
             .Select(g => new
             {
-                Date = g.Key,
-                Revenue = g.Sum(o => o.TotalAmount),
-                Count = g.Count()
+                channel = g.Key,
+                revenue = g.Sum(o => o.TotalAmount),
+                count = g.Count(),
+                percentage = totalRevenue > 0 ? Math.Round((double)(g.Sum(o => o.TotalAmount) / totalRevenue * 100), 1) : 0
             })
-            .OrderBy(d => d.Date)
+            .OrderByDescending(c => c.revenue)
             .ToList();
 
-        // Channel breakdown
-        var channelSales = orders
-            .GroupBy(o => o.AggregatorSource.ToString())
+        // Top selling items
+        var topItems = orders
+            .SelectMany(o => o.Items)
+            .GroupBy(i => i.Name)
             .Select(g => new
             {
-                Channel = g.Key,
-                Revenue = g.Sum(o => o.TotalAmount),
-                Count = g.Count()
+                name = g.Key,
+                qty = g.Sum(i => i.Quantity),
+                revenue = g.Sum(i => i.TotalPrice)
             })
+            .OrderByDescending(i => i.qty)
+            .Take(10)
             .ToList();
+
+        // Aggregator commission (only on Zomato/Swiggy orders)
+        var aggregatorRevenue = orders
+            .Where(o => o.AggregatorSource == AggregatorSource.Zomato || o.AggregatorSource == AggregatorSource.Swiggy)
+            .Sum(o => o.TotalAmount);
+        var aggregatorCut = Math.Round(aggregatorRevenue * 0.18m, 2);
 
         return Ok(new
         {
@@ -190,8 +259,12 @@ public class ReportsController : ControllerBase
                 averageOrderValue,
                 totalCgst,
                 totalSgst,
+                revenueChangePercent,
                 dailySales,
-                channelSales
+                channelSales,
+                topItems,
+                aggregatorCut,
+                aggregatorRevenue
             }
         });
     }

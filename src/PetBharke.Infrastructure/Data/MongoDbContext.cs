@@ -58,6 +58,7 @@ public class MongoDbContext : IMongoDbContext
     public IMongoCollection<Announcement> Announcements => _database.GetCollection<Announcement>("announcements");
     public IMongoCollection<PlatformCoupon> PlatformCoupons => _database.GetCollection<PlatformCoupon>("platformCoupons");
     public IMongoCollection<PlatformSetting> PlatformSettings => _database.GetCollection<PlatformSetting>("platformSettings");
+    public IMongoCollection<PublicEnquiry> Enquiries => _database.GetCollection<PublicEnquiry>("enquiries");
 
     public Task<IClientSessionHandle> StartSessionAsync(CancellationToken cancellationToken = default)
     {

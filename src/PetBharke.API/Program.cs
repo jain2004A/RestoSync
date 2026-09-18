@@ -24,6 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 // 2. Swagger / OpenAPI Configuration with Bearer Auth
 builder.Services.AddSwaggerGen(options =>

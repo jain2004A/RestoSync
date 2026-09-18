@@ -25,6 +25,7 @@ public interface IMongoDbContext
     IMongoCollection<Announcement> Announcements { get; }
     IMongoCollection<PlatformCoupon> PlatformCoupons { get; }
     IMongoCollection<PlatformSetting> PlatformSettings { get; }
+    IMongoCollection<PublicEnquiry> Enquiries { get; }
 
     Task<IClientSessionHandle> StartSessionAsync(CancellationToken cancellationToken = default);
 }

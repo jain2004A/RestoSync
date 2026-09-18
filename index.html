@@ -274,6 +274,17 @@
     </div>
 
     <div class="grid">
+      <!-- 0. Public Website & Demo Portal -->
+      <a id="publicLink" href="/" class="card" style="border-color: #fca5a5; background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);">
+        <div class="card-top">
+          <div class="card-icon" style="background: #fef2f2; color: #e53935;">🌐</div>
+          <span class="card-badge" style="background: #fee2e2; color: #991b1b;">Public Module</span>
+        </div>
+        <div class="card-title">Public Landing & Demo Portal</div>
+        <div class="card-desc">High-converting landing page with 2s billing showcase, UPI QR pay, public pricing tiers, and live demo booking.</div>
+        <div class="card-action" style="color: #e53935;">Explore Public Portal →</div>
+      </a>
+
       <!-- 1. Desktop POS Register -->
       <a id="posLink" href="/billing" class="card">
         <div class="card-top">
@@ -392,6 +403,7 @@
       hostLabel.innerText = isLocalFile ? 'Local File (Target: http://localhost:5173)' : window.location.host;
     }
 
+    document.getElementById('publicLink').href = `${baseOrigin}/`;
     document.getElementById('posLink').href = `${baseOrigin}/billing`;
     document.getElementById('tablesLink').href = `${baseOrigin}/tables`;
     document.getElementById('kdsLink').href = `${baseOrigin}/kds`;

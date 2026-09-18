@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   Check,
@@ -513,16 +513,34 @@ export const DiscountModal: React.FC<{ isOpen: boolean; onClose: () => void }> =
 
 // 7. Customers CRM Modal
 export const CustomersModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  const [customers] = useState([
-    { name: 'Neha Date', phone: '9822001122', visits: 8, points: 140, lastSpent: 380 },
-    { name: 'Aditya Deshmukh', phone: '9890044556', visits: 14, points: 310, lastSpent: 520 },
-    { name: 'Snehal Kulkarni', phone: '9876543210', visits: 5, points: 90, lastSpent: 260 },
-  ]);
+  const [customers, setCustomers] = useState<{ name: string; phone: string; visits: number; points: number; lastSpent: number }[]>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const filtered = customers.filter(
-    (c) => c.name.toLowerCase().includes(search.toLowerCase()) || c.phone.includes(search)
-  );
+  useEffect(() => {
+    if (!isOpen) return;
+    const fetchCustomers = async () => {
+      setLoading(true);
+      try {
+        const { apiClient } = await import('../../services/api');
+        const res = await apiClient.get<{ success: boolean; data: any[] }>(`/customers${search ? `?search=${encodeURIComponent(search)}` : ''}`);
+        if (res.data?.success && Array.isArray(res.data.data)) {
+          setCustomers(res.data.data.map((c: any) => ({
+            name: c.name || 'Customer',
+            phone: c.phone || '',
+            visits: c.totalOrdersCount || 0,
+            points: c.loyaltyPoints || 0,
+            lastSpent: Number(c.totalSpent) || 0,
+          })));
+        }
+      } catch {
+        // Fallback: empty list
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCustomers();
+  }, [isOpen, search]);
 
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} title="Customer Loyalty CRM & History" icon={<Users className="w-4 h-4" />}>
@@ -538,8 +556,19 @@ export const CustomersModal: React.FC<{ isOpen: boolean; onClose: () => void }> 
           />
         </div>
 
+        {loading && (
+          <div className="text-center py-4 text-slate-400 font-semibold">Loading customers...</div>
+        )}
+
+        {!loading && customers.length === 0 && (
+          <div className="text-center py-6 text-slate-400">
+            <p className="font-semibold">No customers found</p>
+            <p className="text-[11px] mt-1">Customer records will appear here as orders are placed.</p>
+          </div>
+        )}
+
         <div className="space-y-2">
-          {filtered.map((c) => (
+          {customers.map((c) => (
             <div key={c.phone} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
               <div>
                 <h4 className="font-bold text-slate-900">{c.name}</h4>
@@ -549,7 +578,7 @@ export const CustomersModal: React.FC<{ isOpen: boolean; onClose: () => void }> 
                 <span className="font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded text-[11px]">
                   ⭐ {c.points} Points
                 </span>
-                <p className="text-[10px] text-slate-400 mt-0.5">Last: ₹{c.lastSpent}</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Total: ₹{c.lastSpent}</p>
               </div>
             </div>
           ))}

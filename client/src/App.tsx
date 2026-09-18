@@ -51,6 +51,9 @@ import { OwnerCredit } from './owner/pages/OwnerCredit';
 import { OwnerTables } from './owner/pages/OwnerTables';
 import { OwnerSettings } from './owner/pages/OwnerSettings';
 
+import { LandingPage } from './public/pages/LandingPage';
+import { ContactUs } from './public/pages/ContactUs';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -72,7 +75,7 @@ const RootRedirect: React.FC = () => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <LandingPage />;
   }
 
   const target = getHomeRouteForRole(user?.role);
@@ -91,9 +94,14 @@ export const App: React.FC = () => {
       <BrowserRouter>
         <Routes>
           {/* ========================================= */}
-          {/* Universal Root Landing Redirection        */}
+          {/* Public Landing Page & Demo Portal         */}
           {/* ========================================= */}
-          <Route path="/" element={<RootRedirect />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<LandingPage />} />
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/demo" element={<ContactUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
 
           {/* ========================================= */}
           {/* Single Login Portal (all roles)           */}
