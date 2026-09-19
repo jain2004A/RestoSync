@@ -22,13 +22,11 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { clearAllAuthSessions } from '../../utils/authSession';
-import { UpgradePlanModal } from './UpgradePlanModal';
 
 export const OwnerLayout: React.FC = () => {
   const navigate = useNavigate();
   const { user, tenant } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const isTrial = Boolean(tenant?.isTrial);
   let trialDaysLeft = 0;
@@ -56,6 +54,7 @@ export const OwnerLayout: React.FC = () => {
     { label: 'Bill & Receipt', path: '/owner/receipt', icon: Printer },
     { label: 'Guest-visit customers', path: '/owner/customers', icon: UserCheck },
     { label: 'Credit Customers', path: '/owner/credit', icon: CreditCard },
+    { label: 'Plan & Billing', path: '/owner/upgrade', icon: Sparkles, badge: 'Upgrade' },
     { label: 'Settings', path: '/owner/settings', icon: Settings },
   ];
 
@@ -120,7 +119,7 @@ export const OwnerLayout: React.FC = () => {
                 <span>{trialDaysLeft > 0 ? `Free Trial: ${trialDaysLeft}d left` : 'Trial Expired'}</span>
               </span>
               <button
-                onClick={() => setUpgradeModalOpen(true)}
+                onClick={() => navigate('/owner/upgrade')}
                 className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 rounded-lg shadow-sm transition cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -129,7 +128,7 @@ export const OwnerLayout: React.FC = () => {
             </div>
           ) : (
             <button
-              onClick={() => setUpgradeModalOpen(true)}
+              onClick={() => navigate('/owner/upgrade')}
               className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
@@ -260,12 +259,6 @@ export const OwnerLayout: React.FC = () => {
           <Outlet />
         </main>
       </div>
-
-      {/* Upgrade Plan Modal */}
-      <UpgradePlanModal
-        isOpen={upgradeModalOpen}
-        onClose={() => setUpgradeModalOpen(false)}
-      />
     </div>
   );
 };

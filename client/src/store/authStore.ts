@@ -18,6 +18,7 @@ interface AuthState {
   drawerOpen: boolean;
 
   setAuthData: (data: AuthResponse) => void;
+  updateTenant: (tenant: Partial<TenantSummary>) => void;
   setActiveOutlet: (outlet: OutletSummary) => Promise<void>;
   toggleDrawer: () => void;
   setDrawerOpen: (open: boolean) => void;
@@ -34,6 +35,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isAuthenticated: false,
   isLoading: true,
   drawerOpen: false,
+
+  updateTenant: (partialTenant: Partial<TenantSummary>) => {
+    const currentTenant = get().tenant;
+    if (!currentTenant) return;
+    const merged = { ...currentTenant, ...partialTenant };
+    localStorage.setItem('quantrobill_tenant', JSON.stringify(merged));
+    set({ tenant: merged });
+  },
 
   setAuthData: (data: AuthResponse) => {
     ['quantrobill_owner_token', 'quantrobill_superadmin_token', 'quantrobill_owner_user', 'quantrobill_superadmin_user', 'petbharke_owner_token', 'petbharke_superadmin_token'].forEach((k) => {

@@ -22,6 +22,7 @@ import {
   Lock,
   Printer,
   History,
+  Loader2,
 } from 'lucide-react';
 import type { OrderItem, OrderType, PaymentMode } from '../types';
 import { useLangStore } from '../store/langStore';
@@ -36,6 +37,8 @@ import { TableShiftModal } from '../components/modals/TableShiftModal';
 import { ManagerPinModal } from '../components/modals/OperationsModals';
 import { BillHistoryModal } from '../components/modals/BillHistoryModal';
 import { useDraftCartStore } from '../store/draftCartStore';
+import { openRazorpayModal } from '../utils/razorpay';
+import { apiClient } from '../services/api';
 
 export const Billing: React.FC = () => {
   const user = useAuthStore((state) => state.user);
@@ -83,6 +86,7 @@ export const Billing: React.FC = () => {
   const [notification, setNotification] = useState<string | null>(null);
   const [tokenNumber, setTokenNumber] = useState<number>(101);
   const [showBillHistory, setShowBillHistory] = useState<boolean>(false);
+  const [isRazorpayProcessing, setIsRazorpayProcessing] = useState<boolean>(false);
 
   // Draft Cart Store (Tenant Isolated)
   const drafts = useDraftCartStore((state) => state.drafts);
@@ -485,6 +489,99 @@ export const Billing: React.FC = () => {
       setOrderNote('');
       setDiscountPercent(0);
       setTokenNumber((t) => t + 1);
+    }
+  };
+
+  const handleRazorpayCheckout = async () => {
+    if (!canSettle) {
+      showToast('Permission Denied: Waiter account cannot settle bills. Please route to Cashier.');
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      showToast('Cart is empty. Please select items.');
+      return;
+    }
+
+    setIsRazorpayProcessing(true);
+    try {
+      // 1. Create Razorpay order on backend
+      const res = await apiClient.post<{
+        success: boolean;
+        data: {
+          orderId: string;
+          amount: number;
+          amountInPaise: number;
+          currency: string;
+          keyId: string;
+        };
+      }>('/payments/create-order', {
+        purpose: 'RestaurantBill',
+        amount: grandTotal,
+        tableNumber: orderType === 'DineIn' ? tableNumber : undefined,
+      });
+
+      if (!res.data?.success || !res.data.data?.orderId) {
+        throw new Error('Failed to create Razorpay payment order.');
+      }
+
+      const orderData = res.data.data;
+      const destination = getOrderDestination();
+
+      // 2. Open Razorpay Checkout modal
+      await openRazorpayModal({
+        key: orderData.keyId,
+        amount: orderData.amountInPaise,
+        currency: orderData.currency,
+        order_id: orderData.orderId,
+        name: 'QuantroBill POS',
+        description: `Bill Settlement - ${destination}`,
+        prefill: {
+          contact: customerPhone || '',
+        },
+        theme: {
+          color: '#2563eb',
+        },
+        handler: async (response) => {
+          try {
+            // 3. Verify payment signature on backend
+            await apiClient.post('/payments/verify-payment', {
+              orderId: response.razorpay_order_id,
+              paymentId: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+              purpose: 'RestaurantBill',
+            });
+
+            setPaymentMode('UPI');
+            setIsPaid(true);
+
+            usePosSyncStore.getState().recordSettledBill({
+              orderType,
+              tableOrToken: destination,
+              totalAmount: grandTotal,
+              taxAmount: cgst + sgst,
+              discountAmount,
+              paymentMode: 'Online',
+              cashierName: user?.fullName || user?.username || 'biller',
+              items: cartItems,
+            });
+
+            showToast(`🎉 Payment received via Razorpay (${response.razorpay_payment_id})!`);
+            setIsKotPrint(false);
+            setShowPrintModal(true);
+          } catch (verifyErr: any) {
+            showToast(verifyErr.response?.data?.message || 'Payment verification failed.');
+          } finally {
+            setIsRazorpayProcessing(false);
+          }
+        },
+        onDismiss: () => {
+          setIsRazorpayProcessing(false);
+        },
+      });
+    } catch (err: any) {
+      showToast(err.response?.data?.message || err.message || 'Could not initiate Razorpay payment.');
+      setIsRazorpayProcessing(false);
     }
   };
 
@@ -1224,6 +1321,28 @@ export const Billing: React.FC = () => {
                     <span>Split Bill</span>
                     <span className="text-[9px] font-mono text-amber-600">[F4]</span>
                   </div>
+                </button>
+              </div>
+
+              <div className="pt-1.5">
+                <button
+                  type="button"
+                  disabled={isRazorpayProcessing || cartItems.length === 0}
+                  onClick={handleRazorpayCheckout}
+                  className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:from-blue-800 active:to-indigo-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition touch-btn cursor-pointer disabled:opacity-50"
+                  title="Initiate Razorpay online checkout with UPI, Cards or Netbanking"
+                >
+                  {isRazorpayProcessing ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Opening Razorpay Checkout...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="w-3.5 h-3.5" />
+                      <span>⚡ Pay ₹{grandTotal} via Razorpay (UPI / QR / Cards)</span>
+                    </>
+                  )}
                 </button>
               </div>
 

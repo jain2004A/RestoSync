@@ -5,8 +5,13 @@ import {
   Printer,
   ShieldCheck,
   AlertCircle,
+  CreditCard,
+  Loader2,
+  CheckCircle2,
 } from 'lucide-react';
 import { billingApi } from '../services/billingApi';
+import { apiClient } from '../../services/api';
+import { openRazorpayModal } from '../../utils/razorpay';
 import type { PlatformInvoice } from '../types';
 
 export const InvoiceDetailPage: React.FC = () => {
@@ -16,6 +21,8 @@ export const InvoiceDetailPage: React.FC = () => {
   const [tenant, setTenant] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPaying, setIsPaying] = useState(false);
+  const [paySuccessMessage, setPaySuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -39,6 +46,90 @@ export const InvoiceDetailPage: React.FC = () => {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handlePayWithRazorpay = async () => {
+    if (!invoice) return;
+    setIsPaying(true);
+    setError(null);
+    setPaySuccessMessage(null);
+    try {
+      const res = await apiClient.post<{
+        success: boolean;
+        data: {
+          orderId: string;
+          amount: number;
+          amountInPaise: number;
+          currency: string;
+          keyId: string;
+        };
+      }>('/payments/create-order', {
+        purpose: 'SubscriptionInvoice',
+        invoiceId: invoice.id,
+      });
+
+      if (!res.data?.success || !res.data.data?.orderId) {
+        throw new Error('Failed to create Razorpay payment order.');
+      }
+
+      const orderData = res.data.data;
+
+      await openRazorpayModal({
+        key: orderData.keyId,
+        amount: orderData.amountInPaise,
+        currency: orderData.currency,
+        order_id: orderData.orderId,
+        name: 'QuantroBill SaaS',
+        description: `Pay Invoice ${invoice.invoiceNumber}`,
+        prefill: {
+          name: tenant?.businessName || invoice.tenantName,
+          email: tenant?.ownerEmail || '',
+          contact: tenant?.ownerPhone || '',
+        },
+        theme: {
+          color: '#2563eb',
+        },
+        handler: async (response) => {
+          try {
+            const verifyRes = await apiClient.post<{
+              success: boolean;
+              message: string;
+              invoiceNumber?: string;
+              paymentId?: string;
+            }>('/payments/verify-payment', {
+              orderId: response.razorpay_order_id,
+              paymentId: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+              purpose: 'SubscriptionInvoice',
+              invoiceId: invoice.id,
+            });
+
+            if (verifyRes.data?.success) {
+              setInvoice({
+                ...invoice,
+                status: 'Paid',
+                paidAt: new Date().toISOString(),
+                paymentMethod: 'Razorpay',
+                transactionRef: response.razorpay_payment_id,
+              });
+              setPaySuccessMessage(`🎉 Invoice paid successfully! Payment ID: ${response.razorpay_payment_id}`);
+            } else {
+              setError(verifyRes.data?.message || 'Payment verification failed.');
+            }
+          } catch (err: any) {
+            setError(err.response?.data?.message || 'Payment verification error.');
+          } finally {
+            setIsPaying(false);
+          }
+        },
+        onDismiss: () => {
+          setIsPaying(false);
+        },
+      });
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || 'Failed to open Razorpay payment checkout.');
+      setIsPaying(false);
+    }
   };
 
   if (loading) {
@@ -76,14 +167,43 @@ export const InvoiceDetailPage: React.FC = () => {
           <span>Back to Invoices</span>
         </button>
 
-        <button
-          onClick={handlePrint}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
-        >
-          <Printer className="w-3.5 h-3.5" />
-          <span>Print / Save PDF</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {invoice.status !== 'Paid' && (
+            <button
+              disabled={isPaying}
+              onClick={handlePayWithRazorpay}
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm transition cursor-pointer disabled:opacity-50"
+            >
+              {isPaying ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <>
+                  <CreditCard className="w-3.5 h-3.5" />
+                  <span>Pay ₹{invoice.totalAmount.toLocaleString('en-IN')} via Razorpay</span>
+                </>
+              )}
+            </button>
+          )}
+
+          <button
+            onClick={handlePrint}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span>Print / Save PDF</span>
+          </button>
+        </div>
       </div>
+
+      {paySuccessMessage && (
+        <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 no-print">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span className="font-semibold">{paySuccessMessage}</span>
+        </div>
+      )}
 
       {/* INVOICE CARD */}
       <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 shadow-sm print:shadow-none print:border-none">

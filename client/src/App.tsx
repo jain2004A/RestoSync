@@ -51,6 +51,7 @@ import { OwnerCustomers } from './owner/pages/OwnerCustomers';
 import { OwnerCredit } from './owner/pages/OwnerCredit';
 import { OwnerTables } from './owner/pages/OwnerTables';
 import { OwnerSettings } from './owner/pages/OwnerSettings';
+import { OwnerUpgradePlan } from './owner/pages/OwnerUpgradePlan';
 
 import { LandingPage } from './public/pages/LandingPage';
 import { ContactUs } from './public/pages/ContactUs';
@@ -305,6 +306,8 @@ export const App: React.FC = () => {
             <Route path="customers" element={<OwnerCustomers />} />
             <Route path="credit" element={<OwnerCredit />} />
             <Route path="settings" element={<OwnerSettings />} />
+            <Route path="upgrade" element={<OwnerUpgradePlan />} />
+            <Route path="plans" element={<OwnerUpgradePlan />} />
           </Route>
 
           {/* ========================================= */}

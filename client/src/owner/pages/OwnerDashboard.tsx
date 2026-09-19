@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Calendar,
   Clock,
@@ -17,13 +18,12 @@ import type { LiveTableChip, LiveRunningOrdersSummary } from '../types';
 import { useTableStore } from '../../store/tableStore';
 import { usePosSyncStore } from '../../store/posSyncStore';
 import { useAuthStore } from '../../store/authStore';
-import { UpgradePlanModal } from '../components/UpgradePlanModal';
 
 export const OwnerDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const { user, tenant } = useAuthStore();
   const { tables } = useTableStore();
   const { activeKOTs } = usePosSyncStore();
-  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
 
   const isTrial = Boolean(tenant?.isTrial);
   let trialDaysLeft = 0;
@@ -144,7 +144,7 @@ export const OwnerDashboard: React.FC = () => {
           </div>
 
           <button
-            onClick={() => setUpgradeModalOpen(true)}
+            onClick={() => navigate('/owner/upgrade')}
             className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition cursor-pointer shrink-0"
           >
             <Sparkles className="w-4 h-4" />
@@ -511,12 +511,6 @@ export const OwnerDashboard: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Upgrade Plan Modal */}
-      <UpgradePlanModal
-        isOpen={upgradeModalOpen}
-        onClose={() => setUpgradeModalOpen(false)}
-      />
     </div>
   );
 };

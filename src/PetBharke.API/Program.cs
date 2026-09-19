@@ -74,6 +74,7 @@ builder.Services.AddSingleton<IPinRateLimiter, PinRateLimiter>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuditLogService, AuditLogService>();
+builder.Services.AddScoped<IRazorpayService, RazorpayService>();
 
 // Register generic repositories
 builder.Services.AddScoped<IRepository<Category>>(sp => 
@@ -305,6 +306,14 @@ public static class DotEnvLoader
                 else if (key == "SMTP_FROM_EMAIL")
                 {
                     Environment.SetEnvironmentVariable("Smtp__FromEmail", val);
+                }
+                else if (key == "RAZORPAY_KEY_ID")
+                {
+                    Environment.SetEnvironmentVariable("Razorpay__KeyId", val);
+                }
+                else if (key == "RAZORPAY_KEY_SECRET")
+                {
+                    Environment.SetEnvironmentVariable("Razorpay__KeySecret", val);
                 }
             }
         }

@@ -14,23 +14,28 @@ import {
   PhoneCall
 } from 'lucide-react';
 
+import { openRazorpayModal } from '../../utils/razorpay';
+
 interface UpgradePlanModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onClose }) => {
-  const { tenant } = useAuthStore();
+  const { tenant, updateTenant } = useAuthStore();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPlanCode, setSelectedPlanCode] = useState<string>('');
   const [upgrading, setUpgrading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
     const fetchPlans = async () => {
       setLoading(true);
+      setSuccessMessage(null);
+      setErrorMessage(null);
       try {
         const res = await apiClient.get<{ success: boolean; data: Plan[] }>('/public/plans');
         if (res.data?.success && Array.isArray(res.data.data)) {
@@ -54,15 +59,104 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
 
   const currentPlanName = tenant?.planName || tenant?.subscriptionPlan || '15-Day Free Trial';
 
-  const handleRequestUpgrade = (plan: Plan) => {
+  const handleRequestUpgrade = async (plan: Plan) => {
     setUpgrading(true);
-    // WhatsApp/Support direct contact or upgrade request
-    const message = encodeURIComponent(
-      `Hello QuantroBill Team! I want to upgrade my restaurant (${tenant?.businessName || 'My Restaurant'}) from ${currentPlanName} to the ${plan.name} (₹${plan.priceYearly || plan.priceMonthly * 12}/yr). Please share payment details and invoice.`
-    );
-    window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
-    setSuccessMessage(`Upgrade request initiated for ${plan.name}! Our team will assist with instant activation.`);
-    setUpgrading(false);
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    try {
+      // 1. Create Razorpay order on backend
+      const res = await apiClient.post<{
+        success: boolean;
+        data: {
+          orderId: string;
+          amount: number;
+          amountInPaise: number;
+          currency: string;
+          keyId: string;
+        };
+        user?: {
+          name?: string;
+          email?: string;
+          phone?: string;
+        };
+      }>('/payments/create-order', {
+        purpose: 'SubscriptionUpgrade',
+        planCode: plan.code,
+        planId: plan.id,
+        billingCycle: 'Yearly',
+      });
+
+      if (!res.data?.success || !res.data.data?.orderId) {
+        throw new Error('Failed to create payment order. Please try again.');
+      }
+
+      const orderData = res.data.data;
+      const prefillUser = res.data.user;
+
+      // 2. Open Razorpay Checkout Modal
+      await openRazorpayModal({
+        key: orderData.keyId,
+        amount: orderData.amountInPaise,
+        currency: orderData.currency,
+        order_id: orderData.orderId,
+        name: 'QuantroBill POS',
+        description: `Upgrade to ${plan.name} Tier`,
+        prefill: {
+          name: prefillUser?.name || tenant?.businessName || '',
+          email: prefillUser?.email || '',
+          contact: prefillUser?.phone || '',
+        },
+        theme: {
+          color: '#10b981', // Emerald green theme matching modal
+        },
+        handler: async (paymentResponse) => {
+          try {
+            // 3. Verify payment signature on backend
+            const verifyRes = await apiClient.post<{
+              success: boolean;
+              message: string;
+              invoiceNumber?: string;
+              tenant?: any;
+            }>('/payments/verify-payment', {
+              orderId: paymentResponse.razorpay_order_id,
+              paymentId: paymentResponse.razorpay_payment_id,
+              signature: paymentResponse.razorpay_signature,
+              purpose: 'SubscriptionUpgrade',
+              planCode: plan.code,
+              planId: plan.id,
+              billingCycle: 'Yearly',
+            });
+
+            if (verifyRes.data?.success) {
+              if (verifyRes.data.tenant) {
+                updateTenant(verifyRes.data.tenant);
+              }
+              setSuccessMessage(
+                `🎉 Payment successful! You are now subscribed to ${plan.name}. Invoice #${verifyRes.data.invoiceNumber || ''} has been generated.`
+              );
+            } else {
+              setErrorMessage(verifyRes.data?.message || 'Payment verification failed.');
+            }
+          } catch (verifyErr: any) {
+            setErrorMessage(verifyErr.response?.data?.message || 'Payment verification error.');
+          } finally {
+            setUpgrading(false);
+          }
+        },
+        onDismiss: () => {
+          setUpgrading(false);
+        },
+      });
+    } catch (err: any) {
+      console.error('Upgrade initiation error:', err);
+      setErrorMessage(
+        err.response?.data?.message ||
+        err.message ||
+        'Could not initiate Razorpay checkout. Please verify your internet or contact support.'
+      );
+      setUpgrading(false);
+    }
   };
 
   return (
@@ -93,6 +187,13 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
           <div className="mb-6 p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>{successMessage}</span>
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="mb-6 p-4 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+            <X className="w-4 h-4 text-rose-400 shrink-0" />
+            <span>{errorMessage}</span>
           </div>
         )}
 
@@ -203,9 +304,14 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
                   >
                     {isCurrent ? (
                       <span>Current Active Plan</span>
+                    ) : upgrading && isSelected ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Opening Razorpay Checkout...</span>
+                      </>
                     ) : (
                       <>
-                        <span>Select & Upgrade</span>
+                        <span>Pay & Upgrade via Razorpay</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </>
                     )}
