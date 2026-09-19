@@ -309,14 +309,33 @@ export const LandingPage: React.FC = () => {
             </p>
 
             <div className="pp-hero-ctas">
-              <button onClick={() => openDemoWithPlan()} className="pp-btn-primary" style={{ padding: '14px 30px', fontSize: '1.05rem' }}>
+              <Link
+                to="/register"
+                className="pp-btn-primary"
+                style={{
+                  padding: '14px 28px',
+                  fontSize: '1.05rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  textDecoration: 'none',
+                }}
+              >
                 <Sparkles size={18} />
+                <span>Register Restaurant (Free Trial)</span>
+              </Link>
+
+              <button
+                onClick={() => openDemoWithPlan()}
+                className="pp-btn-outline"
+                style={{ padding: '14px 22px', fontSize: '1rem' }}
+              >
                 <span>Take A Free Demo</span>
               </button>
 
               <a
                 href="/downloads/QuantroBill-POS-Setup.exe"
-                download
+                download="QuantroBill-POS-Setup.exe"
                 className="pp-btn-desktop"
                 title="Download Windows Desktop App for thermal printing and cash drawer"
               >
@@ -573,14 +592,23 @@ export const LandingPage: React.FC = () => {
                     ))}
                   </ul>
 
-                  <button
-                    onClick={() => openDemoWithPlan(plan.name)}
-                    className={plan.isPopular ? 'pp-btn-primary' : 'pp-btn-outline'}
-                    style={{ width: '100%', justifyContent: 'center' }}
-                  >
-                    <span>{plan.buttonText || 'Book A Demo'}</span>
-                    <ArrowRight size={15} />
-                  </button>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
+                    <Link
+                      to="/register"
+                      className={plan.isPopular ? 'pp-btn-primary' : 'pp-btn-outline'}
+                      style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
+                    >
+                      <span>Get Started with {plan.name}</span>
+                      <ArrowRight size={15} />
+                    </Link>
+                    <button
+                      onClick={() => openDemoWithPlan(plan.name)}
+                      className="pp-btn-text"
+                      style={{ width: '100%', justifyContent: 'center', fontSize: '0.82rem', padding: '6px' }}
+                    >
+                      <span>Or Book A Free Demo</span>
+                    </button>
+                  </div>
                 </div>
               );
             })
@@ -776,22 +804,42 @@ export const LandingPage: React.FC = () => {
             Join hundreds of forward-thinking food businesses that boosted order speed, prevented leakages, and eliminated cashier downtime with QuantroBill.
           </p>
           <div className="pp-cta-btns">
+            <Link
+              to="/register"
+              className="pp-btn-primary"
+              style={{
+                padding: '14px 32px',
+                fontSize: '1.05rem',
+                background: '#ffffff',
+                color: 'var(--pp-red)',
+                borderColor: '#ffffff',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontWeight: 800,
+              }}
+            >
+              <span>Register Restaurant (Free Trial)</span>
+              <ArrowRight size={18} />
+            </Link>
             <button
               onClick={() => openDemoWithPlan()}
-              className="pp-btn-primary"
-              style={{ padding: '14px 32px', fontSize: '1.05rem', background: '#ffffff', color: 'var(--pp-red) !important', borderColor: '#ffffff' }}
-            >
-              <span>Schedule Live Demo</span>
-              <ArrowRight size={18} />
-            </button>
-            <Link
-              to="/contact"
               className="pp-btn-outline"
               style={{ padding: '14px 28px', fontSize: '1.05rem', background: 'transparent', color: '#ffffff', borderColor: 'rgba(255,255,255,0.3)' }}
             >
-              <Phone size={18} />
-              <span>Contact Sales Team</span>
-            </Link>
+              <Sparkles size={18} />
+              <span>Schedule Live Demo</span>
+            </button>
+            <a
+              href="/downloads/QuantroBill-POS-Setup.exe"
+              download="QuantroBill-POS-Setup.exe"
+              className="pp-btn-desktop"
+              style={{ padding: '14px 24px', fontSize: '1rem', color: '#ffffff', borderColor: 'rgba(255,255,255,0.3)' }}
+            >
+              <Monitor size={18} />
+              <span>Download Desktop (.EXE)</span>
+            </a>
           </div>
           <div style={{ fontSize: '0.85rem', color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
             <Shield size={14} /> 100% Free 14-Day Trial • No Credit Card Required • Setup in 10 Minutes

@@ -59,6 +59,27 @@ public class AuthController : ControllerBase
         return Ok(new { success = true, data = response });
     }
 
+    /// <summary>
+    /// Public self-service owner registration endpoint.
+    /// </summary>
+    [HttpPost("register")]
+    [AllowAnonymous]
+    public async Task<IActionResult> RegisterOwner([FromBody] OwnerRegistrationRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.BusinessName) || string.IsNullOrWhiteSpace(request.OwnerEmail) || string.IsNullOrWhiteSpace(request.Password))
+        {
+            return BadRequest(new { success = false, message = "Business name, email, and password are required." });
+        }
+        if (request.Password.Length < 8)
+        {
+            return BadRequest(new { success = false, message = "Password must be at least 8 characters." });
+        }
+
+        var response = await _authService.RegisterOwnerAsync(request);
+        return Ok(new { success = true, data = response, message = "Registration successful! Welcome to QuantroBill." });
+    }
+
+
     [HttpPost("switch-outlet")]
     [Authorize]
     public async Task<IActionResult> SwitchOutlet([FromBody] SwitchOutletRequest request)

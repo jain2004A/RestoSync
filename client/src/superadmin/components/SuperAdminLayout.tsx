@@ -18,10 +18,12 @@ import {
   Menu,
   X,
   ExternalLink,
+  ChevronRight,
+  UserCheck,
   Search,
   Bell,
   HelpCircle,
-  ChevronRight,
+  Video,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { clearAllAuthSessions } from '../../utils/authSession';
@@ -47,7 +49,9 @@ export const SuperAdminLayout: React.FC = () => {
 
   const navItems = [
     { label: 'Overview', path: '/superadmin/dashboard', icon: LayoutDashboard },
+    { label: 'Demo Enquiries', path: '/superadmin/enquiries', icon: Video },
     { label: 'Restaurants', path: '/superadmin/tenants', icon: Building2 },
+    { label: 'Registered Owners', path: '/superadmin/owner-activity', icon: UserCheck },
     { label: 'Plans Catalog', path: '/superadmin/plans-catalog', icon: Package },
     { label: 'Tenant Plans', path: '/superadmin/subscriptions', icon: CreditCard },
     { label: 'Feature Toggles', path: '/superadmin/features', icon: Sliders },

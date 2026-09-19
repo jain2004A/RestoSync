@@ -199,12 +199,33 @@ public class InvoicesController : ControllerBase
         var overdueCount = allInvoices.Count(i => i.Status == "Overdue");
         var dueCount = allInvoices.Count(i => i.Status == "Due");
 
-        // Estimated MRR based on active tenants and plan prices
-        var starterCount = await _context.Tenants.CountDocumentsAsync(t => t.IsActive && t.SubscriptionPlan == PetBharke.Domain.Enums.SubscriptionPlan.Basic);
-        var proCount = await _context.Tenants.CountDocumentsAsync(t => t.IsActive && t.SubscriptionPlan == PetBharke.Domain.Enums.SubscriptionPlan.Standard);
-        var entCount = await _context.Tenants.CountDocumentsAsync(t => t.IsActive && (t.SubscriptionPlan == PetBharke.Domain.Enums.SubscriptionPlan.Premium || t.SubscriptionPlan == PetBharke.Domain.Enums.SubscriptionPlan.Enterprise));
+        // Estimated MRR dynamically calculated from active tenants and active plans
+        var activeTenants = await _context.Tenants.Find(t => t.IsActive).ToListAsync();
+        var activePlans = await _context.Plans.Find(p => p.IsActive).ToListAsync();
+        var planMap = activePlans.ToDictionary(p => p.Code.ToLower(), p => p);
 
-        var mrr = (starterCount * 999) + (proCount * 2499) + (entCount * 5999);
+        decimal mrr = 0;
+        foreach (var t in activeTenants)
+        {
+            if (t.IsTrial) continue; // Trials generate 0 MRR
+
+            if (!string.IsNullOrEmpty(t.PlanCode) && planMap.TryGetValue(t.PlanCode.ToLower(), out var plan))
+            {
+                mrr += plan.PriceMonthly > 0 ? plan.PriceMonthly : (plan.PriceYearly / 12m);
+            }
+            else
+            {
+                // Fallback for legacy tenants based on enum
+                mrr += t.SubscriptionPlan switch
+                {
+                    PetBharke.Domain.Enums.SubscriptionPlan.Basic => 999,
+                    PetBharke.Domain.Enums.SubscriptionPlan.Standard => 2499,
+                    PetBharke.Domain.Enums.SubscriptionPlan.Premium => 4999,
+                    PetBharke.Domain.Enums.SubscriptionPlan.Enterprise => 5999,
+                    _ => 999
+                };
+            }
+        }
         var arr = mrr * 12;
 
         return Ok(new

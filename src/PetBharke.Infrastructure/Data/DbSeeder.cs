@@ -66,14 +66,43 @@ public static class DbSeeder
                 {
                     new Plan
                     {
-                        Name = "Starter",
+                        Name = "15-Day Free Trial",
+                        Code = "free-trial",
+                        Description = "Try QuantroBill free for 15 days. Single outlet, basic POS billing, and reporting.",
+                        PriceMonthly = 0,
+                        PriceYearly = 0,
+                        MaxOutlets = 1,
+                        MaxStaffUsers = 2,
+                        TrialDays = 15,
+                        DurationDays = 15,
+                        BillingCycle = "Trial",
+                        IsTrial = true,
+                        IncludesHardware = false,
+                        IsPopular = true,
+                        DisplayOrder = 0,
+                        Features = new Dictionary<string, bool>
+                        {
+                            { "enableKds", true },
+                            { "enableWaiterApp", true },
+                            { "enableAggregators", false },
+                            { "enableRecipeInventory", false },
+                            { "enableKhataBook", true }
+                        }
+                    },
+                    new Plan
+                    {
+                        Name = "Starter Annual",
                         Code = "starter",
                         Description = "Ideal for single-outlet cafes, bakeries, and quick-service counters starting digital billing.",
                         PriceMonthly = 999,
                         PriceYearly = 9990,
                         MaxOutlets = 1,
-                        MaxStaffUsers = 3,
-                        TrialDays = 14,
+                        MaxStaffUsers = 5,
+                        TrialDays = 0,
+                        DurationDays = 365,
+                        BillingCycle = "Yearly",
+                        IsTrial = false,
+                        IncludesHardware = false,
                         IsPopular = false,
                         DisplayOrder = 1,
                         Features = new Dictionary<string, bool>
@@ -87,15 +116,19 @@ public static class DbSeeder
                     },
                     new Plan
                     {
-                        Name = "Professional",
-                        Code = "professional",
-                        Description = "Full-featured restaurant management suite with KDS, Captain/Waiter handhelds, and aggregators.",
+                        Name = "Growth Dine-In",
+                        Code = "growth",
+                        Description = "Full-featured restaurant management with KDS, Captain/Waiter handhelds, and aggregator integrations.",
                         PriceMonthly = 2499,
                         PriceYearly = 24990,
                         MaxOutlets = 3,
-                        MaxStaffUsers = 10,
-                        TrialDays = 14,
-                        IsPopular = true,
+                        MaxStaffUsers = 15,
+                        TrialDays = 0,
+                        DurationDays = 365,
+                        BillingCycle = "Yearly",
+                        IsTrial = false,
+                        IncludesHardware = false,
+                        IsPopular = false,
                         DisplayOrder = 2,
                         Features = new Dictionary<string, bool>
                         {
@@ -108,16 +141,46 @@ public static class DbSeeder
                     },
                     new Plan
                     {
-                        Name = "Enterprise",
+                        Name = "Renewal + Hardware",
+                        Code = "renewal-hardware",
+                        Description = "Annual renewal bundled with 80mm thermal printer, tablet stand, and on-site setup support.",
+                        PriceMonthly = 3499,
+                        PriceYearly = 34990,
+                        MaxOutlets = 3,
+                        MaxStaffUsers = 15,
+                        TrialDays = 0,
+                        DurationDays = 365,
+                        BillingCycle = "Yearly",
+                        IsTrial = false,
+                        IncludesHardware = true,
+                        HardwareDetails = "80mm Thermal Printer + Tablet Stand + On-site Setup",
+                        IsPopular = false,
+                        DisplayOrder = 3,
+                        Features = new Dictionary<string, bool>
+                        {
+                            { "enableKds", true },
+                            { "enableWaiterApp", true },
+                            { "enableAggregators", true },
+                            { "enableRecipeInventory", true },
+                            { "enableKhataBook", true }
+                        }
+                    },
+                    new Plan
+                    {
+                        Name = "Enterprise Multi-Branch",
                         Code = "enterprise",
                         Description = "Multi-chain restaurants & franchises requiring unlimited branches, custom analytics, and dedicated SLA.",
                         PriceMonthly = 5999,
                         PriceYearly = 59990,
                         MaxOutlets = 10,
                         MaxStaffUsers = 50,
-                        TrialDays = 30,
+                        TrialDays = 0,
+                        DurationDays = 365,
+                        BillingCycle = "Yearly",
+                        IsTrial = false,
+                        IncludesHardware = false,
                         IsPopular = false,
-                        DisplayOrder = 3,
+                        DisplayOrder = 4,
                         Features = new Dictionary<string, bool>
                         {
                             { "enableKds", true },
@@ -130,7 +193,76 @@ public static class DbSeeder
                 };
 
                 await context.Plans.InsertManyAsync(plans);
-                Console.WriteLine("--> [QuantroBill] Plans catalog seeded (Starter, Professional, Enterprise).");
+                Console.WriteLine("--> [QuantroBill] Plans catalog seeded (Free Trial, Starter, Growth, Renewal+Hardware, Enterprise).");
+            }
+            else
+            {
+                // Ensure 15-Day Free Trial exists in existing database
+                var existingTrial = await context.Plans.Find(p => p.IsTrial || p.Code == "free-trial").FirstOrDefaultAsync();
+                if (existingTrial == null)
+                {
+                    var freeTrial = new Plan
+                    {
+                        Name = "15-Day Free Trial",
+                        Code = "free-trial",
+                        Description = "Try QuantroBill free for 15 days. Single outlet, basic POS billing, and reporting.",
+                        PriceMonthly = 0,
+                        PriceYearly = 0,
+                        MaxOutlets = 1,
+                        MaxStaffUsers = 2,
+                        TrialDays = 15,
+                        DurationDays = 15,
+                        BillingCycle = "Trial",
+                        IsTrial = true,
+                        IncludesHardware = false,
+                        IsPopular = true,
+                        DisplayOrder = 0,
+                        Features = new Dictionary<string, bool>
+                        {
+                            { "enableKds", true },
+                            { "enableWaiterApp", true },
+                            { "enableAggregators", false },
+                            { "enableRecipeInventory", false },
+                            { "enableKhataBook", true }
+                        }
+                    };
+                    await context.Plans.InsertOneAsync(freeTrial);
+                    Console.WriteLine("--> [QuantroBill] Ensured 15-Day Free Trial plan exists in database.");
+                }
+
+                // Ensure Renewal + Hardware exists
+                var existingHardware = await context.Plans.Find(p => p.Code == "renewal-hardware").FirstOrDefaultAsync();
+                if (existingHardware == null)
+                {
+                    var hardware = new Plan
+                    {
+                        Name = "Renewal + Hardware",
+                        Code = "renewal-hardware",
+                        Description = "Annual renewal bundled with 80mm thermal printer, tablet stand, and on-site setup support.",
+                        PriceMonthly = 3499,
+                        PriceYearly = 34990,
+                        MaxOutlets = 3,
+                        MaxStaffUsers = 15,
+                        TrialDays = 0,
+                        DurationDays = 365,
+                        BillingCycle = "Yearly",
+                        IsTrial = false,
+                        IncludesHardware = true,
+                        HardwareDetails = "80mm Thermal Printer + Tablet Stand + On-site Setup",
+                        IsPopular = false,
+                        DisplayOrder = 3,
+                        Features = new Dictionary<string, bool>
+                        {
+                            { "enableKds", true },
+                            { "enableWaiterApp", true },
+                            { "enableAggregators", true },
+                            { "enableRecipeInventory", true },
+                            { "enableKhataBook", true }
+                        }
+                    };
+                    await context.Plans.InsertOneAsync(hardware);
+                    Console.WriteLine("--> [QuantroBill] Ensured Renewal + Hardware plan exists in database.");
+                }
             }
 
             // Seed Platform Settings

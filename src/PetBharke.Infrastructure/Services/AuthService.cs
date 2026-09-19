@@ -154,6 +154,10 @@ public class AuthService : IAuthService
             OwnerEmail = request.OwnerEmail.ToLower(),
             OwnerPhone = request.OwnerPhone,
             SubscriptionPlan = SubscriptionPlan.Standard,
+            PlanCode = "starter",
+            PlanName = "Starter Annual",
+            RegistrationSource = "AdminOnboarded",
+            IsTrial = false,
             SubscriptionExpiresAt = DateTime.UtcNow.AddYears(1),
             CreatedAt = DateTime.UtcNow,
             IsActive = true
@@ -198,6 +202,176 @@ public class AuthService : IAuthService
             IsActive = true
         };
         await _context.Users.InsertOneAsync(user, cancellationToken: cancellationToken);
+
+        // 4. Log Registration for SuperAdmin tracking
+        var regLog = new OwnerRegistrationLog
+        {
+            TenantId = tenant.Id,
+            OwnerEmail = user.Email,
+            OwnerName = user.FullName,
+            BusinessName = tenant.BusinessName,
+            City = string.Empty,
+            PlanId = string.Empty,
+            PlanCode = "starter",
+            PlanName = "Starter Annual",
+            PlanPrice = 9990,
+            IsTrial = false,
+            RegistrationSource = "AdminOnboarded",
+            PaymentStatus = "Paid",
+            RegisteredAt = DateTime.UtcNow,
+            PlanActivatedAt = DateTime.UtcNow
+        };
+        await _context.OwnerRegistrationLogs.InsertOneAsync(regLog, cancellationToken: cancellationToken);
+
+        return await GenerateAuthResponseForUserAsync(user, outlet.Id, cancellationToken);
+    }
+
+    public async Task<AuthResponse> RegisterOwnerAsync(OwnerRegistrationRequest request, CancellationToken cancellationToken = default)
+    {
+        // Validate email uniqueness
+        var existingUser = await _context.Users
+            .Find(u => u.Email.ToLower() == request.OwnerEmail.Trim().ToLower())
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (existingUser != null)
+        {
+            throw new AppException("An account with this email already exists. Please login instead.");
+        }
+
+        // Resolve selected plan (default to free-trial)
+        var planCode = string.IsNullOrWhiteSpace(request.PlanCode) ? "free-trial" : request.PlanCode.Trim().ToLower();
+        var plan = await _context.Plans
+            .Find(p => p.Code.ToLower() == planCode && p.IsActive)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        // If no plan found, fallback to any trial plan, then first active plan
+        plan ??= await _context.Plans.Find(p => p.IsTrial && p.IsActive).FirstOrDefaultAsync(cancellationToken);
+        plan ??= await _context.Plans.Find(p => p.IsActive).SortBy(p => p.DisplayOrder).FirstOrDefaultAsync(cancellationToken);
+
+        if (plan == null)
+        {
+            throw new AppException("No subscription plans are currently available. Please contact support.");
+        }
+
+        var isTrial = plan.IsTrial;
+        var expiresAt = DateTime.UtcNow.AddDays(plan.DurationDays);
+        var businessType = BusinessType.Restaurant;
+        if (!string.IsNullOrWhiteSpace(request.BusinessType))
+        {
+            if (Enum.TryParse<BusinessType>(request.BusinessType, true, out var parsedType))
+            {
+                businessType = parsedType;
+            }
+            else if (int.TryParse(request.BusinessType, out var numericType) && Enum.IsDefined(typeof(BusinessType), numericType))
+            {
+                businessType = (BusinessType)numericType;
+            }
+        }
+
+        // 1. Create Tenant with full plan details
+        var tenant = new Tenant
+        {
+            BusinessName = request.BusinessName.Trim(),
+            LegalName = request.BusinessName.Trim(),
+            OwnerEmail = request.OwnerEmail.Trim().ToLower(),
+            OwnerPhone = request.OwnerPhone.Trim(),
+            City = request.City.Trim(),
+            State = request.State.Trim(),
+            GSTIN = request.GSTIN?.Trim() ?? string.Empty,
+            BusinessType = businessType,
+            SubscriptionPlan = isTrial ? SubscriptionPlan.Basic : SubscriptionPlan.Standard,
+            SubscriptionExpiresAt = expiresAt,
+            MaxOutlets = plan.MaxOutlets,
+            MaxStaffUsers = plan.MaxStaffUsers,
+            PlanId = plan.Id,
+            PlanCode = plan.Code,
+            PlanName = plan.Name,
+            IsTrial = isTrial,
+            TrialEndsAt = isTrial ? expiresAt : null,
+            RegistrationSource = "SelfRegistered",
+            Features = plan.Features ?? new Dictionary<string, bool>(),
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow
+        };
+        await _context.Tenants.InsertOneAsync(tenant, cancellationToken: cancellationToken);
+
+        // 2. Create Initial Outlet (Main Branch)
+        var outlet = new Outlet
+        {
+            TenantId = tenant.Id,
+            Name = $"{request.BusinessName.Trim()} - Main Branch",
+            Code = "R" + new Random().Next(100000, 999999),
+            Address = $"{request.City.Trim()}, {request.State.Trim()}",
+            City = request.City.Trim(),
+            Phone = request.OwnerPhone.Trim(),
+            GSTIN = request.GSTIN?.Trim() ?? string.Empty,
+            BusinessType = businessType,
+            Currency = "INR",
+            TaxSettings = new OutletTaxSettings
+            {
+                CgstPercentage = 2.5m,
+                SgstPercentage = 2.5m,
+                IsGstInclusive = false
+            },
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true
+        };
+        await _context.Outlets.InsertOneAsync(outlet, cancellationToken: cancellationToken);
+
+        // 3. Create Owner User
+        var user = new User
+        {
+            TenantId = tenant.Id,
+            OutletId = outlet.Id,
+            Username = request.OwnerEmail.Split('@')[0].ToLower(),
+            Email = request.OwnerEmail.Trim().ToLower(),
+            FullName = request.OwnerName.Trim(),
+            Phone = request.OwnerPhone.Trim(),
+            PasswordHash = _passwordHasher.HashPassword(request.Password),
+            Role = UserRole.Owner,
+            AssignedOutletIds = new List<string> { outlet.Id },
+            Permissions = new List<string> { "all" },
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true
+        };
+        await _context.Users.InsertOneAsync(user, cancellationToken: cancellationToken);
+
+        // 4. Insert OwnerRegistrationLog for Super Admin visibility
+        var regLog = new OwnerRegistrationLog
+        {
+            TenantId = tenant.Id,
+            OwnerEmail = tenant.OwnerEmail,
+            OwnerName = request.OwnerName.Trim(),
+            BusinessName = tenant.BusinessName,
+            City = tenant.City,
+            PlanId = plan.Id,
+            PlanCode = plan.Code,
+            PlanName = plan.Name,
+            PlanPrice = plan.PriceYearly,
+            IsTrial = isTrial,
+            RegistrationSource = "SelfRegistered",
+            PaymentStatus = isTrial ? "Free" : "Pending",
+            RegisteredAt = DateTime.UtcNow,
+            PlanActivatedAt = DateTime.UtcNow,
+            TrialExpiresAt = isTrial ? expiresAt : null
+        };
+        await _context.OwnerRegistrationLogs.InsertOneAsync(regLog, cancellationToken: cancellationToken);
+
+        // 5. Audit log for Super Admin
+        await _context.AuditLogs.InsertOneAsync(new AuditLog
+        {
+            TenantId = tenant.Id,
+            UserId = user.Id,
+            UserName = user.FullName,
+            ActorEmail = user.Email,
+            Action = "OwnerSelfRegistered",
+            TargetId = tenant.Id,
+            TargetType = "Tenant",
+            Details = $"{user.FullName} self-registered '{tenant.BusinessName}' in {tenant.City} on {plan.Name} plan ({(isTrial ? "15-day free trial" : "₹" + plan.PriceYearly + "/yr")}).",
+            IpAddress = "self-registration",
+            Status = "Success",
+            Timestamp = DateTime.UtcNow
+        }, cancellationToken: cancellationToken);
 
         return await GenerateAuthResponseForUserAsync(user, outlet.Id, cancellationToken);
     }
@@ -328,7 +502,16 @@ public class AuthService : IAuthService
             {
                 Id = tenant.Id,
                 BusinessName = tenant.BusinessName,
-                SubscriptionPlan = tenant.SubscriptionPlan.ToString()
+                SubscriptionPlan = tenant.SubscriptionPlan.ToString(),
+                PlanId = tenant.PlanId,
+                PlanCode = tenant.PlanCode,
+                PlanName = !string.IsNullOrEmpty(tenant.PlanName) ? tenant.PlanName : tenant.SubscriptionPlan.ToString(),
+                SubscriptionExpiresAt = tenant.SubscriptionExpiresAt,
+                IsTrial = tenant.IsTrial,
+                TrialEndsAt = tenant.TrialEndsAt,
+                MaxOutlets = tenant.MaxOutlets,
+                MaxStaffUsers = tenant.MaxStaffUsers,
+                Features = tenant.Features ?? new Dictionary<string, bool>()
             } : null,
             ActiveOutlet = activeOutlet != null ? new OutletSummaryDto
             {

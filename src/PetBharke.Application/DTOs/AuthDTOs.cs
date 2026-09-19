@@ -27,6 +27,20 @@ public class RegisterTenantRequest
     public string? GSTIN { get; set; }
 }
 
+public class OwnerRegistrationRequest
+{
+    public string BusinessName { get; set; } = string.Empty;
+    public string OwnerName { get; set; } = string.Empty;
+    public string OwnerEmail { get; set; } = string.Empty;
+    public string OwnerPhone { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string? BusinessType { get; set; } = "Restaurant"; // Can be string ("Restaurant", "Cafe", etc.) or int
+    public string City { get; set; } = string.Empty;
+    public string State { get; set; } = string.Empty;
+    public string? GSTIN { get; set; }
+    public string? PlanCode { get; set; } // Optional, defaults to free-trial
+}
+
 public class AuthResponse
 {
     public string AccessToken { get; set; } = string.Empty;
@@ -56,6 +70,15 @@ public class TenantSummaryDto
     public string Id { get; set; } = string.Empty;
     public string BusinessName { get; set; } = string.Empty;
     public string SubscriptionPlan { get; set; } = string.Empty;
+    public string PlanId { get; set; } = string.Empty;
+    public string PlanCode { get; set; } = string.Empty;
+    public string PlanName { get; set; } = string.Empty;
+    public DateTime? SubscriptionExpiresAt { get; set; }
+    public bool IsTrial { get; set; } = false;
+    public DateTime? TrialEndsAt { get; set; }
+    public int MaxOutlets { get; set; } = 1;
+    public int MaxStaffUsers { get; set; } = 5;
+    public Dictionary<string, bool> Features { get; set; } = new();
 }
 
 public class OutletSummaryDto

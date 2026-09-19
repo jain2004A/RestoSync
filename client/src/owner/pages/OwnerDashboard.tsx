@@ -8,16 +8,30 @@ import {
   Truck,
   TrendingUp,
   RefreshCw,
+  Sparkles,
+  Zap,
+  AlertTriangle,
+  ArrowRight,
 } from 'lucide-react';
 import type { LiveTableChip, LiveRunningOrdersSummary } from '../types';
 import { useTableStore } from '../../store/tableStore';
 import { usePosSyncStore } from '../../store/posSyncStore';
 import { useAuthStore } from '../../store/authStore';
+import { UpgradePlanModal } from '../components/UpgradePlanModal';
 
 export const OwnerDashboard: React.FC = () => {
   const { user, tenant } = useAuthStore();
   const { tables } = useTableStore();
   const { activeKOTs } = usePosSyncStore();
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+
+  const isTrial = Boolean(tenant?.isTrial);
+  let trialDaysLeft = 0;
+  if (isTrial && (tenant?.trialEndsAt || tenant?.subscriptionExpiresAt)) {
+    const expires = new Date(tenant.trialEndsAt || tenant.subscriptionExpiresAt!).getTime();
+    const now = Date.now();
+    trialDaysLeft = Math.max(0, Math.ceil((expires - now) / (1000 * 60 * 60 * 24)));
+  }
 
   // Cashier & Time Filters
   const [selectedCashier, setSelectedCashier] = useState('All Cashiers');
@@ -87,6 +101,59 @@ export const OwnerDashboard: React.FC = () => {
 
   return (
     <div className="space-y-5 max-w-7xl mx-auto font-sans text-slate-900 select-none">
+      {/* Trial / Subscription Alert Banner */}
+      {isTrial && (
+        <div
+          className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-4 transition-all shadow-sm ${
+            trialDaysLeft > 0
+              ? 'bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/5 border-amber-500/30'
+              : 'bg-gradient-to-r from-rose-500/15 via-red-500/10 to-rose-500/5 border-rose-500/30'
+          }`}
+        >
+          <div className="flex items-center gap-3.5">
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                trialDaysLeft > 0
+                  ? 'bg-amber-500/20 text-amber-700 border border-amber-500/30'
+                  : 'bg-rose-500/20 text-rose-700 border border-rose-500/30'
+              }`}
+            >
+              {trialDaysLeft > 0 ? <Zap className="w-5 h-5" /> : <AlertTriangle className="w-5 h-5" />}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-sm text-slate-900">
+                  {trialDaysLeft > 0
+                    ? `15-Day Free Trial: ${trialDaysLeft} Days Remaining`
+                    : '15-Day Free Trial Expired'}
+                </span>
+                <span
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                    trialDaysLeft > 0 ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
+                  }`}
+                >
+                  {trialDaysLeft > 0 ? 'Trial Active' : 'Action Required'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5">
+                {trialDaysLeft > 0
+                  ? 'You are enjoying full access to QuantroBill POS. Upgrade to an annual plan to create more branches and keep your store active.'
+                  : 'Your evaluation period has ended. Upgrade to an annual or hardware bundle plan to continue operations without interruption.'}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setUpgradeModalOpen(true)}
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition cursor-pointer shrink-0"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>{trialDaysLeft > 0 ? 'Upgrade to Annual Plan' : 'Reactivate Store Now'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
       {/* 1. Welcome Executive Banner */}
       <div className="bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-white p-5 rounded-2xl border border-blue-100 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -444,6 +511,12 @@ export const OwnerDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Upgrade Plan Modal */}
+      <UpgradePlanModal
+        isOpen={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+      />
     </div>
   );
 };

@@ -23,6 +23,57 @@ export interface TenantSummary {
   name?: string;
   businessType: BusinessType;
   subscriptionPlan: string;
+  planId?: string;
+  planCode?: string;
+  planName?: string;
+  subscriptionExpiresAt?: string;
+  isTrial?: boolean;
+  trialEndsAt?: string;
+  maxOutlets?: number;
+  maxStaffUsers?: number;
+  registrationSource?: string;
+  features?: Record<string, boolean>;
+}
+
+export interface Plan {
+  id: string;
+  name: string;
+  code: string;
+  description: string;
+  priceMonthly: number;
+  priceYearly: number;
+  billingCycle: string;
+  durationDays: number;
+  includesHardware: boolean;
+  hardwareDetails?: string;
+  isTrial: boolean;
+  maxOutlets: number;
+  maxStaffUsers: number;
+  trialDays: number;
+  features: Record<string, boolean>;
+  isPopular: boolean;
+  isActive: boolean;
+  displayOrder: number;
+}
+
+export interface OwnerRegistrationLog {
+  id: string;
+  tenantId: string;
+  ownerEmail: string;
+  ownerName: string;
+  businessName: string;
+  city?: string;
+  planId: string;
+  planCode: string;
+  planName: string;
+  planPrice: number;
+  isTrial: boolean;
+  registrationSource: string;
+  paymentStatus: string;
+  registeredAt: string;
+  planActivatedAt?: string;
+  trialExpiresAt?: string;
+  daysRemaining?: number;
 }
 
 export interface OutletSummary {

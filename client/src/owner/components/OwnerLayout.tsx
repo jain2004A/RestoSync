@@ -17,14 +17,26 @@ import {
   Menu,
   X,
   Store,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { clearAllAuthSessions } from '../../utils/authSession';
+import { UpgradePlanModal } from './UpgradePlanModal';
 
 export const OwnerLayout: React.FC = () => {
   const navigate = useNavigate();
   const { user, tenant } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+
+  const isTrial = Boolean(tenant?.isTrial);
+  let trialDaysLeft = 0;
+  if (isTrial && (tenant?.trialEndsAt || tenant?.subscriptionExpiresAt)) {
+    const expires = new Date(tenant.trialEndsAt || tenant.subscriptionExpiresAt!).getTime();
+    const now = Date.now();
+    trialDaysLeft = Math.max(0, Math.ceil((expires - now) / (1000 * 60 * 60 * 24)));
+  }
 
   const handleLogout = () => {
     clearAllAuthSessions();
@@ -46,6 +58,17 @@ export const OwnerLayout: React.FC = () => {
     { label: 'Credit Customers', path: '/owner/credit', icon: CreditCard },
     { label: 'Settings', path: '/owner/settings', icon: Settings },
   ];
+
+  // Dynamic feature gating based on tenant's plan features
+  const filteredNavItems = navItems.filter((item) => {
+    if (item.path === '/owner/inventory') {
+      return tenant?.features?.enableRecipeInventory !== false;
+    }
+    if (item.path === '/owner/credit') {
+      return tenant?.features?.enableKhataBook !== false;
+    }
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans text-slate-900 antialiased selection:bg-slate-900 selection:text-white">
@@ -85,6 +108,35 @@ export const OwnerLayout: React.FC = () => {
 
         {/* Right Bar Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Trial / Subscription Status & Upgrade Button */}
+          {isTrial ? (
+            <div className="flex items-center gap-2">
+              <span className={`px-2.5 py-1 rounded-lg text-xs font-bold border flex items-center gap-1.5 ${
+                trialDaysLeft > 0
+                  ? 'bg-amber-50 text-amber-800 border-amber-300'
+                  : 'bg-rose-50 text-rose-800 border-rose-300'
+              }`}>
+                <Zap className="w-3.5 h-3.5 text-amber-600" />
+                <span>{trialDaysLeft > 0 ? `Free Trial: ${trialDaysLeft}d left` : 'Trial Expired'}</span>
+              </span>
+              <button
+                onClick={() => setUpgradeModalOpen(true)}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 rounded-lg shadow-sm transition cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Upgrade Plan</span>
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setUpgradeModalOpen(true)}
+              className="hidden lg:inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{tenant?.planName || 'Standard'} • Upgrade</span>
+            </button>
+          )}
+
           {/* Quick Switch to POS Billing Desk */}
           <button
             onClick={() => navigate('/billing')}
@@ -138,7 +190,7 @@ export const OwnerLayout: React.FC = () => {
               Management Modules
             </div>
 
-            {navItems.map((item) => {
+            {filteredNavItems.map((item) => {
               const Icon = item.icon;
               return (
                 <NavLink
@@ -146,50 +198,52 @@ export const OwnerLayout: React.FC = () => {
                   to={item.path}
                   onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center justify-between px-3 py-2 rounded-lg text-xs transition ${
+                    `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700 font-bold border-l-4 border-blue-600 shadow-2xs'
-                        : 'text-slate-600 font-medium hover:bg-slate-50 hover:text-slate-900'
+                        ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
+                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                     }`
                   }
                 >
-                  <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4" />
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-4 h-4 shrink-0 text-slate-500" />
                     <span>{item.label}</span>
                   </div>
                   {item.badge && (
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-100/80 text-blue-700">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">
                       {item.badge}
                     </span>
                   )}
                 </NavLink>
               );
             })}
+          </div>
 
-            {/* Quick POS Terminal Shortcut in Sidebar */}
-            <div className="pt-2 mt-2 border-t border-slate-100">
-              <button
-                onClick={() => {
-                  setSidebarOpen(false);
-                  navigate('/billing');
-                }}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-blue-700 bg-blue-50/70 hover:bg-blue-100 border border-blue-200 transition cursor-pointer"
-              >
-                <div className="flex items-center gap-2.5">
-                  <Store className="w-4 h-4 text-blue-600" />
-                  <span>Launch POS Desk</span>
-                </div>
-                <span className="text-[9px] bg-blue-600 text-white font-bold px-1.5 py-0.5 rounded">
-                  POS
-                </span>
-              </button>
-            </div>
+          {/* Quick POS Terminal Shortcut in Sidebar */}
+          <div className="p-3 border-t border-slate-100">
+            <button
+              onClick={() => {
+                setSidebarOpen(false);
+                navigate('/billing');
+              }}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-blue-700 bg-blue-50/70 hover:bg-blue-100 border border-blue-200 transition cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <Store className="w-4 h-4 text-blue-600" />
+                <span>Launch POS Desk</span>
+              </div>
+              <span className="text-[9px] bg-blue-600 text-white font-bold px-1.5 py-0.5 rounded">
+                POS
+              </span>
+            </button>
           </div>
 
           {/* Sidebar Footer */}
           <div className="p-3 border-t border-slate-200 bg-slate-50/80 text-center">
             <p className="text-[11px] font-bold text-slate-800">QuantroBill POS SaaS</p>
-            <p className="text-[10px] text-blue-600 font-medium">Executive Tier</p>
+            <p className="text-[10px] text-blue-600 font-medium">
+              {tenant?.planName || 'Enterprise Tier'}
+            </p>
           </div>
         </aside>
 
@@ -206,6 +260,12 @@ export const OwnerLayout: React.FC = () => {
           <Outlet />
         </main>
       </div>
+
+      {/* Upgrade Plan Modal */}
+      <UpgradePlanModal
+        isOpen={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+      />
     </div>
   );
 };

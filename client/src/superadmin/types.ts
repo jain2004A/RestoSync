@@ -63,6 +63,11 @@ export interface PlanTier {
   description: string;
   priceMonthly: number;
   priceYearly: number;
+  billingCycle?: string;
+  durationDays?: number;
+  includesHardware?: boolean;
+  hardwareDetails?: string;
+  isTrial?: boolean;
   maxOutlets: number;
   maxStaffUsers: number;
   trialDays: number;

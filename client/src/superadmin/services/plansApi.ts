@@ -28,4 +28,14 @@ export const plansApi = {
     const res = await apiClient.delete<{ success: boolean; message: string }>(`/plans/${id}`);
     return res.data;
   },
+
+  toggleActive: async (id: string) => {
+    const res = await apiClient.patch<{ success: boolean; isActive: boolean; message: string }>(`/plans/${id}/toggle-active`);
+    return res.data;
+  },
+
+  togglePopular: async (id: string) => {
+    const res = await apiClient.patch<{ success: boolean; isPopular: boolean; message: string }>(`/plans/${id}/toggle-popular`);
+    return res.data;
+  },
 };

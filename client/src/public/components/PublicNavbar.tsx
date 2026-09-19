@@ -63,14 +63,23 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({ onOpenDemo }) => {
                 <span>Go to App ({user?.username || 'Active'})</span>
               </Link>
             ) : (
-              <Link to="/login" className="pp-btn-text">
-                Log In
-              </Link>
+              <>
+                <Link to="/login" className="pp-btn-text">
+                  Log In
+                </Link>
+                <Link
+                  to="/register"
+                  className="pp-btn-primary"
+                  style={{ padding: '8px 18px', fontSize: '0.9rem', textDecoration: 'none' }}
+                >
+                  <span>Register Free</span>
+                </Link>
+              </>
             )}
 
-            <button onClick={handleDemoClick} className="pp-btn-primary">
-              <span>Book A Demo</span>
-              <ArrowRight size={15} />
+            <button onClick={handleDemoClick} className="pp-btn-outline" style={{ padding: '8px 16px', fontSize: '0.88rem' }}>
+              <span>Book Demo</span>
+              <ArrowRight size={14} />
             </button>
           </div>
 
@@ -94,13 +103,31 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({ onOpenDemo }) => {
                 Return to Dashboard
               </Link>
             ) : (
-              <Link to="/login" onClick={() => setMobileOpen(false)}>
-                Log In
-              </Link>
+              <>
+                <Link to="/login" onClick={() => setMobileOpen(false)}>
+                  Log In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMobileOpen(false)}
+                  style={{
+                    background: 'var(--pp-red)',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    borderRadius: '8px',
+                    padding: '10px 14px',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    marginTop: '4px'
+                  }}
+                >
+                  Register Restaurant (Free Trial)
+                </Link>
+              </>
             )}
             <button
               onClick={handleDemoClick}
-              className="pp-btn-primary"
+              className="pp-btn-outline"
               style={{ width: '100%', marginTop: '8px' }}
             >
               Book A Free Demo

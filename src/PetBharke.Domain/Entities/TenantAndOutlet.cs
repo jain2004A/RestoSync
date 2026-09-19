@@ -45,6 +45,27 @@ public class Tenant
     [BsonElement("maxOutlets")]
     public int MaxOutlets { get; set; } = 5;
 
+    [BsonElement("planId")]
+    public string PlanId { get; set; } = string.Empty;
+
+    [BsonElement("planCode")]
+    public string PlanCode { get; set; } = string.Empty;
+
+    [BsonElement("planName")]
+    public string PlanName { get; set; } = string.Empty;
+
+    [BsonElement("isTrial")]
+    public bool IsTrial { get; set; } = false;
+
+    [BsonElement("trialEndsAt")]
+    public DateTime? TrialEndsAt { get; set; }
+
+    [BsonElement("maxStaffUsers")]
+    public int MaxStaffUsers { get; set; } = 5;
+
+    [BsonElement("registrationSource")]
+    public string RegistrationSource { get; set; } = "AdminOnboarded"; // "SelfRegistered", "AdminOnboarded"
+
     [BsonElement("isActive")]
     public bool IsActive { get; set; } = true;
 

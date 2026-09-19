@@ -21,7 +21,11 @@ DotEnvLoader.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Add Services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
@@ -142,8 +146,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// 7. CORS — read allowed origins from configuration, allow localhost in Development
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:5173" };
+// 7. CORS — read allowed origins from configuration, always allow localhost
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:5173", "http://localhost:3000" };
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PetBharkeCors", policy =>
@@ -152,7 +156,8 @@ builder.Services.AddCors(options =>
         {
             if (string.IsNullOrEmpty(origin)) return false;
             if (allowedOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase)) return true;
-            if (builder.Environment.IsDevelopment() && Uri.TryCreate(origin, UriKind.Absolute, out var uri) && (uri.Host == "localhost" || uri.Host == "127.0.0.1"))
+            if (Uri.TryCreate(origin, UriKind.Absolute, out var uri) &&
+                (uri.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase) || uri.Host.Equals("127.0.0.1", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         })
@@ -188,7 +193,8 @@ else
     Console.WriteLine("--> [QuantroBill] Skipping DB seed in production. Set FORCE_SEED=true to seed.");
 }
 
-// 9. HTTP Pipeline Middleware
+// 9. HTTP Pipeline Middleware — UseCors MUST precede error middleware to attach CORS headers to all responses
+app.UseCors("PetBharkeCors");
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 var swaggerEnabled = app.Environment.IsDevelopment() ||
@@ -203,8 +209,6 @@ if (swaggerEnabled)
         c.RoutePrefix = "swagger";
     });
 }
-
-app.UseCors("PetBharkeCors");
 
 app.UseAuthentication();
 app.UseAuthorization();

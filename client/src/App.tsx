@@ -36,6 +36,7 @@ import { CouponsPage } from './superadmin/pages/CouponsPage';
 import { AnalyticsPage } from './superadmin/pages/AnalyticsPage';
 import { SystemHealthPage } from './superadmin/pages/SystemHealthPage';
 import { SettingsPage } from './superadmin/pages/SettingsPage';
+import { SuperAdminLogin } from './superadmin/pages/SuperAdminLogin';
 
 import { OwnerLayout } from './owner/components/OwnerLayout';
 import { OwnerDashboard } from './owner/pages/OwnerDashboard';
@@ -53,6 +54,9 @@ import { OwnerSettings } from './owner/pages/OwnerSettings';
 
 import { LandingPage } from './public/pages/LandingPage';
 import { ContactUs } from './public/pages/ContactUs';
+import { Register } from './pages/Register';
+import { OwnerActivityPage } from './superadmin/pages/OwnerActivityPage';
+import { DemoEnquiriesPage } from './superadmin/pages/DemoEnquiriesPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,7 +87,7 @@ const RootRedirect: React.FC = () => {
 };
 
 export const App: React.FC = () => {
-  const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const { initializeAuth } = useAuthStore();
 
   useEffect(() => {
     initializeAuth();
@@ -102,6 +106,8 @@ export const App: React.FC = () => {
           <Route path="/demo" element={<ContactUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/signup" element={<Register />} />
 
           {/* ========================================= */}
           {/* Single Login Portal (all roles)           */}
@@ -109,7 +115,7 @@ export const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           {/* Legacy login routes redirect to unified login */}
           <Route path="/owner/login" element={<Navigate to="/login" replace />} />
-          <Route path="/superadmin/login" element={<Navigate to="/login" replace />} />
+          <Route path="/superadmin/login" element={<SuperAdminLogin />} />
 
           {/* ========================================= */}
           {/* Quick Route Aliases                       */}
@@ -219,6 +225,9 @@ export const App: React.FC = () => {
           >
             <Route index element={<Navigate to="/superadmin/dashboard" replace />} />
             <Route path="dashboard" element={<SuperAdminDashboard />} />
+            <Route path="enquiries" element={<DemoEnquiriesPage />} />
+            <Route path="demo-enquiries" element={<Navigate to="/superadmin/enquiries" replace />} />
+            <Route path="owner-activity" element={<OwnerActivityPage />} />
 
             {/* Restaurant Tenants */}
             <Route path="tenants" element={<TenantManagement />} />

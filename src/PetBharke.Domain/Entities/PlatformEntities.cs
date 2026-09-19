@@ -38,6 +38,21 @@ public class Plan
     [BsonElement("features")]
     public Dictionary<string, bool> Features { get; set; } = new();
 
+    [BsonElement("billingCycle")]
+    public string BillingCycle { get; set; } = "Yearly"; // "Trial", "Monthly", "Yearly"
+
+    [BsonElement("durationDays")]
+    public int DurationDays { get; set; } = 365;
+
+    [BsonElement("isTrial")]
+    public bool IsTrial { get; set; } = false;
+
+    [BsonElement("includesHardware")]
+    public bool IncludesHardware { get; set; } = false;
+
+    [BsonElement("hardwareDetails")]
+    public string HardwareDetails { get; set; } = string.Empty;
+
     [BsonElement("isPopular")]
     public bool IsPopular { get; set; } = false;
 
@@ -279,7 +294,71 @@ public class PublicEnquiry
     [BsonElement("status")]
     public string Status { get; set; } = "New"; // "New", "Contacted", "Demo Scheduled", "Converted", "Closed"
 
+    [BsonElement("demoLink")]
+    public string? DemoLink { get; set; }
+
+    [BsonElement("scheduledAt")]
+    public DateTime? ScheduledAt { get; set; }
+
+    [BsonElement("notes")]
+    public string? Notes { get; set; }
+
+    [BsonElement("assignedTo")]
+    public string? AssignedTo { get; set; }
+
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 
+[BsonIgnoreExtraElements]
+public class OwnerRegistrationLog
+{
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; } = string.Empty;
+
+    [BsonElement("tenantId")]
+    public string TenantId { get; set; } = string.Empty;
+
+    [BsonElement("ownerEmail")]
+    public string OwnerEmail { get; set; } = string.Empty;
+
+    [BsonElement("ownerName")]
+    public string OwnerName { get; set; } = string.Empty;
+
+    [BsonElement("businessName")]
+    public string BusinessName { get; set; } = string.Empty;
+
+    [BsonElement("city")]
+    public string City { get; set; } = string.Empty;
+
+    [BsonElement("planId")]
+    public string PlanId { get; set; } = string.Empty;
+
+    [BsonElement("planCode")]
+    public string PlanCode { get; set; } = string.Empty;
+
+    [BsonElement("planName")]
+    public string PlanName { get; set; } = string.Empty;
+
+    [BsonElement("planPrice")]
+    public decimal PlanPrice { get; set; } = 0;
+
+    [BsonElement("isTrial")]
+    public bool IsTrial { get; set; } = false;
+
+    [BsonElement("registrationSource")]
+    public string RegistrationSource { get; set; } = "SelfRegistered"; // "SelfRegistered", "AdminOnboarded"
+
+    [BsonElement("paymentStatus")]
+    public string PaymentStatus { get; set; } = "Free"; // "Free", "Pending", "Paid", "Expired"
+
+    [BsonElement("registeredAt")]
+    public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+
+    [BsonElement("planActivatedAt")]
+    public DateTime? PlanActivatedAt { get; set; }
+
+    [BsonElement("trialExpiresAt")]
+    public DateTime? TrialExpiresAt { get; set; }
+}

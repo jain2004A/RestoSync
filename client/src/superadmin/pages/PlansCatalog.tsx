@@ -69,6 +69,32 @@ export const PlansCatalog: React.FC = () => {
     }
   };
 
+  const handleToggleActive = async (plan: PlanTier) => {
+    try {
+      const res = await plansApi.toggleActive(plan.id);
+      if (res.success) {
+        setPlans((prev) =>
+          prev.map((p) => (p.id === plan.id ? { ...p, isActive: res.isActive } : p))
+        );
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Failed to toggle active status.');
+    }
+  };
+
+  const handleTogglePopular = async (plan: PlanTier) => {
+    try {
+      const res = await plansApi.togglePopular(plan.id);
+      if (res.success) {
+        setPlans((prev) =>
+          prev.map((p) => (p.id === plan.id ? { ...p, isPopular: res.isPopular } : p))
+        );
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || 'Failed to toggle popular badge.');
+    }
+  };
+
   const filteredPlans = plans.filter((p) => {
     const matchSearch =
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -90,10 +116,10 @@ export const PlansCatalog: React.FC = () => {
   const popularPlan = plans.find((p) => p.isPopular)?.name || 'Professional';
 
   return (
-    <div>
+    <div className="w-full space-y-4 font-sans">
       <PageHeader
         title="Subscription Plans Catalog"
-        subtitle="Define, price, and package global SaaS subscription tiers and feature entitlements."
+        subtitle="Define, price, package global SaaS subscription tiers, and toggle feature entitlements with live tenant sync."
         icon={Package}
         onRefresh={loadPlans}
         isRefreshing={loading}
@@ -108,7 +134,7 @@ export const PlansCatalog: React.FC = () => {
       </PageHeader>
 
       {/* STAT SUMMARY CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-2">
         <StatCard
           label="Total Plan Tiers"
           value={totalPlans}
@@ -161,7 +187,7 @@ export const PlansCatalog: React.FC = () => {
 
       {/* ERROR STATE */}
       {error && (
-        <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between text-rose-800 text-xs">
+        <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between text-rose-800 text-xs">
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />
             <span>{error}</span>
@@ -174,9 +200,9 @@ export const PlansCatalog: React.FC = () => {
 
       {/* LOADING STATE */}
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-pulse">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-80 bg-slate-200/70 rounded-2xl"></div>
+            <div key={i} className="h-72 bg-slate-200/70 rounded-2xl"></div>
           ))}
         </div>
       ) : filteredPlans.length === 0 ? (
@@ -199,56 +225,82 @@ export const PlansCatalog: React.FC = () => {
         </div>
       ) : (
         /* PLAN TIERS GRID */
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredPlans.map((plan) => (
             <div
               key={plan.id}
-              className={`bg-white rounded-2xl border transition flex flex-col justify-between shadow-xs hover:shadow-md relative overflow-hidden ${
-                plan.isPopular ? 'border-blue-400 ring-2 ring-blue-100' : 'border-slate-200'
+              className={`bg-white rounded-2xl border transition flex flex-col justify-between shadow-2xs hover:shadow-md relative overflow-hidden ${
+                plan.isPopular ? 'border-amber-400 ring-2 ring-amber-100' : 'border-slate-200'
               } ${!plan.isActive ? 'opacity-70 bg-slate-50/50' : ''}`}
             >
               {plan.isPopular && (
-                <div className="bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-widest text-center py-1">
-                  ⭐ Recommended Tier
+                <div className="bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-widest text-center py-1 flex items-center justify-center gap-1">
+                  <span>⭐</span>
+                  <span>Most Popular Tier</span>
                 </div>
               )}
 
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="p-5">
+                <div className="flex items-start justify-between gap-3 mb-2">
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">{plan.name}</h3>
-                    <p className="text-xs text-slate-400 font-mono mt-0.5">code: {plan.code}</p>
+                    <h3 className="text-base font-bold text-slate-900">{plan.name}</h3>
+                    <p className="text-[11px] text-slate-400 font-mono mt-0.5">code: {plan.code}</p>
                   </div>
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+
+                  {/* Quick Active Toggle Button */}
+                  <button
+                    onClick={() => handleToggleActive(plan)}
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
                       plan.isActive
-                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                        : 'bg-slate-100 text-slate-500 border border-slate-200'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100'
+                        : 'bg-slate-100 text-slate-500 border border-slate-300 hover:bg-slate-200'
                     }`}
+                    title="Click to toggle active/inactive status"
                   >
-                    {plan.isActive ? 'Active' : 'Archived'}
-                  </span>
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        plan.isActive ? 'bg-emerald-500' : 'bg-slate-400'
+                      }`}
+                    />
+                    <span>{plan.isActive ? 'Active' : 'Inactive'}</span>
+                  </button>
                 </div>
 
-                <p className="text-xs text-slate-600 min-h-[36px] line-clamp-2 leading-relaxed">
-                  {plan.description}
+                <p className="text-xs text-slate-600 min-h-[32px] line-clamp-2 leading-relaxed">
+                  {plan.description || 'No marketing description specified.'}
                 </p>
 
                 {/* Price Display */}
-                <div className="my-5 p-4 rounded-xl bg-slate-50/80 border border-slate-100">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-extrabold text-slate-900">
-                      ₹{plan.priceMonthly.toLocaleString('en-IN')}
-                    </span>
-                    <span className="text-xs font-semibold text-slate-500">/ month</span>
+                <div className="my-3.5 p-3 rounded-xl bg-slate-50/90 border border-slate-100 flex items-center justify-between">
+                  <div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xl font-black text-slate-900">
+                        ₹{plan.priceMonthly.toLocaleString('en-IN')}
+                      </span>
+                      <span className="text-[11px] font-semibold text-slate-500">/mo</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">
+                      or ₹{plan.priceYearly.toLocaleString('en-IN')}/year
+                    </div>
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-1">
-                    or ₹{plan.priceYearly.toLocaleString('en-IN')} billed annually (save ~17%)
-                  </div>
+
+                  {/* Popular Toggle Button */}
+                  <button
+                    onClick={() => handleTogglePopular(plan)}
+                    className={`px-2 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 cursor-pointer ${
+                      plan.isPopular
+                        ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                        : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'
+                    }`}
+                    title="Toggle Popular Badge"
+                  >
+                    <span>⭐</span>
+                    <span>{plan.isPopular ? 'Popular' : 'Mark Popular'}</span>
+                  </button>
                 </div>
 
                 {/* Limits & Specifications */}
-                <div className="space-y-2 text-xs border-t border-slate-100 pt-4">
+                <div className="space-y-1.5 text-xs border-t border-slate-100 pt-3">
                   <div className="flex justify-between text-slate-600">
                     <span className="text-slate-400">Max Outlets:</span>
                     <span className="font-bold text-slate-800">{plan.maxOutlets} Branches</span>
@@ -264,34 +316,44 @@ export const PlansCatalog: React.FC = () => {
                 </div>
 
                 {/* Feature Inclusions */}
-                <div className="mt-4 pt-4 border-t border-slate-100">
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    Included Capabilities
+                <div className="mt-3 pt-3 border-t border-slate-100">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                    Feature Capabilities
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {plan.features?.enableKds && (
-                      <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-100">
+                      <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-100">
                         Kitchen KDS
                       </span>
                     )}
                     {plan.features?.enableWaiterApp && (
-                      <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 text-[10px] font-semibold border border-indigo-100">
+                      <span className="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[10px] font-semibold border border-indigo-100">
                         Captain App
                       </span>
                     )}
                     {plan.features?.enableAggregators && (
-                      <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-100">
-                        Zomato/Swiggy
+                      <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-100">
+                        Aggregators
                       </span>
                     )}
                     {plan.features?.enableRecipeInventory && (
-                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-semibold border border-emerald-100">
-                        Inventory Recipe
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold border border-emerald-100">
+                        Recipe & Inventory
                       </span>
                     )}
                     {plan.features?.enableKhataBook && (
-                      <span className="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-semibold border border-purple-100">
-                        KhataBook Credit
+                      <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 text-[10px] font-semibold border border-purple-100">
+                        KhataBook
+                      </span>
+                    )}
+                    {plan.features?.enableDynamicQr && (
+                      <span className="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 text-[10px] font-semibold border border-teal-100">
+                        UPI QR
+                      </span>
+                    )}
+                    {plan.features?.enableTableFloor && (
+                      <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-semibold border border-sky-100">
+                        Table Floor
                       </span>
                     )}
                   </div>
@@ -299,13 +361,13 @@ export const PlansCatalog: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="p-4 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between gap-2">
+              <div className="p-3.5 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between gap-2">
                 <button
                   onClick={() => navigate(`/superadmin/plans-catalog/${plan.id}`)}
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg shadow-2xs transition cursor-pointer"
                 >
-                  <Edit2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Configure Tier</span>
+                  <Edit2 className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Configure Pricing & Features</span>
                 </button>
 
                 {plan.isActive && (
