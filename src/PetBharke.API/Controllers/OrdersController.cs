@@ -344,6 +344,12 @@ public class OrdersController : ControllerBase
         else if (request.Status == OrderStatus.Dispatched) order.DispatchedAt = DateTime.UtcNow;
         else if (request.Status == OrderStatus.Delivered) order.DeliveredAt = DateTime.UtcNow;
         else if (request.Status == OrderStatus.Cancelled) order.CancelledAt = DateTime.UtcNow;
+        else if (request.Status == OrderStatus.Served)
+        {
+            order.ServedAt = DateTime.UtcNow;
+            order.ServedByWaiterId = _currentUser.UserId;
+            order.ServedByWaiterName = _currentUser.Username;
+        }
 
         if (request.RiderDetails != null)
         {
@@ -378,6 +384,17 @@ public class OrdersController : ControllerBase
         // Broadcast to SignalR
         await _orderHub.Clients.Group(groupName).SendAsync("ReceiveOrderUpdate", order);
         await _orderHub.Clients.Group(kdsGroupName).SendAsync("ReceiveOrderUpdate", order);
+        await _orderHub.Clients.Group(groupName).SendAsync("OrderStatusChanged", new
+        {
+            orderId = order.Id,
+            status = (int)order.Status,
+            statusName = order.Status.ToString(),
+            tableNumber = order.TableNumber,
+            kotNumber = order.KotNumber,
+            foodReadyAt = order.FoodReadyAt,
+            servedAt = order.ServedAt,
+            servedByWaiterName = order.ServedByWaiterName
+        });
 
         return Ok(new { success = true, data = order });
     }

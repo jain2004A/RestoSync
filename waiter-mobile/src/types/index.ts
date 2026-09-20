@@ -16,7 +16,10 @@ export interface MobileTable {
   activeOrderId?: string;
   orderTotal?: number;
   runningMinutes?: number;
-  status: 'Vacant' | 'Occupied' | 'FoodReady' | 'BillDue';
+  status: 'Vacant' | 'Occupied' | 'FoodReady' | 'BillDue' | 'Served';
+  kotNumber?: string;
+  items?: any[];
+  servedAt?: string;
 }
 
 export interface MobileOrderItem {

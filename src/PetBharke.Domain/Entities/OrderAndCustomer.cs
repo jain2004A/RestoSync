@@ -106,6 +106,15 @@ public class Order : BaseEntity
     [BsonElement("deliveredAt")]
     public DateTime? DeliveredAt { get; set; }
 
+    [BsonElement("servedAt")]
+    public DateTime? ServedAt { get; set; }
+
+    [BsonElement("servedByWaiterId")]
+    public string? ServedByWaiterId { get; set; }
+
+    [BsonElement("servedByWaiterName")]
+    public string? ServedByWaiterName { get; set; }
+
     [BsonElement("cancelledAt")]
     public DateTime? CancelledAt { get; set; }
 }

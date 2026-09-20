@@ -28,7 +28,8 @@ public enum OrderStatus
     FoodReady = 3,
     Dispatched = 4,
     Delivered = 5,
-    Cancelled = 6
+    Cancelled = 6,
+    Served = 7
 }
 
 public enum PaymentMode

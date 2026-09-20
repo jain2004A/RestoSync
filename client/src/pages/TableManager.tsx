@@ -19,6 +19,8 @@ import {
   DollarSign,
   Activity,
   Armchair,
+  Flame,
+  UtensilsCrossed,
 } from 'lucide-react';
 import type { OrderItem } from '../types';
 import { BillPrintModal } from '../components/modals/BillPrintModal';
@@ -40,11 +42,12 @@ export const TableManager: React.FC = () => {
   const canAddTable = userRole === 'Owner' || userRole === 'Manager';
   const canVoidTable = canVoidBills(userRole);
 
-  const { tables, vacateTable, createTable, getSections } = useTableStore();
+  const { tables, vacateTable, createTable, getSections, markTableServed } = useTableStore();
   const drafts = useDraftCartStore((state) => state.drafts);
 
   const [selectedSection, setSelectedSection] = useState<string>('All');
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
+  const [showReadyOrdersModal, setShowReadyOrdersModal] = useState<boolean>(false);
   const [newTableNumber, setNewTableNumber] = useState<string>('');
   const [newSection, setNewSection] = useState<string>('Main Hall');
   const [newCapacity, setNewCapacity] = useState<number>(4);
@@ -140,6 +143,19 @@ export const TableManager: React.FC = () => {
     showToast(`Table ${tableNumber} has been vacated and marked Vacant!`);
   };
 
+  // Food Ready Orders (Kitchen bump tracking)
+  const readyTables = useMemo(() => tables.filter((t) => t.foodReady), [tables]);
+  const readyCount = readyTables.length;
+
+  const handleServeTable = async (tableNum: string, orderId?: string) => {
+    const success = await markTableServed(tableNum, orderId);
+    if (success) {
+      showToast(`🍽️ Order for Table ${tableNum} marked as Served!`);
+    } else {
+      showToast(`⚠️ Failed to mark Table ${tableNum} as served.`);
+    }
+  };
+
   // Compute Metrics for KPI Cards (Reference CRM Style)
   const occupiedCount = tables.filter((t) => t.isOccupied).length;
   const vacantCount = tables.length - occupiedCount;
@@ -173,6 +189,17 @@ export const TableManager: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-2 flex-wrap gap-y-2">
+          {/* View Ready Orders Button (If any) */}
+          {readyCount > 0 && (
+            <button
+              onClick={() => setShowReadyOrdersModal(true)}
+              className="bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-black px-3.5 py-2 rounded-lg text-xs flex items-center space-x-1.5 touch-btn shadow-md animate-pulse cursor-pointer"
+            >
+              <Flame className="w-4 h-4" />
+              <span>Ready Food ({readyCount})</span>
+            </button>
+          )}
+
           <button
             onClick={() => {
               setMergeSourceTable(undefined);
@@ -221,9 +248,38 @@ export const TableManager: React.FC = () => {
         </div>
       </div>
 
-      {/* 4 Executive KPI Metric Cards (Directly inspired by reference CRM dashboard) */}
+      {/* Ready Orders Alert Banner (High-priority real-time alert for Waiters) */}
+      {readyCount > 0 && (
+        <div className="mb-5 bg-linear-to-r from-rose-500 via-amber-500 to-rose-600 text-white rounded-2xl p-4 shadow-md flex flex-wrap items-center justify-between gap-3 animate-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-xl shadow-inner">
+              🔥
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="font-black text-sm uppercase tracking-wide">Food Ready in Kitchen!</span>
+                <span className="bg-white text-rose-600 font-extrabold text-xs px-2 py-0.5 rounded-full shadow-xs">
+                  {readyCount} {readyCount === 1 ? 'Table' : 'Tables'}
+                </span>
+              </div>
+              <p className="text-xs text-white/90 font-medium mt-0.5">
+                Kitchen chef has finished preparing dishes for: <strong>{readyTables.map((t) => t.tableNumber).join(', ')}</strong>. Pick up and serve to guests.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowReadyOrdersModal(true)}
+            className="bg-white text-rose-700 hover:bg-rose-50 active:bg-rose-100 font-black text-xs px-4 py-2.5 rounded-xl shadow-sm flex items-center space-x-1.5 transition touch-btn cursor-pointer"
+          >
+            <UtensilsCrossed className="w-4 h-4" />
+            <span>View & Serve Food</span>
+          </button>
+        </div>
+      )}
+
+      {/* 4 Executive KPI Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        {/* Card 1: Total Active Sales (Hidden for Waiter to protect store revenue data) */}
+        {/* Card 1: Total Active Sales for Cashier/Owner, or Ready to Serve for Waiter */}
         {!isWaiter ? (
           <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs flex items-center justify-between">
             <div>
@@ -236,14 +292,27 @@ export const TableManager: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs flex items-center justify-between">
+          <div
+            onClick={() => readyCount > 0 && setShowReadyOrdersModal(true)}
+            className={`bg-white border rounded-2xl p-4 shadow-2xs flex items-center justify-between transition cursor-pointer ${
+              readyCount > 0
+                ? 'border-rose-300 ring-2 ring-rose-400/40 hover:border-rose-400 bg-rose-50/40'
+                : 'border-slate-200'
+            }`}
+          >
             <div>
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Dining Tables</div>
-              <div className="text-2xl font-black text-blue-600 mt-1">{tables.length} Tables</div>
-              <div className="text-[10px] text-slate-500 mt-0.5 font-medium">{vacantCount} currently available</div>
+              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Ready to Serve</div>
+              <div className="text-2xl font-black text-rose-600 mt-1">{readyCount} Tables</div>
+              <div className="text-[10px] text-slate-500 mt-0.5 font-medium">
+                {readyCount > 0 ? '🔥 Tap to view & serve' : 'All food served to tables'}
+              </div>
             </div>
-            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
-              <Grid3X3 className="w-5 h-5" />
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                readyCount > 0 ? 'bg-rose-100 text-rose-600 animate-bounce' : 'bg-slate-100 text-slate-500'
+              }`}
+            >
+              <Flame className="w-5 h-5" />
             </div>
           </div>
         )}
@@ -316,7 +385,9 @@ export const TableManager: React.FC = () => {
               key={table.id}
               onClick={() => handleTableClick(table)}
               className={`rounded-2xl p-4 border transition-all cursor-pointer shadow-2xs hover:shadow-md touch-btn flex flex-col justify-between h-40 group ${
-                table.isOccupied
+                table.foodReady
+                  ? 'bg-rose-50/95 border-rose-300 ring-2 ring-rose-400/50 shadow-md text-rose-950'
+                  : table.isOccupied
                   ? 'bg-blue-50/90 border-blue-200 text-blue-950 hover:border-blue-400'
                   : hasDraft
                   ? 'bg-amber-50/80 border-amber-300 hover:border-amber-400 text-amber-950'
@@ -330,22 +401,33 @@ export const TableManager: React.FC = () => {
                     <p className="text-[11px] opacity-70 font-medium">{table.section}</p>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <span
-                      className={`w-3 h-3 rounded-full ${
-                        table.isOccupied
-                          ? 'bg-blue-600 animate-pulse'
-                          : hasDraft
-                          ? 'bg-amber-500 ring-2 ring-amber-200'
-                          : 'bg-emerald-500'
-                      }`}
-                      title={
-                        table.isOccupied
-                          ? 'Occupied (Tap to View Bill/Menu)'
-                          : hasDraft
-                          ? `Draft Active (${draftItemCount} items - Tap to Resume)`
-                          : 'Vacant (Tap to Order)'
-                      }
-                    />
+                    {table.foodReady ? (
+                      <span className="bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center space-x-1 shadow-xs animate-pulse">
+                        <span>🔥 Ready</span>
+                      </span>
+                    ) : table.isOccupied && table.servedAt ? (
+                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center space-x-1 border border-emerald-200">
+                        <Check className="w-2.5 h-2.5" />
+                        <span>Served</span>
+                      </span>
+                    ) : (
+                      <span
+                        className={`w-3 h-3 rounded-full ${
+                          table.isOccupied
+                            ? 'bg-blue-600 animate-pulse'
+                            : hasDraft
+                            ? 'bg-amber-500 ring-2 ring-amber-200'
+                            : 'bg-emerald-500'
+                        }`}
+                        title={
+                          table.isOccupied
+                            ? 'Occupied (Tap to View Bill/Menu)'
+                            : hasDraft
+                            ? `Draft Active (${draftItemCount} items - Tap to Resume)`
+                            : 'Vacant (Tap to Order)'
+                        }
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -357,13 +439,49 @@ export const TableManager: React.FC = () => {
 
               {/* Bottom State Pill */}
               <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between">
-                {table.isOccupied ? (
+                {table.foodReady ? (
+                  <>
+                    <div>
+                      <span className="text-xs font-black text-rose-700">
+                        {currencySymbol}{table.orderTotal || 0}
+                      </span>
+                      <span className="text-[10px] text-rose-600 font-bold block">🔥 Food Ready</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <button
+                        type="button"
+                        title="Mark as Served to Table"
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await handleServeTable(table.tableNumber, table.orderId);
+                        }}
+                        className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-black flex items-center space-x-1 shadow-xs transition touch-btn cursor-pointer"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Serve</span>
+                      </button>
+                      <button
+                        type="button"
+                        title="View Bill Details"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedTableForBill(table);
+                        }}
+                        className="w-7 h-7 flex items-center justify-center rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 shadow-2xs transition touch-btn cursor-pointer"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </>
+                ) : table.isOccupied ? (
                   <>
                     <div>
                       <span className="text-xs font-black text-blue-800">
                         {currencySymbol}{table.orderTotal || 0}
                       </span>
-                      <span className="text-[10px] text-blue-600 font-semibold block">Running KOT</span>
+                      <span className="text-[10px] text-blue-600 font-semibold block">
+                        {table.servedAt ? `Served • ${table.servedAt}` : 'Running KOT'}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-1">
                       <button
@@ -501,6 +619,34 @@ export const TableManager: React.FC = () => {
 
             {/* Ordered Items List (Menu Items of this Table) */}
             <div className="p-5 overflow-y-auto flex-1 space-y-3">
+              {/* Ready / Serving Status Notice */}
+              {selectedTableForBill.foodReady ? (
+                <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center justify-between animate-pulse">
+                  <div className="flex items-center space-x-2.5">
+                    <span className="text-xl">🔥</span>
+                    <div>
+                      <span className="text-xs font-black text-rose-900 block">Food Ready in Kitchen!</span>
+                      <span className="text-[11px] text-rose-700">Dishes are ready to be picked up and served.</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={async () => {
+                      await handleServeTable(selectedTableForBill.tableNumber, selectedTableForBill.orderId);
+                      setSelectedTableForBill(null);
+                    }}
+                    className="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center space-x-1 shadow-xs touch-btn shrink-0"
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Serve</span>
+                  </button>
+                </div>
+              ) : selectedTableForBill.servedAt ? (
+                <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center space-x-2 text-xs text-emerald-800">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span><strong>Food Served</strong> to table at {selectedTableForBill.servedAt}</span>
+                </div>
+              ) : null}
+
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                   Ordered Menu Items ({getTableBillData(selectedTableForBill).items.length})
@@ -574,6 +720,19 @@ export const TableManager: React.FC = () => {
 
             {/* Modal Bottom Actions */}
             <div className="p-4 bg-white border-t border-slate-200 flex flex-wrap items-center gap-2">
+              {selectedTableForBill.foodReady && (
+                <button
+                  onClick={async () => {
+                    await handleServeTable(selectedTableForBill.tableNumber, selectedTableForBill.orderId);
+                    setSelectedTableForBill(null);
+                  }}
+                  className="flex-1 min-w-[120px] bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black py-2.5 px-3 rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm touch-btn transition cursor-pointer"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Mark as Served</span>
+                </button>
+              )}
+
               {!isWaiter && (
                 <button
                   onClick={() => {
@@ -758,6 +917,122 @@ export const TableManager: React.FC = () => {
             showToast(`Order shifted to Table ${newTable}!`);
           }}
         />
+      )}
+
+      {/* Ready Orders Modal (Live kitchen pickup list for Waiters) */}
+      {showReadyOrdersModal && (
+        <div className="fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4 backdrop-blur-xs select-none">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-150 border border-slate-200">
+            {/* Modal Header */}
+            <div className="bg-linear-to-r from-rose-500 to-amber-500 text-white px-5 py-4 flex items-center justify-between">
+              <div className="flex items-center space-x-2.5">
+                <span className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-lg">
+                  🔥
+                </span>
+                <div>
+                  <h2 className="font-black text-base tracking-tight text-white">
+                    Kitchen Ready Orders ({readyCount})
+                  </h2>
+                  <p className="text-xs text-white/90">
+                    Dishes prepared by kitchen chefs • Ready to be served to tables
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowReadyOrdersModal(false)}
+                className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/20 transition-colors touch-btn"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Ready List */}
+            <div className="p-5 overflow-y-auto flex-1 space-y-3 bg-slate-50/50">
+              {readyTables.length === 0 ? (
+                <div className="text-center py-10">
+                  <span className="text-4xl block mb-2">🍽️</span>
+                  <p className="text-sm font-bold text-slate-700">No Food Waiting in Kitchen</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    All prepared orders have been served to guests.
+                  </p>
+                </div>
+              ) : (
+                readyTables.map((rt) => {
+                  const billData = getTableBillData(rt);
+                  return (
+                    <div
+                      key={rt.id}
+                      className="bg-white rounded-xl border border-rose-200 p-4 shadow-xs space-y-3 hover:border-rose-300 transition"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className="flex items-center space-x-2">
+                            <span className="font-black text-base text-slate-900">
+                              Table {rt.tableNumber}
+                            </span>
+                            <span className="bg-rose-100 text-rose-700 font-extrabold text-[10px] px-2 py-0.5 rounded-full border border-rose-200">
+                              🔥 Food Ready
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-500 mt-0.5 font-medium">
+                            {rt.section} • {billData.kotNumber} • {rt.orderTime || 'Active'}
+                          </p>
+                        </div>
+
+                        <button
+                          onClick={async () => {
+                            await handleServeTable(rt.tableNumber, rt.orderId);
+                          }}
+                          className="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black px-3.5 py-2 rounded-xl text-xs flex items-center space-x-1.5 shadow-sm touch-btn transition cursor-pointer"
+                        >
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span>Mark Served</span>
+                        </button>
+                      </div>
+
+                      {/* Items */}
+                      <div className="divide-y divide-slate-100 bg-slate-50 rounded-lg p-2.5 border border-slate-100 text-xs">
+                        {billData.items.map((it, idx) => (
+                          <div key={idx} className="py-1.5 flex items-center justify-between first:pt-0 last:pb-0">
+                            <div className="flex items-center space-x-2">
+                              <span
+                                className={`w-2 h-2 rounded-full ${
+                                  it.isVeg ? 'bg-emerald-500' : 'bg-rose-500'
+                                }`}
+                              />
+                              <span className="font-bold text-slate-800">{it.name}</span>
+                              {it.itemNote && (
+                                <span className="text-[10px] text-amber-700 bg-amber-50 px-1 py-0.5 rounded">
+                                  {it.itemNote}
+                                </span>
+                              )}
+                            </div>
+                            <span className="font-black text-slate-700 bg-white px-2 py-0.5 rounded border border-slate-200">
+                              × {it.quantity}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 bg-white border-t border-slate-200 flex items-center justify-between">
+              <span className="text-xs text-slate-500 font-medium">
+                {readyCount} table(s) pending serving
+              </span>
+              <button
+                onClick={() => setShowReadyOrdersModal(false)}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs touch-btn"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

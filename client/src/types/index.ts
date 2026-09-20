@@ -147,7 +147,7 @@ export interface AddOnOption {
 }
 
 export type OrderType = 'DineIn' | 'Delivery' | 'PickUp' | 'TakeAway' | 'Parcel';
-export type OrderStatus = 'Pending' | 'KotCreated' | 'FoodReady' | 'Dispatched' | 'Delivered' | 'Cancelled';
+export type OrderStatus = 'Pending' | 'KotCreated' | 'FoodReady' | 'Dispatched' | 'Delivered' | 'Cancelled' | 'Served';
 export type PaymentMode = 'NotPaid' | 'Cash' | 'Card' | 'UPI' | 'Online' | 'Split' | 'Other';
 export type AggregatorSource = 'Direct' | 'Zomato' | 'Swiggy' | 'Magicpin';
 
@@ -206,5 +206,8 @@ export interface Order {
   foodReadyAt?: string;
   dispatchedAt?: string;
   deliveredAt?: string;
+  servedAt?: string;
+  servedByWaiterId?: string;
+  servedByWaiterName?: string;
   cancelledAt?: string;
 }

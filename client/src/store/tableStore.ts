@@ -19,12 +19,17 @@ export interface TableData {
   customerPhone?: string;
   paymentMode?: PaymentMode;
   lastSentQuantities?: Record<string, number>;
+  foodReady?: boolean;
+  foodReadyAt?: string;
+  servedAt?: string;
+  orderId?: string;
 }
 
 interface TableStoreState {
   tables: TableData[];
   fetchTablesFromApi: () => Promise<void>;
   initializeSignalRSync: () => void;
+  markTableServed: (tableNumber: string, orderId?: string) => Promise<boolean>;
   createTable: (table: { tableNumber: string; section: string; capacity: number }) => Promise<{ success: boolean; message?: string; table?: TableData }>;
   updateTable: (id: string, updates: { tableNumber?: string; section?: string; capacity?: number }) => Promise<{ success: boolean; message?: string }>;
   deleteTable: (id: string) => Promise<{ success: boolean; message?: string }>;
@@ -49,21 +54,55 @@ export const useTableStore = create<TableStoreState>()(
 
       fetchTablesFromApi: async () => {
         try {
-          const res = await apiClient.get<{ success: boolean; data: any[] }>('/tables');
-          if (res.data?.success && Array.isArray(res.data.data)) {
-            const mapped: TableData[] = res.data.data.map((t: any) => {
+          const [tablesRes, ordersRes] = await Promise.allSettled([
+            apiClient.get<{ success: boolean; data: any[] }>('/tables'),
+            apiClient.get<{ success: boolean; data: any[] }>('/orders?limit=100'),
+          ]);
+
+          if (tablesRes.status === 'fulfilled' && tablesRes.value.data?.success && Array.isArray(tablesRes.value.data.data)) {
+            const activeOrders =
+              ordersRes.status === 'fulfilled' && ordersRes.value.data?.success && Array.isArray(ordersRes.value.data.data)
+                ? ordersRes.value.data.data
+                : [];
+
+            const mapped: TableData[] = tablesRes.value.data.data.map((t: any) => {
               const existing = get().tables.find((et) => et.tableNumber.toUpperCase() === t.tableNumber?.toUpperCase());
+
+              // Find latest open order for this table
+              const tableOrder = activeOrders.find(
+                (o: any) =>
+                  o.tableNumber &&
+                  o.tableNumber.toUpperCase() === t.tableNumber?.toUpperCase() &&
+                  o.status !== 5 &&
+                  o.status !== 6 &&
+                  o.status !== 'Delivered' &&
+                  o.status !== 'Cancelled'
+              );
+
+              const isFoodReady = tableOrder
+                ? tableOrder.status === 3 || tableOrder.status === 'FoodReady'
+                : Boolean(existing?.foodReady);
+              const isServed = tableOrder
+                ? tableOrder.status === 7 || tableOrder.status === 'Served'
+                : Boolean(existing?.servedAt);
+
               return {
                 id: t.id,
                 tableNumber: t.tableNumber,
                 section: t.section || 'Main Hall',
                 capacity: t.seatingCapacity || 4,
-                isOccupied: t.isOccupied ?? existing?.isOccupied ?? false,
-                orderTotal: existing?.orderTotal,
-                orderTime: existing?.orderTime,
-                billNumber: existing?.billNumber,
-                kotNumber: existing?.kotNumber,
-                items: existing?.items || [],
+                isOccupied: t.isOccupied ?? existing?.isOccupied ?? Boolean(tableOrder),
+                orderTotal: tableOrder?.totalAmount ?? existing?.orderTotal,
+                orderTime: tableOrder?.placedAt
+                  ? new Date(tableOrder.placedAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+                  : existing?.orderTime,
+                billNumber: tableOrder?.billNumber ?? existing?.billNumber,
+                kotNumber: tableOrder?.kotNumber ?? existing?.kotNumber,
+                items: tableOrder?.items ?? existing?.items ?? [],
+                foodReady: isFoodReady,
+                foodReadyAt: tableOrder?.foodReadyAt ?? existing?.foodReadyAt,
+                servedAt: isServed ? (tableOrder?.servedAt ?? existing?.servedAt) : undefined,
+                orderId: tableOrder?.id ?? existing?.orderId,
               };
             });
             set({ tables: mapped });
@@ -90,6 +129,8 @@ export const useTableStore = create<TableStoreState>()(
                   billNumber: isOccupied ? (data.billNumber ?? t.billNumber) : undefined,
                   kotNumber: isOccupied ? (data.kotNumber ?? t.kotNumber) : undefined,
                   items: isOccupied ? (data.items ?? t.items ?? []) : [],
+                  foodReady: isOccupied ? t.foodReady : false,
+                  servedAt: isOccupied ? t.servedAt : undefined,
                 };
               }
               return t;
@@ -101,6 +142,97 @@ export const useTableStore = create<TableStoreState>()(
           console.log('--> [tableStore] TableListChanged real-time event:', data);
           get().fetchTablesFromApi();
         });
+
+        signalRService.on('ReceiveOrderUpdate', (order: any) => {
+          if (!order || !order.tableNumber) return;
+          console.log('--> [tableStore] ReceiveOrderUpdate real-time event:', order);
+          const targetTableNum = String(order.tableNumber).trim().toUpperCase();
+
+          set((state) => ({
+            tables: state.tables.map((t) => {
+              if (t.tableNumber.toUpperCase() === targetTableNum) {
+                const isReady = order.status === 3 || order.status === 'FoodReady';
+                const isServed = order.status === 7 || order.status === 'Served';
+                const isCleared = order.status === 5 || order.status === 'Delivered' || order.status === 6 || order.status === 'Cancelled';
+
+                if (isCleared) {
+                  return {
+                    ...t,
+                    foodReady: false,
+                    foodReadyAt: undefined,
+                    servedAt: undefined,
+                  };
+                }
+
+                return {
+                  ...t,
+                  isOccupied: true,
+                  orderId: order.id || t.orderId,
+                  kotNumber: order.kotNumber || t.kotNumber,
+                  foodReady: isReady ? true : (isServed ? false : t.foodReady),
+                  foodReadyAt: isReady ? (order.foodReadyAt || new Date().toISOString()) : t.foodReadyAt,
+                  servedAt: isServed ? (order.servedAt || new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })) : (isReady ? undefined : t.servedAt),
+                };
+              }
+              return t;
+            }),
+          }));
+        });
+
+        signalRService.on('OrderStatusChanged', (data: any) => {
+          if (!data || !data.tableNumber) return;
+          console.log('--> [tableStore] OrderStatusChanged real-time event:', data);
+          const targetTableNum = String(data.tableNumber).trim().toUpperCase();
+
+          set((state) => ({
+            tables: state.tables.map((t) => {
+              if (t.tableNumber.toUpperCase() === targetTableNum) {
+                const isReady = data.status === 3 || data.statusName === 'FoodReady';
+                const isServed = data.status === 7 || data.statusName === 'Served';
+
+                return {
+                  ...t,
+                  isOccupied: true,
+                  orderId: data.orderId || t.orderId,
+                  kotNumber: data.kotNumber || t.kotNumber,
+                  foodReady: isReady ? true : (isServed ? false : t.foodReady),
+                  foodReadyAt: isReady ? (data.foodReadyAt || new Date().toISOString()) : t.foodReadyAt,
+                  servedAt: isServed ? (data.servedAt || new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })) : (isReady ? undefined : t.servedAt),
+                };
+              }
+              return t;
+            }),
+          }));
+        });
+      },
+
+      markTableServed: async (tableNumber: string, orderId?: string) => {
+        try {
+          const table = get().tables.find((t) => t.tableNumber.toUpperCase() === tableNumber.toUpperCase());
+          const targetId = orderId || table?.orderId || table?.kotNumber || table?.billNumber;
+
+          if (targetId) {
+            await apiClient.patch(`/orders/${encodeURIComponent(targetId)}/status`, { status: 7 });
+          }
+
+          const nowTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+          set((state) => ({
+            tables: state.tables.map((t) =>
+              t.tableNumber.toUpperCase() === tableNumber.toUpperCase()
+                ? {
+                    ...t,
+                    foodReady: false,
+                    servedAt: nowTime,
+                  }
+                : t
+            ),
+          }));
+
+          return true;
+        } catch (err) {
+          console.error('Failed to mark table as served:', err);
+          return false;
+        }
       },
 
       vacateTable: (tableNumber: string) => {
@@ -128,6 +260,10 @@ export const useTableStore = create<TableStoreState>()(
                   kotNumber: undefined,
                   paymentMode: undefined,
                   lastSentQuantities: undefined,
+                  foodReady: false,
+                  foodReadyAt: undefined,
+                  servedAt: undefined,
+                  orderId: undefined,
                 }
               : t
           ),

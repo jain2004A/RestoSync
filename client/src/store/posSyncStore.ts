@@ -283,8 +283,8 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
       if (!order) return;
       console.log('--> [posSyncStore] SignalR real-time event received:', order);
 
-      // Status 4 = FoodReady/Dispatched, 5 = Delivered/Settled
-      if (order.status === 4 || order.status === 5 || order.status === 'FoodReady' || order.status === 'Delivered') {
+      // Status 3 = FoodReady, 4 = Dispatched, 5 = Delivered, 7 = Served
+      if (order.status === 3 || order.status === 4 || order.status === 5 || order.status === 7 || order.status === 'FoodReady' || order.status === 'Dispatched' || order.status === 'Delivered' || order.status === 'Served') {
         set((state) => {
           const cleanTable = order.tableNumber ? String(order.tableNumber).trim().toUpperCase() : '';
 
@@ -547,7 +547,8 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
       completedKOTs: [completedTicket, ...state.completedKOTs.slice(0, 29)],
     }));
 
-    apiClient.patch(`/orders/${ticketId}/status`, { status: 4 }).catch(() => {});
+    // Status 3 = FoodReady in backend OrderStatus enum
+    apiClient.patch(`/orders/${ticketId}/status`, { status: 3 }).catch(() => {});
   },
 
   recallLastKOT: () => {
