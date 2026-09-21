@@ -91,9 +91,9 @@ public class PublicController : ControllerBase
 
             await _context.Enquiries.InsertOneAsync(enquiry);
 
-            // Forward to external CRM if configured
-            var crmUrl = Environment.GetEnvironmentVariable("CRM_API_URL") ?? _configuration["CRM:ApiUrl"];
-            var crmKey = Environment.GetEnvironmentVariable("CRM_API_KEY") ?? _configuration["CRM:ApiKey"];
+            // Forward to external Quantromind CRM Integration Hub in the background
+            var crmUrl = Environment.GetEnvironmentVariable("CRM_API_URL") ?? _configuration["CRM:ApiUrl"] ?? "https://portal.quantromind.com/api/integration/leads";
+            var crmKey = Environment.GetEnvironmentVariable("CRM_API_KEY") ?? _configuration["CRM:ApiKey"] ?? "qm_a41e07ae828e799a999c5f3494ed02e75433e1ba722b8846af54e57170a33b98";
 
             if (!string.IsNullOrWhiteSpace(crmUrl))
             {
@@ -102,28 +102,54 @@ public class PublicController : ControllerBase
                     try
                     {
                         using var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
+                        client.Timeout = TimeSpan.FromSeconds(15);
                         if (!string.IsNullOrWhiteSpace(crmKey))
                         {
                             client.DefaultRequestHeaders.Add("x-api-key", crmKey);
                         }
+
+                        // Normalize formType to "Enquiry" or "Demo Request"
+                        var formType = !string.IsNullOrWhiteSpace(enquiry.FormType) &&
+                                       (enquiry.FormType.Contains("Contact", StringComparison.OrdinalIgnoreCase) ||
+                                        enquiry.FormType.Equals("Enquiry", StringComparison.OrdinalIgnoreCase))
+                            ? "Enquiry"
+                            : "Demo Request";
+
+                        var landingPage = formType == "Enquiry" ? "/contact" : "/#demo";
 
                         var payload = new
                         {
                             name = enquiry.Name,
                             email = enquiry.Email,
                             mobile = enquiry.Phone,
+                            company = enquiry.BusinessName ?? "",
                             message = enquiry.Message,
-                            businessName = enquiry.BusinessName,
-                            city = enquiry.City,
-                            domain = "quantrobill.com",
+                            interestedProduct = !string.IsNullOrWhiteSpace(enquiry.InterestedProduct) ? enquiry.InterestedProduct : "QuantroBill POS",
+                            productName = "QuantroBill",
                             websiteName = "QuantroBill POS Platform",
-                            productName = enquiry.InterestedProduct,
-                            interestedProduct = enquiry.InterestedProduct,
-                            formType = enquiry.FormType
+                            domain = "quantrobill.quantromind.com",
+                            landingPage = landingPage,
+                            formType = formType,
+                            customFields = new
+                            {
+                                businessName = enquiry.BusinessName ?? "",
+                                city = enquiry.City ?? "",
+                                outletsCount = enquiry.OutletsCount ?? "1"
+                            }
                         };
 
                         var content = new StringContent(JsonSerializer.Serialize(payload), System.Text.Encoding.UTF8, "application/json");
-                        await client.PostAsync(crmUrl, content);
+                        var response = await client.PostAsync(crmUrl, content);
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            var respBody = await response.Content.ReadAsStringAsync();
+                            _logger.LogWarning("CRM lead push for enquiry {Id} returned status {StatusCode}: {ResponseBody}",
+                                enquiry.Id, response.StatusCode, respBody);
+                        }
+                        else
+                        {
+                            _logger.LogInformation("CRM lead successfully pushed for enquiry {Id} ({FormType}).", enquiry.Id, formType);
+                        }
                     }
                     catch (Exception ex)
                     {

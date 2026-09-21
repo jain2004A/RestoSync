@@ -14,17 +14,26 @@ public class AuthController : ControllerBase
     private readonly ICurrentUserService _currentUserService;
     private readonly IMongoDbContext _context;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IConfiguration _configuration;
+    private readonly IHttpClientFactory? _httpClientFactory;
+    private readonly ILogger<AuthController> _logger;
 
     public AuthController(
         IAuthService authService,
         ICurrentUserService currentUserService,
         IMongoDbContext context,
-        IPasswordHasher passwordHasher)
+        IPasswordHasher passwordHasher,
+        IConfiguration configuration,
+        ILogger<AuthController> logger,
+        IHttpClientFactory? httpClientFactory = null)
     {
         _authService = authService;
         _currentUserService = currentUserService;
         _context = context;
         _passwordHasher = passwordHasher;
+        _configuration = configuration;
+        _logger = logger;
+        _httpClientFactory = httpClientFactory;
     }
 
     [HttpPost("login")]
@@ -76,6 +85,72 @@ public class AuthController : ControllerBase
         }
 
         var response = await _authService.RegisterOwnerAsync(request);
+
+        // Forward registration lead to Quantromind CRM Integration Hub in the background (fire-and-forget, non-blocking)
+        var crmUrl = Environment.GetEnvironmentVariable("CRM_API_URL") ?? _configuration["CRM:ApiUrl"] ?? "https://portal.quantromind.com/api/integration/leads";
+        var crmKey = Environment.GetEnvironmentVariable("CRM_API_KEY") ?? _configuration["CRM:ApiKey"] ?? "qm_a41e07ae828e799a999c5f3494ed02e75433e1ba722b8846af54e57170a33b98";
+
+        if (!string.IsNullOrWhiteSpace(crmUrl))
+        {
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    using var client = _httpClientFactory != null ? _httpClientFactory.CreateClient() : new HttpClient();
+                    client.Timeout = TimeSpan.FromSeconds(15);
+                    if (!string.IsNullOrWhiteSpace(crmKey))
+                    {
+                        client.DefaultRequestHeaders.Add("x-api-key", crmKey);
+                    }
+
+                    var crmPayload = new
+                    {
+                        name = request.OwnerName,
+                        email = request.OwnerEmail,
+                        mobile = request.OwnerPhone,
+                        company = request.BusinessName,
+                        message = $"New Restaurant/Store Registered: {request.BusinessName} ({request.BusinessType}) in {request.City}, {request.State}",
+                        interestedProduct = "QuantroBill POS",
+                        productName = "QuantroBill",
+                        websiteName = "QuantroBill POS Platform",
+                        domain = "quantrobill.quantromind.com",
+                        landingPage = "/register",
+                        formType = "Registration",
+                        customFields = new
+                        {
+                            businessName = request.BusinessName ?? "",
+                            businessType = request.BusinessType ?? "",
+                            city = request.City ?? "",
+                            state = request.State ?? "",
+                            gstin = request.GSTIN ?? ""
+                        }
+                    };
+
+                    var content = new StringContent(
+                        System.Text.Json.JsonSerializer.Serialize(crmPayload),
+                        System.Text.Encoding.UTF8,
+                        "application/json"
+                    );
+
+                    var crmResponse = await client.PostAsync(crmUrl, content);
+                    if (!crmResponse.IsSuccessStatusCode)
+                    {
+                        var responseBody = await crmResponse.Content.ReadAsStringAsync();
+                        _logger.LogWarning("CRM lead push for registered owner {Email} returned status {StatusCode}: {ResponseBody}",
+                            request.OwnerEmail, crmResponse.StatusCode, responseBody);
+                    }
+                    else
+                    {
+                        _logger.LogInformation("CRM lead successfully pushed for registered owner {Email}.", request.OwnerEmail);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Could not push registered owner {Email} to external CRM.", request.OwnerEmail);
+                }
+            });
+        }
+
         return Ok(new { success = true, data = response, message = "Registration successful! Welcome to QuantroBill." });
     }
 

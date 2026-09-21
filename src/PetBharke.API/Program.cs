@@ -315,6 +315,14 @@ public static class DotEnvLoader
                 {
                     Environment.SetEnvironmentVariable("Razorpay__KeySecret", val);
                 }
+                else if (key == "CRM_API_URL")
+                {
+                    Environment.SetEnvironmentVariable("CRM__ApiUrl", val);
+                }
+                else if (key == "CRM_API_KEY")
+                {
+                    Environment.SetEnvironmentVariable("CRM__ApiKey", val);
+                }
             }
         }
         catch
