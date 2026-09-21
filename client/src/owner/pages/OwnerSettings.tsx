@@ -744,7 +744,7 @@ export const OwnerSettings: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-black hover:bg-neutral-800 disabled:opacity-50 text-white font-bold rounded-lg shadow-2xs transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold rounded-lg shadow-sm shadow-blue-500/20 transition cursor-pointer"
             >
               {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
               <span>{isSaving ? 'Saving...' : 'Save All Configurations'}</span>

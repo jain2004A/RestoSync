@@ -135,11 +135,11 @@ export const TeamMemberEditorPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full font-sans">
       <div className="mb-4">
         <button
           onClick={() => navigate('/superadmin/team')}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Admin Team</span>
@@ -168,7 +168,7 @@ export const TeamMemberEditorPage: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Details */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
             1. Staff Member Identity
           </h2>
@@ -183,7 +183,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 placeholder="e.g. Ramesh Kulkarni"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
               />
             </div>
 
@@ -198,7 +198,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="e.g. ramesh@quantromind.com"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden disabled:bg-slate-100"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden disabled:bg-slate-100 text-slate-900"
               />
             </div>
 
@@ -211,7 +211,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 placeholder="e.g. ramesh_support"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
               />
             </div>
 
@@ -224,7 +224,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+91 98765 43210"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
               />
             </div>
 
@@ -238,7 +238,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                 value={formData.password || ''}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 placeholder="••••••••"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
               />
             </div>
 
@@ -257,7 +257,7 @@ export const TeamMemberEditorPage: React.FC = () => {
         </div>
 
         {/* Granular Permissions */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
@@ -276,7 +276,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                   permissions: availablePermissions.map((p) => p.id),
                 })
               }
-              className="text-xs font-bold text-blue-600 hover:underline"
+              className="text-xs font-bold text-blue-600 hover:underline cursor-pointer"
             >
               Grant All
             </button>
@@ -292,7 +292,7 @@ export const TeamMemberEditorPage: React.FC = () => {
                   className={`flex items-start gap-3 p-3.5 rounded-xl border transition cursor-pointer select-none ${
                     checked
                       ? 'bg-blue-50/50 border-blue-200 text-slate-900'
-                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                      : 'bg-white border-[#eedfc8] text-slate-600 hover:bg-[#fbf7ee]'
                   }`}
                 >
                   <input
@@ -316,14 +316,14 @@ export const TeamMemberEditorPage: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/superadmin/team')}
-            className="px-4 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+            className="px-4 py-2 text-xs font-bold text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] rounded-xl shadow-xs transition cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-xs transition disabled:opacity-60 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition disabled:opacity-60 cursor-pointer"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Saving...' : isEditing ? 'Save Staff Changes' : 'Create Staff Member'}</span>

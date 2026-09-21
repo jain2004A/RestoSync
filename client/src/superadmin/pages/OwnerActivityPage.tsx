@@ -139,7 +139,7 @@ export const OwnerActivityPage: React.FC = () => {
   return (
     <div className="space-y-6 w-full font-sans">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -161,7 +161,7 @@ export const OwnerActivityPage: React.FC = () => {
               fetchOverview();
               fetchOwnerActivity();
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] text-slate-700 text-xs font-bold rounded-xl transition cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Refresh</span>
@@ -179,7 +179,7 @@ export const OwnerActivityPage: React.FC = () => {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total & Self-Registered */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Self-Registered Owners</p>
             <p className="text-2xl font-black text-slate-900 mt-1">
@@ -195,7 +195,7 @@ export const OwnerActivityPage: React.FC = () => {
         </div>
 
         {/* Card 2: Active Trials */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Active 15-Day Trials</p>
             <p className="text-2xl font-black text-amber-600 mt-1">
@@ -211,7 +211,7 @@ export const OwnerActivityPage: React.FC = () => {
         </div>
 
         {/* Card 3: Conversion Rate */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Trial Conversion Rate</p>
             <p className="text-2xl font-black text-blue-600 mt-1">
@@ -225,7 +225,7 @@ export const OwnerActivityPage: React.FC = () => {
         </div>
 
         {/* Card 4: MRR */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Active SaaS MRR</p>
             <p className="text-2xl font-black text-slate-900 mt-1">
@@ -244,10 +244,10 @@ export const OwnerActivityPage: React.FC = () => {
       {/* Main Content Layout: Left 2 cols for Registrations, Right 1 col for Live Activity Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Owner Registrations Table */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-[#eedfc8] shadow-xs overflow-hidden flex flex-col justify-between">
           <div>
             {/* Table Header & Search Filter */}
-            <div className="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-4 sm:p-5 border-b border-[#eedfc8] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                   <Users className="w-4 h-4 text-blue-600" />
@@ -265,12 +265,12 @@ export const OwnerActivityPage: React.FC = () => {
                     placeholder="Search owner, email, restaurant..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition w-48 sm:w-60"
+                    className="pl-8 pr-3 py-1.5 text-xs bg-[#fbf7ee] border border-[#eedfc8] rounded-lg text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 transition w-48 sm:w-60"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition"
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition cursor-pointer"
                 >
                   Search
                 </button>
@@ -278,7 +278,7 @@ export const OwnerActivityPage: React.FC = () => {
             </div>
 
             {/* Filter Pills */}
-            <div className="px-5 py-2.5 bg-slate-50/50 border-b border-slate-100 flex flex-wrap items-center gap-2 text-xs">
+            <div className="px-5 py-2.5 bg-[#fbf7ee]/60 border-b border-[#eedfc8] flex flex-wrap items-center gap-2 text-xs">
               <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-1">
                 Source:
               </span>
@@ -289,10 +289,10 @@ export const OwnerActivityPage: React.FC = () => {
                     setSourceFilter(src);
                     setPage(1);
                   }}
-                  className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition cursor-pointer ${
                     sourceFilter === src
                       ? 'bg-blue-600 text-white shadow-xs'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                      : 'bg-[#fbf7ee] border border-[#eedfc8] text-slate-700 hover:bg-[#f3ead7]'
                   }`}
                 >
                   {src === 'All' ? 'All Sources' : src === 'SelfRegistered' ? '🟢 Self-Registered' : '🔵 Admin-Onboarded'}
@@ -309,10 +309,10 @@ export const OwnerActivityPage: React.FC = () => {
                     setStatusFilter(st);
                     setPage(1);
                   }}
-                  className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition cursor-pointer ${
                     statusFilter === st
                       ? 'bg-slate-800 text-white shadow-xs'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100'
+                      : 'bg-[#fbf7ee] border border-[#eedfc8] text-slate-700 hover:bg-[#f3ead7]'
                   }`}
                 >
                   {st === 'All' ? 'All Status' : st === 'Free' ? '🟡 Free Trial' : st === 'Paid' ? '🟢 Paid' : st === 'Pending' ? '🟠 Pending' : '🔴 Expired'}
@@ -324,7 +324,7 @@ export const OwnerActivityPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-400 uppercase tracking-wider font-semibold text-[10px]">
+                  <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 uppercase tracking-wider font-semibold text-[10px]">
                     <th className="py-3 px-4">Owner & Restaurant</th>
                     <th className="py-3 px-4">Plan Selected</th>
                     <th className="py-3 px-4">Source</th>
@@ -333,7 +333,7 @@ export const OwnerActivityPage: React.FC = () => {
                     <th className="py-3 px-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-slate-700">
+                <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                   {loading ? (
                     <tr>
                       <td colSpan={6} className="py-12 text-center text-slate-400">
@@ -351,7 +351,7 @@ export const OwnerActivityPage: React.FC = () => {
                     </tr>
                   ) : (
                     logs.map((log) => (
-                      <tr key={log.id} className="hover:bg-slate-50/70 transition">
+                      <tr key={log.id} className="hover:bg-amber-50/40 transition">
                         {/* Owner & Restaurant */}
                         <td className="py-3 px-4">
                           <p className="font-bold text-slate-900">{log.businessName || 'Restaurant'}</p>
@@ -445,7 +445,7 @@ export const OwnerActivityPage: React.FC = () => {
                         <td className="py-3 px-4 text-right">
                           <button
                             onClick={() => navigate(`/superadmin/tenants/${log.tenantId}`)}
-                            className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                            className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1 cursor-pointer"
                           >
                             <span>Manage</span>
                             <ExternalLink className="w-3 h-3" />
@@ -460,7 +460,7 @@ export const OwnerActivityPage: React.FC = () => {
           </div>
 
           {/* Pagination Footer */}
-          <div className="p-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <div className="p-4 border-t border-[#eedfc8] flex items-center justify-between text-xs text-slate-500">
             <span>
               Page {page} of {totalPages} ({totalCount} total registrations)
             </span>
@@ -468,14 +468,14 @@ export const OwnerActivityPage: React.FC = () => {
               <button
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
+                className="p-1.5 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
+                className="p-1.5 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:hover:bg-transparent cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -484,9 +484,9 @@ export const OwnerActivityPage: React.FC = () => {
         </div>
 
         {/* Right 1 Col: Recent Owner Activity Feed (Timeline) */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#eedfc8] mb-4">
               <div className="flex items-center gap-2">
                 <Activity className="w-5 h-5 text-emerald-600" />
                 <h2 className="text-sm font-bold text-slate-900">Owner Activity Timeline</h2>
@@ -510,7 +510,7 @@ export const OwnerActivityPage: React.FC = () => {
             ) : (
               <div className="space-y-4 max-h-[600px] overflow-y-auto pr-1">
                 {activities.map((act) => (
-                  <div key={act.id} className="relative pl-5 pb-3 border-l-2 border-slate-100 last:border-none">
+                  <div key={act.id} className="relative pl-5 pb-3 border-l-2 border-[#eedfc8]/80 last:border-none">
                     <span className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-blue-500 ring-4 ring-white" />
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-bold text-slate-900">
@@ -537,10 +537,10 @@ export const OwnerActivityPage: React.FC = () => {
             )}
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100">
+          <div className="mt-4 pt-3 border-t border-[#eedfc8]">
             <button
               onClick={() => navigate('/superadmin/audit-logs')}
-              className="w-full py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-bold transition border border-slate-200 text-center"
+              className="w-full py-2 bg-[#fbf7ee] hover:bg-[#f3ead7] text-slate-700 rounded-xl text-xs font-bold transition border border-[#eedfc8] text-center cursor-pointer"
             >
               View Complete System Audit Logs
             </button>

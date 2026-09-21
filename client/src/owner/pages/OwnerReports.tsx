@@ -59,21 +59,21 @@ export const OwnerReports: React.FC = () => {
   return (
     <div className="space-y-4 max-w-7xl mx-auto font-sans text-slate-900">
       {/* Top Header */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base font-bold text-black tracking-tight">Executive Operational Reports</h1>
-          <p className="text-[11px] text-slate-400">
+          <h1 className="text-base font-bold text-slate-900 tracking-tight">Executive Operational Reports</h1>
+          <p className="text-[11px] text-slate-500">
             Day-End Z-Reports, item popularity, GST filings audit, and cashier void logs.
           </p>
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs">
-            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#fbf7ee] border border-[#eedfc8] rounded-lg text-xs">
+            <Calendar className="w-3.5 h-3.5 text-blue-600" />
             <select
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="bg-transparent font-bold text-black focus:outline-none"
+              className="bg-transparent font-bold text-slate-900 focus:outline-none cursor-pointer"
             >
               <option>Today (11/09/2026)</option>
               <option>Yesterday (10/09/2026)</option>
@@ -83,7 +83,7 @@ export const OwnerReports: React.FC = () => {
 
           <button
             onClick={() => window.print()}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-800 text-white rounded-lg text-xs font-bold transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition cursor-pointer shadow-sm shadow-blue-500/20"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Print Current Report</span>
@@ -92,13 +92,13 @@ export const OwnerReports: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 bg-white rounded-t-xl px-2 pt-2 gap-1 overflow-x-auto text-xs font-semibold">
+      <div className="flex border-b border-[#eedfc8] bg-[#fbf7ee]/60 rounded-t-xl px-2 pt-2 gap-1 overflow-x-auto text-xs font-semibold">
         <button
           onClick={() => setActiveTab('Z_REPORT')}
           className={`px-4 py-2.5 whitespace-nowrap border-b-2 transition cursor-pointer ${
             activeTab === 'Z_REPORT'
-              ? 'border-black text-black font-extrabold bg-slate-50'
-              : 'border-transparent text-slate-500 hover:text-black'
+              ? 'border-blue-600 text-blue-700 font-extrabold bg-blue-50/80'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
           }`}
         >
           Day-End Z-Report (Shift Closing)
@@ -107,8 +107,8 @@ export const OwnerReports: React.FC = () => {
           onClick={() => setActiveTab('ITEM_WISE')}
           className={`px-4 py-2.5 whitespace-nowrap border-b-2 transition cursor-pointer ${
             activeTab === 'ITEM_WISE'
-              ? 'border-black text-black font-extrabold bg-slate-50'
-              : 'border-transparent text-slate-500 hover:text-black'
+              ? 'border-blue-600 text-blue-700 font-extrabold bg-blue-50/80'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
           }`}
         >
           Item-Wise Sales Matrix
@@ -117,8 +117,8 @@ export const OwnerReports: React.FC = () => {
           onClick={() => setActiveTab('TAX_REPORT')}
           className={`px-4 py-2.5 whitespace-nowrap border-b-2 transition cursor-pointer ${
             activeTab === 'TAX_REPORT'
-              ? 'border-black text-black font-extrabold bg-slate-50'
-              : 'border-transparent text-slate-500 hover:text-black'
+              ? 'border-blue-600 text-blue-700 font-extrabold bg-blue-50/80'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
           }`}
         >
           GST & Tax Summary
@@ -127,8 +127,8 @@ export const OwnerReports: React.FC = () => {
           onClick={() => setActiveTab('VOIDS')}
           className={`px-4 py-2.5 whitespace-nowrap border-b-2 transition cursor-pointer ${
             activeTab === 'VOIDS'
-              ? 'border-black text-black font-extrabold bg-slate-50'
-              : 'border-transparent text-slate-500 hover:text-black'
+              ? 'border-blue-600 text-blue-700 font-extrabold bg-blue-50/80'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
           }`}
         >
           Discounts & Void KOT Audits
@@ -136,7 +136,7 @@ export const OwnerReports: React.FC = () => {
       </div>
 
       {/* Main Tab Panel */}
-      <div className="bg-white rounded-b-xl border border-slate-200 shadow-2xs p-5">
+      <div className="bg-white rounded-b-xl border border-[#eedfc8] shadow-2xs p-5">
         {/* 1. Z-REPORT TAB */}
         {activeTab === 'Z_REPORT' && (
           <div className="max-w-2xl mx-auto space-y-5">

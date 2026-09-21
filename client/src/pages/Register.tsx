@@ -318,9 +318,9 @@ export const Register: React.FC = () => {
   const selectedPlan = plans.find((p) => p.code === selectedPlanCode) || plans[0];
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#f4f6fa] text-slate-900 flex flex-col justify-between font-sans overflow-y-auto lg:overflow-hidden">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#faf7ee] text-slate-900 flex flex-col justify-between font-sans overflow-y-auto lg:overflow-hidden">
       {/* Top Header - Compact Brand Bar */}
-      <header className="w-full bg-white border-b border-slate-200/80 px-6 py-2.5 flex items-center justify-between shrink-0 z-20">
+      <header className="w-full bg-[#fdfbf7]/95 backdrop-blur-md border-b border-[#eedfc8] px-6 py-2.5 flex items-center justify-between shrink-0 z-20">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm font-black text-lg">
             Q
@@ -330,7 +330,7 @@ export const Register: React.FC = () => {
               <span className="text-base font-extrabold text-slate-900 tracking-tight">
                 Quantromind <span className="text-blue-600 font-black">POS</span>
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100/70 text-amber-900 border border-amber-300/60">
                 <Sparkles className="w-2.5 h-2.5" /> 15-Day Free Trial
               </span>
             </div>
@@ -344,7 +344,7 @@ export const Register: React.FC = () => {
           <span className="text-slate-500 hidden md:inline">Already registered?</span>
           <Link
             to="/login"
-            className="px-3.5 py-1.5 rounded-lg border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition shadow-xs"
+            className="px-3.5 py-1.5 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] text-slate-800 font-semibold hover:bg-[#f3ead7] transition shadow-xs"
           >
             Sign In
           </Link>
@@ -353,12 +353,12 @@ export const Register: React.FC = () => {
 
       {/* Main Full-Width Split Container (No scroll on desktop) */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-center">
-        <div className="w-full bg-white border border-slate-200/80 rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
+        <div className="w-full bg-white border border-[#eedfc8] rounded-2xl shadow-xl shadow-amber-900/5 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
           {/* Left Column: Multi-Step Registration Form */}
           <div className="lg:col-span-7 p-5 sm:p-7 flex flex-col justify-between">
             <div>
               {/* Step Wizard Tracker */}
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+              <div className="flex items-center justify-between border-b border-[#eedfc8]/80 pb-3 mb-4">
                 <div>
                   <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
                     {step === 1 && 'Restaurant Details'}
@@ -380,27 +380,29 @@ export const Register: React.FC = () => {
                         ? 'bg-emerald-600 text-white'
                         : step === 1
                         ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-400'
+                        : 'bg-[#fbf7ee] border border-[#eedfc8] text-slate-400'
                     }`}
                   >
                     {step > 1 ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : '1'}
                   </div>
-                  <div className={`w-4 h-0.5 ${step >= 2 ? 'bg-blue-600' : 'bg-slate-200'}`} />
+                  <div className={`w-4 h-0.5 ${step >= 2 ? 'bg-blue-600' : 'bg-[#eedfc8]'}`} />
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition ${
                       step > 2
                         ? 'bg-emerald-600 text-white'
                         : step === 2
                         ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-400'
+                        : 'bg-[#fbf7ee] border border-[#eedfc8] text-slate-400'
                     }`}
                   >
                     {step > 2 ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : '2'}
                   </div>
-                  <div className={`w-4 h-0.5 ${step >= 3 ? 'bg-blue-600' : 'bg-slate-200'}`} />
+                  <div className={`w-4 h-0.5 ${step >= 3 ? 'bg-blue-600' : 'bg-[#eedfc8]'}`} />
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition ${
-                      step === 3 ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-400'
+                      step === 3
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'bg-[#fbf7ee] border border-[#eedfc8] text-slate-400'
                     }`}
                   >
                     3
@@ -431,7 +433,7 @@ export const Register: React.FC = () => {
                         placeholder="e.g. Spice Route Bistro, Cafe Blossom"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                        className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
                   </div>
@@ -451,10 +453,10 @@ export const Register: React.FC = () => {
                             className={`flex flex-col sm:flex-row items-center justify-center gap-1.5 p-2 rounded-lg border text-[11px] font-semibold transition cursor-pointer text-center ${
                               isSelected
                                 ? 'bg-blue-50 border-blue-600 text-blue-900 shadow-xs'
-                                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                                : 'bg-[#fbf7ee] border-[#eedfc8] text-slate-700 hover:bg-[#f3ead7]'
                             }`}
                           >
-                            <span className={isSelected ? 'text-blue-600' : 'text-slate-400'}>
+                            <span className={isSelected ? 'text-blue-600' : 'text-slate-500'}>
                               {item.icon}
                             </span>
                             <span className="truncate">{item.label}</span>
@@ -475,7 +477,7 @@ export const Register: React.FC = () => {
                         placeholder="e.g. Pune, Mumbai"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                        className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
                     <div>
@@ -488,7 +490,7 @@ export const Register: React.FC = () => {
                         placeholder="e.g. Maharashtra"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                        className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
                   </div>
@@ -505,7 +507,7 @@ export const Register: React.FC = () => {
                       placeholder="22AAAAA0000A1Z5"
                       value={gstin}
                       onChange={(e) => setGstin(e.target.value)}
-                      className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium uppercase"
+                      className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg px-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium uppercase"
                     />
                   </div>
 
@@ -536,7 +538,7 @@ export const Register: React.FC = () => {
                         placeholder="e.g. Rajesh Patil"
                         value={ownerName}
                         onChange={(e) => setOwnerName(e.target.value)}
-                        className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                        className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                       />
                     </div>
                   </div>
@@ -554,7 +556,7 @@ export const Register: React.FC = () => {
                           placeholder="owner@restaurant.com"
                           value={ownerEmail}
                           onChange={(e) => setOwnerEmail(e.target.value)}
-                          className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
@@ -571,7 +573,7 @@ export const Register: React.FC = () => {
                           placeholder="9876543210"
                           value={ownerPhone}
                           onChange={(e) => setOwnerPhone(e.target.value)}
-                          className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
@@ -590,7 +592,7 @@ export const Register: React.FC = () => {
                           placeholder="At least 8 characters"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-9 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-9 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                         />
                         <button
                           type="button"
@@ -614,7 +616,7 @@ export const Register: React.FC = () => {
                           placeholder="Repeat password"
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          className="w-full bg-slate-50/60 border border-slate-300 text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs sm:text-sm rounded-lg pl-9 pr-3 py-2 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
@@ -624,7 +626,7 @@ export const Register: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setStep(1)}
-                      className="px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer"
+                      className="px-4 py-2 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] text-slate-800 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -658,8 +660,8 @@ export const Register: React.FC = () => {
                             onClick={() => setSelectedPlanCode(p.code)}
                             className={`cursor-pointer rounded-xl p-3 border transition-all duration-150 flex flex-col justify-between ${
                               isSelected
-                                ? 'bg-blue-50/50 border-2 border-blue-600 shadow-xs ring-1 ring-blue-600/20'
-                                : 'bg-slate-50/40 border-slate-200 hover:border-slate-300 hover:bg-white'
+                                ? 'bg-blue-50/60 border-2 border-blue-600 shadow-xs ring-1 ring-blue-600/20'
+                                : 'bg-[#fbf7ee] border-[#eedfc8] hover:border-amber-300 hover:bg-[#fdfaf2]'
                             }`}
                           >
                             <div>
@@ -681,7 +683,7 @@ export const Register: React.FC = () => {
                                   className={`w-4 h-4 rounded-full flex items-center justify-center border ${
                                     isSelected
                                       ? 'bg-blue-600 border-blue-600 text-white'
-                                      : 'border-slate-300 bg-white'
+                                      : 'border-[#eedfc8] bg-white'
                                   }`}
                                 >
                                   {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
@@ -705,7 +707,7 @@ export const Register: React.FC = () => {
                               </div>
                             </div>
 
-                            <div className="pt-2 border-t border-slate-200/60 space-y-1 text-[11px] text-slate-600">
+                            <div className="pt-2 border-t border-[#eedfc8]/60 space-y-1 text-[11px] text-slate-600">
                               <div className="flex items-center gap-1.5">
                                 <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
                                 <span className="truncate">Up to {p.maxOutlets} Outlet & {p.maxStaffUsers} Staff</span>
@@ -723,7 +725,7 @@ export const Register: React.FC = () => {
 
                   {/* Selected Plan Summary Line */}
                   {selectedPlan && (
-                    <div className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-200/80 flex items-center justify-between text-xs">
+                    <div className="p-2.5 rounded-lg bg-blue-50/70 border border-blue-200/90 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <Zap className="w-4 h-4 text-blue-600 shrink-0" />
                         <div>
@@ -744,7 +746,7 @@ export const Register: React.FC = () => {
                       type="button"
                       disabled={loading}
                       onClick={() => setStep(2)}
-                      className="px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer"
+                      className="px-4 py-2 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] text-slate-800 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Back</span>
@@ -772,13 +774,13 @@ export const Register: React.FC = () => {
             </div>
 
             {/* Bottom Form Note */}
-            <p className="text-[11px] text-slate-400 mt-4 border-t border-slate-100 pt-2 text-center sm:text-left">
+            <p className="text-[11px] text-slate-400 mt-4 border-t border-[#eedfc8]/80 pt-2 text-center sm:text-left">
               By registering, you agree to Quantromind POS Terms of Service. Enterprise tenant isolation guaranteed.
             </p>
           </div>
 
-          {/* Right Column: Visual Branding Panel (Like reference image) */}
-          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-slate-50 to-blue-50/50 border-l border-slate-100 p-6 flex-col justify-between">
+          {/* Right Column: Visual Branding Panel (Warm cream & blue palette) */}
+          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-[#fbf8f1] via-[#faf5ea] to-blue-50/40 border-l border-[#eedfc8] p-6 flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
@@ -806,7 +808,7 @@ export const Register: React.FC = () => {
               </p>
             </div>
 
-            <div className="space-y-2 pt-4 border-t border-slate-200/60 text-xs text-slate-700">
+            <div className="space-y-2 pt-4 border-t border-[#eedfc8] text-xs text-slate-700">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>15-Day Free Trial with all essential features</span>

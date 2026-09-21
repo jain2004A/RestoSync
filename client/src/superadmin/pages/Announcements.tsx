@@ -180,7 +180,7 @@ export const Announcements: React.FC = () => {
       )}
 
       {/* TABLE */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-12 text-center text-slate-500">
             <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
@@ -196,7 +196,7 @@ export const Announcements: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                   <th className="py-3.5 px-4">Title & Content</th>
                   <th className="py-3.5 px-4">Type</th>
                   <th className="py-3.5 px-4">Target Audience</th>
@@ -205,9 +205,9 @@ export const Announcements: React.FC = () => {
                   <th className="py-3.5 px-4 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-xs text-slate-700">
                 {filteredAnnouncements.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50/60 transition">
+                  <tr key={item.id} className="hover:bg-amber-50/40 transition">
                     <td className="py-3.5 px-4 max-w-sm">
                       <div className="font-bold text-slate-900">{item.title}</div>
                       <p className="text-slate-500 text-[11px] line-clamp-1 mt-0.5">{item.message}</p>
@@ -241,7 +241,7 @@ export const Announcements: React.FC = () => {
                         className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border uppercase tracking-wider ${
                           item.isActive
                             ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-slate-100 text-slate-500 border-slate-200'
+                            : 'bg-[#fbf7ee] text-slate-500 border-[#eedfc8]'
                         }`}
                       >
                         {item.isActive ? 'Active' : 'Expired'}
@@ -252,7 +252,7 @@ export const Announcements: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => navigate(`/superadmin/announcements/${item.id}`)}
-                          className="w-7 h-7 rounded-full border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-300 flex items-center justify-center transition cursor-pointer"
+                          className="w-7 h-7 rounded-full border border-[#eedfc8] text-slate-600 hover:text-blue-600 hover:bg-[#fbf7ee] flex items-center justify-center transition cursor-pointer"
                           title="Edit Announcement"
                         >
                           <Edit2 className="w-3.5 h-3.5" />

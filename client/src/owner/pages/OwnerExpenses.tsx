@@ -91,17 +91,17 @@ export const OwnerExpenses: React.FC = () => {
   return (
     <div className="space-y-4 max-w-7xl mx-auto font-sans text-slate-900">
       {/* Header */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base font-bold text-black tracking-tight">Daily Expenses & Petty Cash</h1>
-          <p className="text-[11px] text-slate-400">
+          <h1 className="text-base font-bold text-slate-900 tracking-tight">Daily Expenses & Petty Cash</h1>
+          <p className="text-[11px] text-slate-500">
             Log vendor purchases, utility payments, maintenance and staff salary advances.
           </p>
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold rounded-lg shadow-2xs transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm shadow-blue-500/20 transition cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Add Expense Voucher</span>
@@ -110,35 +110,36 @@ export const OwnerExpenses: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-black text-white p-4 rounded-xl shadow-2xs">
-          <p className="text-[10px] uppercase font-black tracking-wider text-slate-400">Total Outflow</p>
-          <p className="text-xl font-black mt-1">₹{totalExpenseToday.toLocaleString('en-IN')}.00</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">{expenses.length} Vouchers Recorded</p>
+        {/* Highlight Card: Rich Royal Blue & Navy Gradient */}
+        <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-950 text-white p-4 rounded-xl shadow-md border border-blue-800/40">
+          <p className="text-[10px] uppercase font-black tracking-wider text-blue-200">Total Outflow</p>
+          <p className="text-xl font-black mt-1 text-white">₹{totalExpenseToday.toLocaleString('en-IN')}.00</p>
+          <p className="text-[10px] text-amber-300 font-semibold mt-0.5">{expenses.length} Vouchers Recorded</p>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-2xs">
+        <div className="bg-white border border-[#eedfc8] p-4 rounded-xl shadow-2xs">
           <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Petty Cash Disbursed</p>
-          <p className="text-xl font-black text-black mt-1">₹{totalCashPaid.toLocaleString('en-IN')}.00</p>
+          <p className="text-xl font-black text-slate-900 mt-1">₹{totalCashPaid.toLocaleString('en-IN')}.00</p>
           <p className="text-[10px] text-slate-400 mt-0.5">Paid from drawer cash</p>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-2xs">
+        <div className="bg-white border border-[#eedfc8] p-4 rounded-xl shadow-2xs">
           <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Digital / UPI Payments</p>
-          <p className="text-xl font-black text-black mt-1">₹{totalUpiPaid.toLocaleString('en-IN')}.00</p>
+          <p className="text-xl font-black text-slate-900 mt-1">₹{totalUpiPaid.toLocaleString('en-IN')}.00</p>
           <p className="text-[10px] text-slate-400 mt-0.5">Paid directly via bank/UPI</p>
         </div>
       </div>
 
       {/* Category Pills */}
-      <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs flex items-center gap-1.5 overflow-x-auto">
+      <div className="bg-white p-3 rounded-xl border border-[#eedfc8] shadow-2xs flex items-center gap-1.5 overflow-x-auto">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer whitespace-nowrap ${
               selectedCategory === cat
-                ? 'bg-black text-white shadow-2xs'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'bg-blue-600 text-white shadow-xs'
+                : 'bg-[#fbf7ee] text-slate-700 border border-[#eedfc8] hover:bg-[#f3ead7]'
             }`}
           >
             {cat}
@@ -147,10 +148,10 @@ export const OwnerExpenses: React.FC = () => {
       </div>
 
       {/* Expense Vouchers Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#eedfc8] shadow-2xs overflow-hidden">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+            <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 font-bold uppercase tracking-wider text-[10px]">
               <th className="py-2.5 px-4">Voucher No</th>
               <th className="py-2.5 px-4">Title / Particulars</th>
               <th className="py-2.5 px-4">Category</th>
@@ -161,29 +162,29 @@ export const OwnerExpenses: React.FC = () => {
               <th className="py-2.5 px-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-amber-100/60">
             {filteredExpenses.map((exp) => (
-              <tr key={exp.id} className="hover:bg-slate-50/70 transition">
-                <td className="py-3 px-4 font-mono font-bold text-black">{exp.voucherNo}</td>
+              <tr key={exp.id} className="hover:bg-amber-50/40 transition">
+                <td className="py-3 px-4 font-mono font-bold text-blue-900">{exp.voucherNo}</td>
                 <td className="py-3 px-4">
-                  <p className="font-bold text-black">{exp.title}</p>
+                  <p className="font-bold text-slate-900">{exp.title}</p>
                   {exp.notes && <p className="text-[10px] text-slate-400 italic">{exp.notes}</p>}
                 </td>
                 <td className="py-3 px-4">
-                  <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold text-[10px]">
+                  <span className="px-1.5 py-0.5 rounded bg-amber-50 border border-amber-200/60 text-slate-800 font-semibold text-[10px]">
                     {exp.category}
                   </span>
                 </td>
                 <td className="py-3 px-4 text-slate-700 font-medium">{exp.paidTo}</td>
-                <td className="py-3 px-4 font-bold text-black">{exp.paymentMode}</td>
+                <td className="py-3 px-4 font-bold text-slate-900">{exp.paymentMode}</td>
                 <td className="py-3 px-4 text-slate-400 text-[11px]">{exp.date}</td>
-                <td className="py-3 px-4 text-right font-mono font-black text-black">
+                <td className="py-3 px-4 text-right font-mono font-black text-slate-900">
                   ₹{exp.amount.toLocaleString('en-IN')}.00
                 </td>
                 <td className="py-3 px-4 text-right">
                   <button
                     onClick={() => handleDelete(exp.id)}
-                    className="p-1 rounded text-slate-400 hover:text-black hover:bg-slate-100 cursor-pointer"
+                    className="p-1 rounded text-slate-400 hover:text-rose-600 hover:bg-rose-50 cursor-pointer transition"
                     title="Delete Voucher"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -205,12 +206,12 @@ export const OwnerExpenses: React.FC = () => {
       {/* Add Voucher Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-md w-full border border-slate-200 shadow-xl overflow-hidden animate-in fade-in">
-            <div className="p-4 bg-black text-white flex items-center justify-between">
+          <div className="bg-white rounded-xl max-w-md w-full border border-[#eedfc8] shadow-xl overflow-hidden animate-in fade-in">
+            <div className="p-4 bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider">New Expense Voucher</h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-white cursor-pointer"
+                className="text-white/80 hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -218,24 +219,24 @@ export const OwnerExpenses: React.FC = () => {
 
             <form onSubmit={handleSaveExpense} className="p-5 space-y-3.5 text-xs">
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Expense Title / Particulars *</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Expense Title / Particulars *</label>
                 <input
                   type="text"
                   required
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="e.g. Vegetables purchase from mandi"
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-bold text-black mb-1">Category</label>
+                  <label className="block text-[11px] font-bold text-slate-800 mb-1">Category</label>
                   <select
                     value={formCategory}
                     onChange={(e) => setFormCategory(e.target.value as OwnerExpense['category'])}
-                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none bg-white font-medium"
+                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none bg-white font-medium"
                   >
                     <option value="Raw Materials">Raw Materials</option>
                     <option value="Kitchen Gas / Fuel">Kitchen Gas / Fuel</option>
@@ -247,7 +248,7 @@ export const OwnerExpenses: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-black mb-1">Amount (₹) *</label>
+                  <label className="block text-[11px] font-bold text-slate-800 mb-1">Amount (₹) *</label>
                   <input
                     type="number"
                     min="1"
@@ -255,29 +256,29 @@ export const OwnerExpenses: React.FC = () => {
                     value={formAmount}
                     onChange={(e) => setFormAmount(e.target.value)}
                     placeholder="1500"
-                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-bold text-black mb-1">Paid To (Vendor/Person)</label>
+                  <label className="block text-[11px] font-bold text-slate-800 mb-1">Paid To (Vendor/Person)</label>
                   <input
                     type="text"
                     value={formPaidTo}
                     onChange={(e) => setFormPaidTo(e.target.value)}
                     placeholder="Vendor Name"
-                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-black mb-1">Payment Mode</label>
+                  <label className="block text-[11px] font-bold text-slate-800 mb-1">Payment Mode</label>
                   <select
                     value={formPaymentMode}
                     onChange={(e) => setFormPaymentMode(e.target.value as OwnerExpense['paymentMode'])}
-                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none bg-white font-medium"
+                    className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none bg-white font-medium"
                   >
                     <option value="Cash">Cash (Drawer)</option>
                     <option value="UPI">UPI / QR</option>
@@ -287,13 +288,13 @@ export const OwnerExpenses: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Notes / Bill Reference</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Notes / Bill Reference</label>
                 <input
                   type="text"
                   value={formNotes}
                   onChange={(e) => setFormNotes(e.target.value)}
                   placeholder="Optional memo or invoice number"
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
@@ -307,7 +308,7 @@ export const OwnerExpenses: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-black hover:bg-neutral-800 text-white font-bold rounded cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded cursor-pointer shadow-sm shadow-blue-500/20"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Create Voucher</span>

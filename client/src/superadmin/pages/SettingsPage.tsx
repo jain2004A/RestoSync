@@ -89,8 +89,8 @@ export const SettingsPage: React.FC = () => {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* 1. BRAND & SUPPORT INFORMATION */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#eedfc8]/70 pb-3">
             <Globe className="w-4 h-4 text-blue-600" />
             <h3 className="font-bold text-slate-900 text-sm">Platform Identification & Support</h3>
           </div>
@@ -103,7 +103,7 @@ export const SettingsPage: React.FC = () => {
                 required
                 value={formData.platformName}
                 onChange={(e) => setFormData({ ...formData, platformName: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -114,7 +114,7 @@ export const SettingsPage: React.FC = () => {
                 required
                 value={formData.supportEmail}
                 onChange={(e) => setFormData({ ...formData, supportEmail: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -124,15 +124,15 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={formData.supportPhone}
                 onChange={(e) => setFormData({ ...formData, supportPhone: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
         </div>
 
         {/* 2. DEFAULT FINANCIAL & SAAS TRIAL POLICIES */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#eedfc8]/70 pb-3">
             <CreditCard className="w-4 h-4 text-emerald-600" />
             <h3 className="font-bold text-slate-900 text-sm">Defaults for Onboarded Outlets</h3>
           </div>
@@ -144,7 +144,7 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={formData.defaultCurrency}
                 onChange={(e) => setFormData({ ...formData, defaultCurrency: e.target.value.toUpperCase() })}
-                className="w-full uppercase px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full uppercase px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -155,7 +155,7 @@ export const SettingsPage: React.FC = () => {
                 step="0.1"
                 value={formData.defaultTaxRate}
                 onChange={(e) => setFormData({ ...formData, defaultTaxRate: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -166,15 +166,15 @@ export const SettingsPage: React.FC = () => {
                 min={0}
                 value={formData.defaultTrialDays}
                 onChange={(e) => setFormData({ ...formData, defaultTrialDays: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
         </div>
 
         {/* 3. SMTP & GATEWAY KEYS */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#eedfc8]/70 pb-3">
             <Mail className="w-4 h-4 text-purple-600" />
             <h3 className="font-bold text-slate-900 text-sm">Automated Email Gateway (SMTP)</h3>
           </div>
@@ -186,7 +186,7 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={formData.smtpHost}
                 onChange={(e) => setFormData({ ...formData, smtpHost: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -196,7 +196,7 @@ export const SettingsPage: React.FC = () => {
                 type="number"
                 value={formData.smtpPort}
                 onChange={(e) => setFormData({ ...formData, smtpPort: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
@@ -206,15 +206,15 @@ export const SettingsPage: React.FC = () => {
                 type="email"
                 value={formData.smtpFromEmail}
                 onChange={(e) => setFormData({ ...formData, smtpFromEmail: e.target.value })}
-                className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
           </div>
         </div>
 
         {/* 4. PAYMENT GATEWAY & MAINTENANCE */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+        <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#eedfc8]/70 pb-3">
             <Shield className="w-4 h-4 text-rose-600" />
             <h3 className="font-bold text-slate-900 text-sm">Payment Gateway & Maintenance Mode</h3>
           </div>
@@ -226,17 +226,17 @@ export const SettingsPage: React.FC = () => {
                 type="text"
                 value={formData.razorpayKeyId}
                 onChange={(e) => setFormData({ ...formData, razorpayKeyId: e.target.value })}
-                className="w-full px-3 py-2 text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600"
+                className="w-full px-3 py-2 text-xs font-mono bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 rounded-xl focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
               />
             </div>
 
-            <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+            <div className="flex items-center gap-3 p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
               <input
                 type="checkbox"
                 id="maintenanceMode"
                 checked={formData.maintenanceMode}
                 onChange={(e) => setFormData({ ...formData, maintenanceMode: e.target.checked })}
-                className="w-4 h-4 text-rose-600 rounded border-slate-300 focus:ring-rose-500"
+                className="w-4 h-4 text-rose-600 rounded border-[#eedfc8] focus:ring-rose-500"
               />
               <label htmlFor="maintenanceMode" className="cursor-pointer">
                 <span className="text-xs font-bold text-slate-900 block">Emergency Maintenance Mode</span>

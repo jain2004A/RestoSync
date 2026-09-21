@@ -239,13 +239,13 @@ export const DemoEnquiriesPage: React.FC = () => {
   return (
     <div className="w-full space-y-3 font-sans">
       {/* Header Bar - Full Width & Space Optimized */}
-      <div className="bg-white border border-slate-200/80 rounded-xl px-4 py-3 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white border border-[#eedfc8] rounded-xl px-4 py-3 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
             <h1 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
               Demo Enquiries & Session Links
             </h1>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200">
               SaaS Pipeline
             </span>
           </div>
@@ -259,16 +259,16 @@ export const DemoEnquiriesPage: React.FC = () => {
             href="/demo.html"
             target="_blank"
             rel="noreferrer"
-            className="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer"
             title="Interactive Demo Screen"
           >
             <span>🌐</span>
             <span>Live Demo Portal</span>
-            <ExternalLink className="w-3 h-3 text-indigo-500" />
+            <ExternalLink className="w-3 h-3 text-blue-500" />
           </a>
           <button
             onClick={() => fetchEnquiries()}
-            className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs flex items-center gap-1.5 transition shadow-2xs cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] text-slate-700 font-semibold text-xs flex items-center gap-1.5 transition shadow-xs cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
@@ -278,7 +278,7 @@ export const DemoEnquiriesPage: React.FC = () => {
 
       {/* KPI Stats Cards - Full Width & Space Optimized */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-        <div className="bg-white border border-slate-200/80 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center justify-between">
+        <div className="bg-white border border-[#eedfc8] rounded-xl px-3.5 py-2.5 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Inquiries</p>
             <p className="text-xl font-black text-slate-900 mt-0.5">{summary.total}</p>
@@ -289,7 +289,7 @@ export const DemoEnquiriesPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200/80 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center justify-between">
+        <div className="bg-white border border-[#eedfc8] rounded-xl px-3.5 py-2.5 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">New Leads</p>
             <p className="text-xl font-black text-amber-600 mt-0.5">{summary.newCount}</p>
@@ -300,7 +300,7 @@ export const DemoEnquiriesPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200/80 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center justify-between">
+        <div className="bg-white border border-[#eedfc8] rounded-xl px-3.5 py-2.5 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Scheduled</p>
             <p className="text-xl font-black text-purple-700 mt-0.5">{summary.scheduledCount}</p>
@@ -311,7 +311,7 @@ export const DemoEnquiriesPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200/80 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center justify-between">
+        <div className="bg-white border border-[#eedfc8] rounded-xl px-3.5 py-2.5 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Converted</p>
             <p className="text-xl font-black text-emerald-700 mt-0.5">{summary.convertedCount}</p>
@@ -324,7 +324,7 @@ export const DemoEnquiriesPage: React.FC = () => {
       </div>
 
       {/* Filter & Search Bar - Full Width & Space Optimized */}
-      <div className="bg-white border border-slate-200/80 rounded-xl px-3.5 py-2.5 shadow-2xs flex flex-col md:flex-row items-center justify-between gap-2.5">
+      <div className="bg-white border border-[#eedfc8] rounded-xl px-3.5 py-2.5 shadow-xs flex flex-col md:flex-row items-center justify-between gap-2.5">
         {/* Search */}
         <form onSubmit={handleSearchSubmit} className="relative w-full md:w-96">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -333,7 +333,7 @@ export const DemoEnquiriesPage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, business, city, phone..."
-            className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs rounded-lg pl-9 pr-3 py-1.5 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
+            className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xs rounded-lg pl-9 pr-3 py-1.5 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
           />
         </form>
 
@@ -348,8 +348,8 @@ export const DemoEnquiriesPage: React.FC = () => {
               }}
               className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap cursor-pointer ${
                 statusFilter === st
-                  ? 'bg-blue-600 text-white shadow-2xs'
-                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/70'
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'bg-[#fbf7ee] text-slate-700 hover:bg-[#f3ead7] hover:text-slate-900 border border-[#eedfc8]'
               }`}
             >
               {st}
@@ -359,7 +359,7 @@ export const DemoEnquiriesPage: React.FC = () => {
       </div>
 
       {/* Enquiries List - Full Width */}
-      <div className="bg-white border border-slate-200/80 rounded-xl shadow-2xs overflow-hidden w-full">
+      <div className="bg-white border border-[#eedfc8] rounded-xl shadow-xs overflow-hidden w-full">
         {loading ? (
           <div className="p-8 text-center text-slate-400">
             <div className="w-7 h-7 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
@@ -377,7 +377,7 @@ export const DemoEnquiriesPage: React.FC = () => {
           <div className="overflow-x-auto w-full">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                   <th className="py-2.5 px-3.5 w-[22%]">Prospect & Restaurant</th>
                   <th className="py-2.5 px-3.5 w-[18%]">Contact Info</th>
                   <th className="py-2.5 px-3.5 w-[25%]">Enquiry Details</th>
@@ -386,13 +386,13 @@ export const DemoEnquiriesPage: React.FC = () => {
                   <th className="py-2.5 px-3.5 w-[8%] text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-xs">
                 {enquiries.map((item) => {
                   const cleanPhone = item.phone?.replace(/\D/g, '') || '';
                   const waNumber = cleanPhone.length === 10 ? `91${cleanPhone}` : cleanPhone;
 
                   return (
-                    <tr key={item.id} className="hover:bg-slate-50/60 transition">
+                    <tr key={item.id} className="hover:bg-amber-50/40 transition">
                       {/* Prospect & Restaurant */}
                       <td className="py-2.5 px-3.5">
                         <div className="font-bold text-slate-900 text-xs sm:text-sm">{item.name}</div>
@@ -452,7 +452,7 @@ export const DemoEnquiriesPage: React.FC = () => {
 
                       {/* Enquiry Message */}
                       <td className="py-2.5 px-3.5">
-                        <div className="text-[10px] font-semibold text-blue-700 bg-blue-50/70 border border-blue-100 rounded px-1.5 py-0.5 inline-block mb-1">
+                        <div className="text-[10px] font-semibold text-blue-700 bg-blue-50/70 border border-blue-200/60 rounded px-1.5 py-0.5 inline-block mb-1">
                           {item.interestedProduct || 'QuantroBill POS'}
                         </div>
                         <p className="text-slate-600 text-xs line-clamp-2 leading-relaxed">
@@ -491,7 +491,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                               </a>
                               <button
                                 onClick={() => handleCopyLink(item.demoLink!, item.id)}
-                                className="p-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer"
+                                className="p-1 rounded bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8]/80 text-slate-600 transition cursor-pointer"
                                 title="Copy Link"
                               >
                                 {copiedId === item.id ? (
@@ -519,7 +519,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                         ) : (
                           <button
                             onClick={() => handleOpenEdit(item)}
-                            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-300/80 transition cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-semibold text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] transition cursor-pointer"
                           >
                             <Video className="w-3 h-3 text-slate-500" />
                             <span>+ Set Link</span>
@@ -532,7 +532,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => handleOpenEdit(item)}
-                            className="px-2 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 transition cursor-pointer font-semibold text-xs flex items-center gap-1"
+                            className="px-2 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/60 transition cursor-pointer font-semibold text-xs flex items-center gap-1"
                             title="Edit Demo & Status"
                           >
                             <Edit3 className="w-3 h-3" />
@@ -557,7 +557,7 @@ export const DemoEnquiriesPage: React.FC = () => {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="p-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <div className="p-3 border-t border-[#eedfc8] flex items-center justify-between text-xs text-slate-500">
             <span>
               Showing Page {page} of {totalPages} ({totalItems} total leads)
             </span>
@@ -565,14 +565,14 @@ export const DemoEnquiriesPage: React.FC = () => {
               <button
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
+                className="p-1.5 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] disabled:opacity-40 cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-40 cursor-pointer"
+                className="p-1.5 rounded-lg border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] disabled:opacity-40 cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -584,10 +584,10 @@ export const DemoEnquiriesPage: React.FC = () => {
       {/* Edit / Schedule Demo Modal */}
       {editModalOpen && selectedEnquiry && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+          <div className="bg-white border border-[#eedfc8] rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <div className="p-5 border-b border-[#eedfc8] flex items-center justify-between bg-[#fbf7ee]/60">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                   <Video className="w-4 h-4" />
                 </div>
                 <div>
@@ -597,7 +597,7 @@ export const DemoEnquiriesPage: React.FC = () => {
               </div>
               <button
                 onClick={() => setEditModalOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-[#f3ead7] transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -625,7 +625,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                 <select
                   value={modalStatus}
                   onChange={(e) => setModalStatus(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs font-semibold focus:bg-white focus:outline-none focus:border-blue-600"
+                  className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs font-semibold focus:bg-white focus:outline-none focus:border-blue-600"
                 >
                   <option value="New">New Lead</option>
                   <option value="Contacted">Contacted / Initial Call Done</option>
@@ -645,14 +645,14 @@ export const DemoEnquiriesPage: React.FC = () => {
                   value={modalDemoLink}
                   onChange={(e) => setModalDemoLink(e.target.value)}
                   placeholder="https://meet.google.com/xyz-abc or https://quantrobill.com/demo.html"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
+                  className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
                 />
                 <div className="flex items-center gap-2 mt-1.5">
                   <span className="text-[11px] text-slate-400">Quick link templates:</span>
                   <button
                     type="button"
                     onClick={() => setModalDemoLink('/demo.html')}
-                    className="text-[11px] text-indigo-600 hover:underline cursor-pointer"
+                    className="text-[11px] text-blue-600 hover:underline cursor-pointer"
                   >
                     Interactive Demo
                   </button>
@@ -660,7 +660,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setModalDemoLink('https://meet.google.com/new')}
-                    className="text-[11px] text-indigo-600 hover:underline cursor-pointer"
+                    className="text-[11px] text-blue-600 hover:underline cursor-pointer"
                   >
                     Google Meet
                   </button>
@@ -676,7 +676,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                   type="datetime-local"
                   value={modalScheduledAt}
                   onChange={(e) => setModalScheduledAt(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
+                  className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
                 />
               </div>
 
@@ -690,7 +690,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                   value={modalNotes}
                   onChange={(e) => setModalNotes(e.target.value)}
                   placeholder="e.g. Interested in KDS & Waiter app. Requested evening 5 PM slot."
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
+                  className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
                 />
               </div>
 
@@ -704,22 +704,22 @@ export const DemoEnquiriesPage: React.FC = () => {
                   value={modalAssignedTo}
                   onChange={(e) => setModalAssignedTo(e.target.value)}
                   placeholder="e.g. Sales Executive 1 / SuperAdmin"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
+                  className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+              <div className="pt-3 border-t border-[#eedfc8] flex items-center justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setEditModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl border border-[#eedfc8] text-slate-700 font-semibold bg-[#fbf7ee] hover:bg-[#f3ead7] transition cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition shadow-sm cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition shadow-xs cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
                 >
                   {saving ? 'Saving...' : 'Save & Update Demo'}
                 </button>

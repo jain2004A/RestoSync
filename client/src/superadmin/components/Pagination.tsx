@@ -47,7 +47,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 bg-white border-t border-slate-200 text-xs text-slate-600">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-3 bg-white border-t border-[#eedfc8] text-xs text-slate-600">
       {/* Items range & Page Size selector */}
       <div className="flex items-center gap-3">
         <span>
@@ -57,12 +57,12 @@ export const Pagination: React.FC<PaginationProps> = ({
         </span>
 
         {onPageSizeChange && (
-          <div className="flex items-center gap-1.5 ml-2 border-l border-slate-200 pl-3">
+          <div className="flex items-center gap-1.5 ml-2 border-l border-[#eedfc8] pl-3">
             <span>Show</span>
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+              className="bg-[#fbf7ee] border border-[#eedfc8] text-slate-700 text-xs rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-600 cursor-pointer"
             >
               {pageSizeOptions.map((opt) => (
                 <option key={opt} value={opt}>
@@ -81,7 +81,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
-          className="p-1.5 rounded border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="p-1.5 rounded border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:cursor-not-allowed transition"
           title="First Page"
         >
           <ChevronsLeft className="w-4 h-4" />
@@ -91,7 +91,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="p-1.5 rounded border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="p-1.5 rounded border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:cursor-not-allowed transition"
           title="Previous Page"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -107,7 +107,7 @@ export const Pagination: React.FC<PaginationProps> = ({
                 className={`min-w-[28px] h-7 px-2 text-xs font-medium rounded transition ${
                   currentPage === page
                     ? 'bg-blue-600 text-white shadow-xs font-semibold'
-                    : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
+                    : 'border border-[#eedfc8] bg-[#fbf7ee] text-slate-700 hover:bg-[#f3ead7]'
                 }`}
               >
                 {page}
@@ -124,7 +124,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="p-1.5 rounded border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="p-1.5 rounded border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:cursor-not-allowed transition"
           title="Next Page"
         >
           <ChevronRight className="w-4 h-4" />
@@ -134,7 +134,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(totalPages)}
           disabled={currentPage === totalPages}
-          className="p-1.5 rounded border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="p-1.5 rounded border border-[#eedfc8] bg-[#fbf7ee] text-slate-600 hover:bg-[#f3ead7] disabled:opacity-40 disabled:cursor-not-allowed transition"
           title="Last Page"
         >
           <ChevronsRight className="w-4 h-4" />

@@ -96,17 +96,17 @@ export const OwnerCredit: React.FC = () => {
   return (
     <div className="space-y-4 max-w-7xl mx-auto font-sans text-slate-900">
       {/* Header */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-base font-bold text-black tracking-tight">Credit Customers Ledger</h1>
-          <p className="text-[11px] text-slate-400">
+          <h1 className="text-base font-bold text-slate-900 tracking-tight">Credit Customers Ledger</h1>
+          <p className="text-[11px] text-slate-500">
             Monitor outstanding credit balances, corporate credit accounts, and record debt settlements.
           </p>
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold rounded-lg shadow-2xs transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm shadow-blue-500/20 transition cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>New Credit Account</span>
@@ -115,46 +115,47 @@ export const OwnerCredit: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-black text-white p-4 rounded-xl shadow-2xs">
+        {/* Highlight Card: Rich Royal Blue & Navy Gradient */}
+        <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-950 text-white p-4 rounded-xl shadow-md border border-blue-800/40">
           <div className="flex items-center justify-between">
-            <p className="text-[10px] uppercase font-black tracking-wider text-slate-400">Total Outstanding Debt</p>
-            <AlertTriangle className="w-4 h-4 text-amber-400" />
+            <p className="text-[10px] uppercase font-black tracking-wider text-blue-200">Total Outstanding Debt</p>
+            <AlertTriangle className="w-4 h-4 text-amber-300" />
           </div>
-          <p className="text-xl font-black mt-1">₹{totalOutstandingDue.toLocaleString('en-IN')}.00</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">{pendingAccountsCount} Accounts Pending</p>
+          <p className="text-xl font-black mt-1 text-white">₹{totalOutstandingDue.toLocaleString('en-IN')}.00</p>
+          <p className="text-[10px] text-amber-300 font-semibold mt-0.5">{pendingAccountsCount} Accounts Pending</p>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-2xs">
+        <div className="bg-white border border-[#eedfc8] p-4 rounded-xl shadow-2xs">
           <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Accounts in Good Standing</p>
-          <p className="text-xl font-black text-black mt-1">
+          <p className="text-xl font-black text-slate-900 mt-1">
             {creditCustomers.length - pendingAccountsCount}
           </p>
           <p className="text-[10px] text-slate-400 mt-0.5">Fully cleared balance</p>
         </div>
 
-        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-2xs">
+        <div className="bg-white border border-[#eedfc8] p-4 rounded-xl shadow-2xs">
           <p className="text-[10px] uppercase font-bold tracking-wider text-slate-500">Corporate & VIP Accounts</p>
-          <p className="text-xl font-black text-black mt-1">{creditCustomers.length}</p>
+          <p className="text-xl font-black text-slate-900 mt-1">{creditCustomers.length}</p>
           <p className="text-[10px] text-slate-400 mt-0.5">Authorized credit customers</p>
         </div>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="bg-white p-3 rounded-xl border border-[#eedfc8] shadow-2xs">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search credit account by name or phone..."
-          className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs focus:outline-none focus:border-black"
+          className="w-full px-3 py-1.5 bg-[#fbf7ee] border border-[#eedfc8] rounded text-xs focus:outline-none focus:border-blue-600"
         />
       </div>
 
       {/* Credit Ledger Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
+      <div className="bg-white rounded-xl border border-[#eedfc8] shadow-2xs overflow-hidden">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+            <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 font-bold uppercase tracking-wider text-[10px]">
               <th className="py-2.5 px-4">Customer / Organization</th>
               <th className="py-2.5 px-4">Contact Phone</th>
               <th className="py-2.5 px-4 text-center">Visits</th>
@@ -164,18 +165,18 @@ export const OwnerCredit: React.FC = () => {
               <th className="py-2.5 px-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-amber-100/60">
             {filtered.map((c) => (
-              <tr key={c.id} className="hover:bg-slate-50/70 transition">
-                <td className="py-3 px-4 font-bold text-black">{c.name}</td>
+              <tr key={c.id} className="hover:bg-amber-50/40 transition">
+                <td className="py-3 px-4 font-bold text-slate-900">{c.name}</td>
                 <td className="py-3 px-4 font-mono text-slate-600">{c.phone}</td>
-                <td className="py-3 px-4 text-center font-bold text-black">{c.totalVisits}</td>
+                <td className="py-3 px-4 text-center font-bold text-slate-900">{c.totalVisits}</td>
                 <td className="py-3 px-4 text-right font-mono text-slate-600">
                   ₹{c.totalSpent.toLocaleString('en-IN')}.00
                 </td>
-                <td className="py-3 px-4 text-right font-mono font-black text-black">
+                <td className="py-3 px-4 text-right font-mono font-black text-slate-900">
                   {c.outstandingCreditDue > 0 ? (
-                    <span className="text-black bg-slate-100 px-2 py-0.5 rounded font-black border border-slate-300">
+                    <span className="text-rose-700 bg-rose-50 px-2 py-0.5 rounded font-black border border-rose-200">
                       ₹{c.outstandingCreditDue.toLocaleString('en-IN')}.00
                     </span>
                   ) : (
@@ -186,8 +187,8 @@ export const OwnerCredit: React.FC = () => {
                   <span
                     className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
                       c.outstandingCreditDue > 0
-                        ? 'bg-black text-white'
-                        : 'bg-slate-100 text-slate-500'
+                        ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                     }`}
                   >
                     {c.outstandingCreditDue > 0 ? 'Due Pending' : 'All Clear'}
@@ -197,7 +198,7 @@ export const OwnerCredit: React.FC = () => {
                   {c.outstandingCreditDue > 0 ? (
                     <button
                       onClick={() => handleOpenSettle(c)}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-black text-white hover:bg-neutral-800 text-[11px] font-bold rounded cursor-pointer transition shadow-2xs"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-600 text-white hover:bg-blue-700 text-[11px] font-bold rounded cursor-pointer transition shadow-2xs"
                     >
                       <CreditCard className="w-3 h-3" />
                       <span>Settle Due</span>
@@ -210,7 +211,7 @@ export const OwnerCredit: React.FC = () => {
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-slate-400 text-xs">
+                <td colSpan={7} className="py-8 text-center text-slate-400 text-xs">
                   No credit / udhar customers recorded yet.
                 </td>
               </tr>
@@ -222,28 +223,28 @@ export const OwnerCredit: React.FC = () => {
       {/* Settle Balance Modal */}
       {showSettleModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-sm w-full border border-slate-200 shadow-xl overflow-hidden animate-in fade-in">
-            <div className="p-4 bg-black text-white flex items-center justify-between">
+          <div className="bg-white rounded-xl max-w-sm w-full border border-[#eedfc8] shadow-xl overflow-hidden animate-in fade-in">
+            <div className="p-4 bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider">Settle Credit Balance</h3>
               <button
                 onClick={() => setShowSettleModal(false)}
-                className="text-slate-400 hover:text-white cursor-pointer"
+                className="text-white/80 hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleConfirmSettlement} className="p-5 space-y-3 text-xs">
-              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
-                <p className="font-bold text-black text-sm">{selectedCustomer.name}</p>
+              <div className="p-3 bg-[#fbf7ee] border border-[#eedfc8] rounded-lg">
+                <p className="font-bold text-slate-900 text-sm">{selectedCustomer.name}</p>
                 <p className="text-[11px] text-slate-500">Phone: {selectedCustomer.phone}</p>
-                <p className="text-xs font-black text-black mt-2">
-                  Total Outstanding: ₹{selectedCustomer.outstandingCreditDue.toLocaleString('en-IN')}.00
+                <p className="text-xs font-black text-slate-900 mt-2">
+                  Outstanding Due: <span className="text-rose-600">₹{selectedCustomer.outstandingCreditDue.toLocaleString('en-IN')}.00</span>
                 </p>
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Settlement Amount (₹) *</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Settlement Amount (₹) *</label>
                 <input
                   type="number"
                   min="1"
@@ -251,19 +252,19 @@ export const OwnerCredit: React.FC = () => {
                   required
                   value={settleAmount}
                   onChange={(e) => setSettleAmount(e.target.value)}
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded font-bold focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Payment Received Via</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Payment Mode</label>
                 <select
                   value={settleMode}
                   onChange={(e) => setSettleMode(e.target.value as 'Cash' | 'UPI')}
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded bg-white font-medium focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none bg-white font-medium"
                 >
-                  <option value="UPI">UPI / QR Code</option>
-                  <option value="Cash">Cash at Counter</option>
+                  <option value="Cash">Cash (Counter)</option>
+                  <option value="UPI">UPI / QR Transfer</option>
                 </select>
               </div>
 
@@ -277,7 +278,7 @@ export const OwnerCredit: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-black hover:bg-neutral-800 text-white font-bold rounded cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded cursor-pointer shadow-sm shadow-blue-500/20"
                 >
                   <ReceiptText className="w-3.5 h-3.5" />
                   <span>Confirm Settlement</span>
@@ -291,12 +292,12 @@ export const OwnerCredit: React.FC = () => {
       {/* Add New Credit Account Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-sm w-full border border-slate-200 shadow-xl overflow-hidden animate-in fade-in">
-            <div className="p-4 bg-black text-white flex items-center justify-between">
+          <div className="bg-white rounded-xl max-w-sm w-full border border-[#eedfc8] shadow-xl overflow-hidden animate-in fade-in">
+            <div className="p-4 bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex items-center justify-between">
               <h3 className="text-xs font-bold uppercase tracking-wider">New Credit Account</h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-white cursor-pointer"
+                className="text-white/80 hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -304,19 +305,19 @@ export const OwnerCredit: React.FC = () => {
 
             <form onSubmit={handleAddAccount} className="p-5 space-y-3.5 text-xs">
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Customer / Organization Name *</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Customer / Organization Name *</label>
                 <input
                   type="text"
                   required
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. Verma Enterprises"
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Contact Phone *</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Contact Phone *</label>
                 <input
                   type="tel"
                   maxLength={10}
@@ -324,19 +325,19 @@ export const OwnerCredit: React.FC = () => {
                   value={newPhone}
                   onChange={(e) => setNewPhone(e.target.value)}
                   placeholder="9876543210"
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded font-mono focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded font-mono focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-black mb-1">Initial Outstanding Balance (₹)</label>
+                <label className="block text-[11px] font-bold text-slate-800 mb-1">Initial Outstanding Balance (₹)</label>
                 <input
                   type="number"
                   min="0"
                   value={newInitialCredit}
                   onChange={(e) => setNewInitialCredit(e.target.value)}
                   placeholder="0"
-                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-black focus:outline-none"
+                  className="w-full px-3 py-1.5 border border-slate-300 rounded focus:border-blue-600 focus:outline-none"
                 />
               </div>
 
@@ -350,7 +351,7 @@ export const OwnerCredit: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-black hover:bg-neutral-800 text-white font-bold rounded cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded cursor-pointer shadow-sm shadow-blue-500/20"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Create Account</span>

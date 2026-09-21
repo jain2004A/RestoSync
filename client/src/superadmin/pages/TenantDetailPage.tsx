@@ -180,7 +180,7 @@ export const TenantDetailPage: React.FC = () => {
       </div>
 
       {/* HEADER CARD */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-start gap-3.5">
           <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 font-extrabold text-xl shrink-0">
             {tenant.businessName.charAt(0).toUpperCase()}
@@ -219,7 +219,7 @@ export const TenantDetailPage: React.FC = () => {
           {/* Impersonate Button */}
           <button
             onClick={() => setConfirmImpersonateOpen(true)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg shadow-2xs transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg shadow-xs transition cursor-pointer"
             title="Log in to this restaurant as owner for support"
           >
             <Key className="w-4 h-4" />
@@ -229,7 +229,7 @@ export const TenantDetailPage: React.FC = () => {
           {/* Suspend / Reactivate */}
           <button
             onClick={() => setConfirmSuspendOpen(true)}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg border shadow-2xs transition cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg border shadow-xs transition cursor-pointer ${
               tenant.isActive
                 ? 'text-amber-700 bg-amber-50 hover:bg-amber-100 border-amber-200'
                 : 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border-emerald-200'
@@ -282,7 +282,7 @@ export const TenantDetailPage: React.FC = () => {
       </div>
 
       {/* TABS NAVIGATION */}
-      <div className="border-b border-slate-200 mb-6">
+      <div className="border-b border-[#eedfc8] mb-6">
         <div className="flex items-center gap-2 overflow-x-auto">
           {[
             { id: 'overview', label: 'Profile & Overview', icon: Building2 },
@@ -301,7 +301,7 @@ export const TenantDetailPage: React.FC = () => {
                 className={`flex items-center gap-2 px-4 py-3 text-xs font-bold border-b-2 transition whitespace-nowrap cursor-pointer ${
                   isActive
                     ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-slate-500 hover:text-slate-900 hover:border-slate-300'
+                    : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-amber-300'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -315,7 +315,7 @@ export const TenantDetailPage: React.FC = () => {
       {/* TAB CONTENT */}
       {activeTab === 'overview' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs space-y-4">
+          <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
               Owner & Contact Information
             </h3>
@@ -339,7 +339,7 @@ export const TenantDetailPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs space-y-4">
+          <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
               Subscription & Entitlement Status
             </h3>
@@ -374,24 +374,24 @@ export const TenantDetailPage: React.FC = () => {
       )}
 
       {activeTab === 'outlets' && (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
+          <div className="p-4 border-b border-[#eedfc8]/80 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900">Configured Outlets ({outlets.length})</h3>
             <span className="text-xs text-slate-400">Limit: {tenant.maxOutlets} outlets</span>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px]">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 font-bold uppercase text-[10px]">
                   <th className="py-3 px-4">Outlet Name</th>
                   <th className="py-3 px-4">Code</th>
                   <th className="py-3 px-4">City / Address</th>
                   <th className="py-3 px-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                 {outlets.map((o) => (
-                  <tr key={o.id} className="hover:bg-slate-50/60">
+                  <tr key={o.id} className="hover:bg-amber-50/40">
                     <td className="py-3 px-4 font-bold text-slate-900">{o.name}</td>
                     <td className="py-3 px-4 font-mono text-slate-600">{o.code}</td>
                     <td className="py-3 px-4 text-slate-600">
@@ -417,14 +417,14 @@ export const TenantDetailPage: React.FC = () => {
       )}
 
       {activeTab === 'users' && (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
+          <div className="p-4 border-b border-[#eedfc8]/80 flex items-center justify-between">
             <h3 className="text-sm font-bold text-slate-900">Restaurant Employees & Accounts ({users.length})</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px]">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 font-bold uppercase text-[10px]">
                   <th className="py-3 px-4">User Name</th>
                   <th className="py-3 px-4">Login / Email</th>
                   <th className="py-3 px-4">Role</th>
@@ -432,9 +432,9 @@ export const TenantDetailPage: React.FC = () => {
                   <th className="py-3 px-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                 {users.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-50/60">
+                  <tr key={u.id} className="hover:bg-amber-50/40">
                     <td className="py-3 px-4 font-bold text-slate-900">{u.fullName || u.username}</td>
                     <td className="py-3 px-4 font-mono text-slate-600">{u.email}</td>
                     <td className="py-3 px-4">
@@ -463,8 +463,8 @@ export const TenantDetailPage: React.FC = () => {
       )}
 
       {activeTab === 'invoices' && (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-          <div className="p-4 border-b border-slate-100">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
+          <div className="p-4 border-b border-[#eedfc8]/80">
             <h3 className="text-sm font-bold text-slate-900">Subscription Invoices ({invoices.length})</h3>
           </div>
           {invoices.length === 0 ? (
@@ -473,7 +473,7 @@ export const TenantDetailPage: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px]">
+                  <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 font-bold uppercase text-[10px]">
                     <th className="py-3 px-4">Invoice #</th>
                     <th className="py-3 px-4">Plan & Cycle</th>
                     <th className="py-3 px-4">Date</th>
@@ -481,9 +481,9 @@ export const TenantDetailPage: React.FC = () => {
                     <th className="py-3 px-4 text-right">Amount (₹)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-slate-700">
+                <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                   {invoices.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-50/60">
+                    <tr key={inv.id} className="hover:bg-amber-50/40">
                       <td className="py-3 px-4 font-mono font-bold text-slate-900">{inv.invoiceNumber}</td>
                       <td className="py-3 px-4">
                         {inv.planName} ({inv.billingCycle})
@@ -513,7 +513,7 @@ export const TenantDetailPage: React.FC = () => {
       )}
 
       {activeTab === 'features' && (
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
@@ -556,15 +556,15 @@ export const TenantDetailPage: React.FC = () => {
                   onClick={() => setFeatures({ ...features, [f.key]: !enabled })}
                   className={`flex items-start gap-3 p-4 rounded-xl border transition cursor-pointer select-none ${
                     enabled
-                      ? 'bg-blue-50/50 border-blue-200 text-slate-900'
-                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'bg-blue-50/60 border-blue-200 text-slate-900'
+                      : 'bg-[#fbf7ee] border-[#eedfc8] text-slate-600 hover:bg-[#f3ead7]'
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={enabled}
                     onChange={() => {}}
-                    className="mt-0.5 w-4 h-4 rounded text-blue-600"
+                    className="mt-0.5 w-4 h-4 rounded text-blue-600 accent-blue-600"
                   />
                   <div>
                     <span className="text-xs font-bold block">{f.label}</span>
@@ -578,16 +578,16 @@ export const TenantDetailPage: React.FC = () => {
       )}
 
       {activeTab === 'audit' && (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
-          <div className="p-4 border-b border-slate-100">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
+          <div className="p-4 border-b border-[#eedfc8]/80">
             <h3 className="text-sm font-bold text-slate-900">Tenant Activity Log ({auditLogs.length})</h3>
           </div>
           {auditLogs.length === 0 ? (
             <div className="p-8 text-center text-slate-400 text-xs">No audit logs recorded for this tenant yet.</div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-[#eedfc8]/60">
               {auditLogs.map((log) => (
-                <div key={log.id} className="p-4 text-xs hover:bg-slate-50/60 transition">
+                <div key={log.id} className="p-4 text-xs hover:bg-amber-50/40 transition">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-slate-900">{log.action}</span>

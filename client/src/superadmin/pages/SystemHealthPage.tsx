@@ -86,7 +86,7 @@ export const SystemHealthPage: React.FC = () => {
           <button
             onClick={loadHealth}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 text-xs font-bold text-slate-700 rounded-xl hover:bg-slate-50 shadow-2xs transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#fbf7ee] border border-[#eedfc8] text-xs font-bold text-slate-800 rounded-xl hover:bg-[#f3ead7] shadow-2xs transition"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             <span>Ping Now</span>
@@ -127,8 +127,8 @@ export const SystemHealthPage: React.FC = () => {
       </div>
 
       {/* DATABASE COLLECTIONS COUNT BREAKDOWN */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
-        <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+      <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs">
+        <div className="flex items-center justify-between mb-4 border-b border-[#eedfc8]/70 pb-3">
           <div className="flex items-center gap-2">
             <HardDrive className="w-5 h-5 text-blue-600" />
             <h3 className="font-bold text-slate-900 text-sm">MongoDB Database Telemetry</h3>
@@ -139,23 +139,23 @@ export const SystemHealthPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70">
+          <div className="p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
             <span className="text-[11px] font-medium text-slate-500 block">Tenants</span>
             <span className="text-base font-extrabold text-slate-900">{health?.database?.tenantsCount ?? 0}</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70">
+          <div className="p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
             <span className="text-[11px] font-medium text-slate-500 block">Outlets / Branches</span>
             <span className="text-base font-extrabold text-slate-900">{health?.database?.outletsCount ?? 0}</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70">
+          <div className="p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
             <span className="text-[11px] font-medium text-slate-500 block">System Users</span>
             <span className="text-base font-extrabold text-slate-900">{health?.database?.usersCount ?? 1}</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70">
+          <div className="p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
             <span className="text-[11px] font-medium text-slate-500 block">Orders Processed</span>
             <span className="text-base font-extrabold text-slate-900">{health?.database?.ordersCount ?? 0}</span>
           </div>
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70">
+          <div className="p-3 bg-[#fbf7ee] rounded-xl border border-[#eedfc8]">
             <span className="text-[11px] font-medium text-slate-500 block">Invoices Generated</span>
             <span className="text-base font-extrabold text-slate-900">{health?.database?.invoicesCount ?? 0}</span>
           </div>
@@ -163,8 +163,8 @@ export const SystemHealthPage: React.FC = () => {
       </div>
 
       {/* CORE SERVICES STATUS */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#eedfc8] flex items-center justify-between">
           <h3 className="font-bold text-slate-900 text-sm">Subsystem Connectivity & Health</h3>
           <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -172,7 +172,7 @@ export const SystemHealthPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="divide-y divide-slate-100 text-xs">
+        <div className="divide-y divide-[#eedfc8]/60 text-xs">
           <div className="px-6 py-3.5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <Zap className="w-4 h-4 text-amber-500" />

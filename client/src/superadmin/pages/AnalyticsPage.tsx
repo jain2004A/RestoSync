@@ -85,7 +85,7 @@ export const AnalyticsPage: React.FC = () => {
       {/* DISTRIBUTIONS GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Plan Breakdown */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-slate-900">Subscription Plans Share</h3>
             <span className="text-[10px] font-semibold text-slate-400">By Tenant Count</span>
@@ -101,7 +101,7 @@ export const AnalyticsPage: React.FC = () => {
                     <span className="font-semibold text-slate-700">{item.plan}</span>
                     <span className="font-bold text-slate-900">{item.count} ({item.share || 0}%)</span>
                   </div>
-                  <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-[#fbf7ee] border border-[#eedfc8]/60 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-blue-600 rounded-full transition-all duration-500"
                       style={{ width: `${Math.min(item.share || (item.count * 20), 100)}%` }}
@@ -114,7 +114,7 @@ export const AnalyticsPage: React.FC = () => {
         </div>
 
         {/* City / Geographic Distribution */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-slate-900">Geographic Density</h3>
             <MapPin className="w-4 h-4 text-slate-400" />
@@ -125,9 +125,9 @@ export const AnalyticsPage: React.FC = () => {
               <p className="text-xs text-slate-400 py-6 text-center">No regional data yet.</p>
             ) : (
               analytics.cityDistribution.map((item) => (
-                <div key={item.city} className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-xs">
+                <div key={item.city} className="flex items-center justify-between py-1.5 border-b border-[#eedfc8]/60 last:border-0 text-xs">
                   <span className="font-semibold text-slate-700">{item.city || 'Unknown'}</span>
-                  <span className="font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-800">
+                  <span className="font-bold px-2 py-0.5 rounded-md bg-[#fbf7ee] text-slate-800 border border-[#eedfc8]">
                     {item.count} Outlets
                   </span>
                 </div>
@@ -137,7 +137,7 @@ export const AnalyticsPage: React.FC = () => {
         </div>
 
         {/* Business Type Breakdown */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-bold text-slate-900">Restaurant Categories</h3>
             <UtensilsCrossed className="w-4 h-4 text-slate-400" />
@@ -148,7 +148,7 @@ export const AnalyticsPage: React.FC = () => {
               <p className="text-xs text-slate-400 py-6 text-center">No categories recorded yet.</p>
             ) : (
               analytics.businessTypeDistribution.map((item) => (
-                <div key={item.type} className="flex items-center justify-between py-1.5 border-b border-slate-100 last:border-0 text-xs">
+                <div key={item.type} className="flex items-center justify-between py-1.5 border-b border-[#eedfc8]/60 last:border-0 text-xs">
                   <span className="font-semibold text-slate-700">{item.type}</span>
                   <span className="font-bold px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200">
                     {item.count}
@@ -161,7 +161,7 @@ export const AnalyticsPage: React.FC = () => {
       </div>
 
       {/* HEALTH & PERFORMANCE BANNER */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 rounded-2xl text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 p-6 rounded-2xl text-white shadow-xl border border-blue-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>

@@ -98,12 +98,12 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#f4f6fa] text-slate-900 flex flex-col justify-between font-sans overflow-y-auto lg:overflow-hidden">
-      {/* Top Header - Compact Brand Bar (identical to Register page) */}
-      <header className="w-full bg-white border-b border-slate-200/80 px-6 py-2.5 flex items-center justify-between shrink-0 z-20">
+    <div className="min-h-screen lg:h-screen lg:max-h-screen bg-[#faf7ee] text-slate-900 flex flex-col justify-between font-sans overflow-y-auto lg:overflow-hidden">
+      {/* Top Header - Compact Brand Bar (Warm Cream & Royal Blue) */}
+      <header className="w-full bg-[#fdfbf7]/95 backdrop-blur-md border-b border-[#eedfc8] px-6 py-2.5 flex items-center justify-between shrink-0 z-20">
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-3 no-underline">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm font-black text-lg">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20 font-black text-lg">
               Q
             </div>
             <div>
@@ -126,7 +126,7 @@ export const Login: React.FC = () => {
           <span className="text-slate-500 hidden md:inline">New restaurant or cafe?</span>
           <Link
             to="/register"
-            className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shadow-xs flex items-center gap-1.5"
+            className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition shadow-sm shadow-blue-500/20 flex items-center gap-1.5"
           >
             <span>Register Restaurant</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -134,16 +134,16 @@ export const Login: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Split Container (matching Register page layout) */}
+      {/* Main Split Container */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-center">
-        <div className="w-full bg-white border border-slate-200/80 rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
+        <div className="w-full bg-white border border-[#eedfc8] rounded-2xl shadow-xl shadow-amber-900/5 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
           {/* Left Column: Login Form */}
           <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
             <div>
               {/* Card Header */}
-              <div className="border-b border-slate-100 pb-4 mb-5">
+              <div className="border-b border-amber-100 pb-4 mb-5">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">
                     Portal Access
                   </span>
                 </div>
@@ -156,7 +156,7 @@ export const Login: React.FC = () => {
               </div>
 
               {/* Mode Switcher */}
-              <div className="flex rounded-xl bg-slate-100 p-1 mb-5 border border-slate-200">
+              <div className="flex rounded-xl bg-[#fbf7ee] p-1 mb-5 border border-[#eedfc8]">
                 <button
                   type="button"
                   onClick={() => {
@@ -165,7 +165,7 @@ export const Login: React.FC = () => {
                   }}
                   className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     loginMode === 'password'
-                      ? 'bg-white text-slate-900 shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -180,7 +180,7 @@ export const Login: React.FC = () => {
                   }}
                   className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     loginMode === 'pin'
-                      ? 'bg-white text-slate-900 shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -213,7 +213,7 @@ export const Login: React.FC = () => {
                           value={identifier}
                           onChange={(e) => setIdentifier(e.target.value)}
                           placeholder="e.g. owner@bistro.com or cashier1"
-                          className="w-full bg-slate-50/70 border border-slate-300 text-slate-900 text-sm rounded-xl pl-9 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-sm rounded-xl pl-9 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder:text-slate-400 font-medium"
                         />
                       </div>
                     </div>
@@ -232,7 +232,7 @@ export const Login: React.FC = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="Enter your account password"
-                          className="w-full bg-slate-50/70 border border-slate-300 text-slate-900 text-sm rounded-xl pl-9 pr-10 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder:text-slate-400 font-medium"
+                          className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-sm rounded-xl pl-9 pr-10 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all placeholder:text-slate-400 font-medium"
                         />
                         <button
                           type="button"
@@ -257,7 +257,7 @@ export const Login: React.FC = () => {
                         value={pin}
                         onChange={(e) => setPin(e.target.value)}
                         placeholder="••••"
-                        className="w-full bg-slate-50/70 border border-slate-300 text-slate-900 text-xl tracking-widest text-center rounded-xl pl-9 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all font-bold"
+                        className="w-full bg-[#fbf7ee] border border-[#eedfc8] text-slate-900 text-xl tracking-widest text-center rounded-xl pl-9 pr-3 py-2.5 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all font-bold"
                         autoFocus
                       />
                     </div>
@@ -284,14 +284,14 @@ export const Login: React.FC = () => {
               </form>
 
               {/* Register Restaurant CTA Banner */}
-              <div className="mt-5 p-3.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-blue-500/10 border border-emerald-500/25 rounded-xl flex items-center justify-between">
+              <div className="mt-5 p-3.5 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-blue-500/10 border border-[#eedfc8] rounded-xl flex items-center justify-between">
                 <div>
                   <p className="text-xs font-bold text-slate-900">Need a POS for your restaurant?</p>
                   <p className="text-[11px] text-slate-500">Get 15 days free access with full features.</p>
                 </div>
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-3 py-1.5 rounded-lg transition"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg transition shadow-sm shadow-blue-500/20"
                 >
                   <span>Start Free Trial</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -300,17 +300,17 @@ export const Login: React.FC = () => {
             </div>
 
             {/* Bottom Form Note */}
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <div className="mt-4 pt-3 border-t border-amber-100 flex items-center justify-between text-xs text-slate-500">
               <div className="flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                <Building2 className="w-3.5 h-3.5 text-blue-600" />
                 <span>Multi-tenant data partitioning enabled</span>
               </div>
               <span className="text-[11px] text-slate-400">v2.4 Secure Portal</span>
             </div>
           </div>
 
-          {/* Right Column: Visual Branding Panel (identical to Register page) */}
-          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-slate-50 to-blue-50/50 border-l border-slate-100 p-6 flex-col justify-between">
+          {/* Right Column: Visual Branding Panel */}
+          <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-[#fbf8f1] via-[#faf5ea] to-blue-50/40 border-l border-[#eedfc8] p-6 flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
@@ -338,7 +338,7 @@ export const Login: React.FC = () => {
               </p>
             </div>
 
-            <div className="space-y-2 pt-4 border-t border-slate-200/60 text-xs text-slate-700">
+            <div className="space-y-2 pt-4 border-t border-[#eedfc8] text-xs text-slate-700">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Under 2-second fast billing & thermal KOT</span>

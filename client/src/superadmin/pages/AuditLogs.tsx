@@ -186,7 +186,7 @@ export const AuditLogs: React.FC = () => {
       )}
 
       {/* TABLE */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-12 text-center text-slate-500">
             <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
@@ -202,7 +202,7 @@ export const AuditLogs: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                   <th className="py-3.5 px-4">Timestamp</th>
                   <th className="py-3.5 px-4">Actor</th>
                   <th className="py-3.5 px-4">Action</th>
@@ -211,14 +211,14 @@ export const AuditLogs: React.FC = () => {
                   <th className="py-3.5 px-4">IP Address</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-xs text-slate-700">
                 {logs.map((log) => {
                   const isExpanded = expandedId === log.id;
                   return (
                     <React.Fragment key={log.id}>
                       <tr
                         onClick={() => setExpandedId(isExpanded ? null : log.id)}
-                        className="hover:bg-slate-50/70 transition cursor-pointer"
+                        className="hover:bg-amber-50/40 transition cursor-pointer"
                       >
                         <td className="py-3.5 px-4 whitespace-nowrap text-slate-500 font-mono text-[11px]">
                           <div>{new Date(log.timestamp).toLocaleDateString('en-IN')}</div>
@@ -229,7 +229,7 @@ export const AuditLogs: React.FC = () => {
 
                         <td className="py-3.5 px-4">
                           <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                            <span className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] text-slate-600 font-bold">
+                            <span className="w-5 h-5 rounded-full bg-[#fbf7ee] border border-[#eedfc8] flex items-center justify-center text-[10px] text-slate-600 font-bold">
                               {log.userName.charAt(0).toUpperCase()}
                             </span>
                             <span>{log.userName}</span>
@@ -269,9 +269,9 @@ export const AuditLogs: React.FC = () => {
                       </tr>
 
                       {isExpanded && (
-                        <tr className="bg-slate-50 border-b border-slate-100">
+                        <tr className="bg-[#fbf7ee]/40 border-b border-[#eedfc8]">
                           <td colSpan={6} className="p-4 text-xs">
-                            <div className="p-3 bg-white rounded-xl border border-slate-200 text-slate-700 space-y-2">
+                            <div className="p-3 bg-white rounded-xl border border-[#eedfc8] text-slate-700 space-y-2">
                               <div className="font-bold text-slate-900">Complete Event Breakdown:</div>
                               <p className="text-slate-600 leading-relaxed">{log.details}</p>
                               {log.changesJson && (

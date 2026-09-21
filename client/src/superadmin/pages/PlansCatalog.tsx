@@ -202,12 +202,12 @@ export const PlansCatalog: React.FC = () => {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-pulse">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-72 bg-slate-200/70 rounded-2xl"></div>
+            <div key={i} className="h-72 bg-amber-100/40 rounded-2xl border border-[#eedfc8]"></div>
           ))}
         </div>
       ) : filteredPlans.length === 0 ? (
         /* EMPTY STATE */
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-12 text-center shadow-xs">
           <Package className="w-12 h-12 text-slate-300 mx-auto mb-3" />
           <h3 className="text-base font-bold text-slate-800">No Plan Tiers Found</h3>
           <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
@@ -229,9 +229,9 @@ export const PlansCatalog: React.FC = () => {
           {filteredPlans.map((plan) => (
             <div
               key={plan.id}
-              className={`bg-white rounded-2xl border transition flex flex-col justify-between shadow-2xs hover:shadow-md relative overflow-hidden ${
-                plan.isPopular ? 'border-amber-400 ring-2 ring-amber-100' : 'border-slate-200'
-              } ${!plan.isActive ? 'opacity-70 bg-slate-50/50' : ''}`}
+              className={`bg-white rounded-2xl border transition flex flex-col justify-between shadow-xs hover:shadow-md relative overflow-hidden ${
+                plan.isPopular ? 'border-amber-400 ring-2 ring-amber-100' : 'border-[#eedfc8]'
+              } ${!plan.isActive ? 'opacity-70 bg-[#fbf7ee]/40' : ''}`}
             >
               {plan.isPopular && (
                 <div className="bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-widest text-center py-1 flex items-center justify-center gap-1">
@@ -253,7 +253,7 @@ export const PlansCatalog: React.FC = () => {
                     className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
                       plan.isActive
                         ? 'bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100'
-                        : 'bg-slate-100 text-slate-500 border border-slate-300 hover:bg-slate-200'
+                        : 'bg-[#fbf7ee] text-slate-500 border border-[#eedfc8] hover:bg-[#f3ead7]'
                     }`}
                     title="Click to toggle active/inactive status"
                   >
@@ -271,7 +271,7 @@ export const PlansCatalog: React.FC = () => {
                 </p>
 
                 {/* Price Display */}
-                <div className="my-3.5 p-3 rounded-xl bg-slate-50/90 border border-slate-100 flex items-center justify-between">
+                <div className="my-3.5 p-3 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] flex items-center justify-between">
                   <div>
                     <div className="flex items-baseline gap-1">
                       <span className="text-xl font-black text-slate-900">
@@ -290,7 +290,7 @@ export const PlansCatalog: React.FC = () => {
                     className={`px-2 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 cursor-pointer ${
                       plan.isPopular
                         ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                        : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-50'
+                        : 'bg-white text-slate-600 border border-[#eedfc8] hover:bg-[#f3ead7]'
                     }`}
                     title="Toggle Popular Badge"
                   >
@@ -300,7 +300,7 @@ export const PlansCatalog: React.FC = () => {
                 </div>
 
                 {/* Limits & Specifications */}
-                <div className="space-y-1.5 text-xs border-t border-slate-100 pt-3">
+                <div className="space-y-1.5 text-xs border-t border-[#eedfc8]/80 pt-3">
                   <div className="flex justify-between text-slate-600">
                     <span className="text-slate-400">Max Outlets:</span>
                     <span className="font-bold text-slate-800">{plan.maxOutlets} Branches</span>
@@ -316,43 +316,43 @@ export const PlansCatalog: React.FC = () => {
                 </div>
 
                 {/* Feature Inclusions */}
-                <div className="mt-3 pt-3 border-t border-slate-100">
+                <div className="mt-3 pt-3 border-t border-[#eedfc8]/80">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                     Feature Capabilities
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {plan.features?.enableKds && (
-                      <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-100">
+                      <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-200">
                         Kitchen KDS
                       </span>
                     )}
                     {plan.features?.enableWaiterApp && (
-                      <span className="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[10px] font-semibold border border-indigo-100">
+                      <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold border border-blue-200">
                         Captain App
                       </span>
                     )}
                     {plan.features?.enableAggregators && (
-                      <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-100">
+                      <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 text-[10px] font-semibold border border-amber-200">
                         Aggregators
                       </span>
                     )}
                     {plan.features?.enableRecipeInventory && (
-                      <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold border border-emerald-100">
+                      <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold border border-emerald-200">
                         Recipe & Inventory
                       </span>
                     )}
                     {plan.features?.enableKhataBook && (
-                      <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 text-[10px] font-semibold border border-purple-100">
+                      <span className="px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 text-[10px] font-semibold border border-purple-200">
                         KhataBook
                       </span>
                     )}
                     {plan.features?.enableDynamicQr && (
-                      <span className="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 text-[10px] font-semibold border border-teal-100">
+                      <span className="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 text-[10px] font-semibold border border-teal-200">
                         UPI QR
                       </span>
                     )}
                     {plan.features?.enableTableFloor && (
-                      <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-semibold border border-sky-100">
+                      <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-semibold border border-sky-200">
                         Table Floor
                       </span>
                     )}
@@ -361,10 +361,10 @@ export const PlansCatalog: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="p-3.5 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between gap-2">
+              <div className="p-3.5 bg-[#fbf7ee]/60 border-t border-[#eedfc8] flex items-center justify-between gap-2">
                 <button
                   onClick={() => navigate(`/superadmin/plans-catalog/${plan.id}`)}
-                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg shadow-2xs transition cursor-pointer"
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg shadow-xs transition cursor-pointer"
                 >
                   <Edit2 className="w-3.5 h-3.5 text-blue-600" />
                   <span>Configure Pricing & Features</span>

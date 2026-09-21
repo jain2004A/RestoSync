@@ -155,7 +155,7 @@ export const OwnerDashboard: React.FC = () => {
       )}
 
       {/* 1. Welcome Executive Banner */}
-      <div className="bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-white p-5 rounded-2xl border border-blue-100 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-blue-50/90 via-amber-50/30 to-white p-5 rounded-2xl border border-[#eedfc8] shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xl">👑</span>
@@ -179,13 +179,13 @@ export const OwnerDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Top Filter Bar (Clean CRM Style) */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3 text-xs">
+      {/* 2. Top Filter Bar (Warm Cream & Blue CRM Style) */}
+      <div className="bg-white p-3.5 rounded-xl border border-[#eedfc8] shadow-2xs flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex flex-wrap items-center gap-3">
           {/* Cashier Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20">
+          <div className="flex items-center gap-1.5 bg-[#fbf7ee] border border-[#eedfc8] px-3 py-1.5 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20">
             <User className="w-3.5 h-3.5 text-blue-600" />
-            <span className="text-[10px] text-slate-400 uppercase font-bold">Cashier:</span>
+            <span className="text-[10px] text-slate-500 uppercase font-bold">Cashier:</span>
             <select
               value={selectedCashier}
               onChange={(e) => setSelectedCashier(e.target.value)}
@@ -199,7 +199,7 @@ export const OwnerDashboard: React.FC = () => {
           </div>
 
           {/* Date Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20">
+          <div className="flex items-center gap-1.5 bg-[#fbf7ee] border border-[#eedfc8] px-3 py-1.5 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20">
             <Calendar className="w-3.5 h-3.5 text-blue-600" />
             <input
               type="text"
@@ -210,21 +210,21 @@ export const OwnerDashboard: React.FC = () => {
           </div>
 
           {/* Time Filter From/To */}
-          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+          <div className="flex items-center gap-2 bg-[#fbf7ee] border border-[#eedfc8] px-3 py-1.5 rounded-lg">
             <Clock className="w-3.5 h-3.5 text-blue-600" />
-            <span className="text-slate-400 text-[10px] uppercase font-bold">From:</span>
+            <span className="text-slate-500 text-[10px] uppercase font-bold">From:</span>
             <input
               type="text"
               value={timeFrom}
               onChange={(e) => setTimeFrom(e.target.value)}
-              className="w-12 text-center bg-white border border-slate-200 rounded text-slate-800 font-mono text-[11px] focus:outline-none focus:border-blue-500"
+              className="w-12 text-center bg-white border border-[#eedfc8] rounded text-slate-800 font-mono text-[11px] focus:outline-none focus:border-blue-500"
             />
-            <span className="text-slate-400 text-[10px] uppercase font-bold">To:</span>
+            <span className="text-slate-500 text-[10px] uppercase font-bold">To:</span>
             <input
               type="text"
               value={timeTo}
               onChange={(e) => setTimeTo(e.target.value)}
-              className="w-12 text-center bg-white border border-slate-200 rounded text-slate-800 font-mono text-[11px] focus:outline-none focus:border-blue-500"
+              className="w-12 text-center bg-white border border-[#eedfc8] rounded text-slate-800 font-mono text-[11px] focus:outline-none focus:border-blue-500"
             />
           </div>
         </div>
@@ -240,26 +240,26 @@ export const OwnerDashboard: React.FC = () => {
       </div>
 
       {/* 3. Live Tables Breakdown */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white rounded-xl border border-[#eedfc8] shadow-2xs overflow-hidden">
+        <div className="p-4 border-b border-amber-100 flex items-center justify-between">
           <div>
             <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <span className="p-1 rounded-md bg-blue-50 text-blue-600">📋</span> Live Tables Breakdown
             </h2>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-slate-500 mt-0.5">
               Active tables, custom tables, parcels, and deliveries with live order totals
             </p>
           </div>
         </div>
 
         {/* Section Tabs */}
-        <div className="flex border-b border-slate-200 bg-slate-50/50 overflow-x-auto text-xs font-bold">
+        <div className="flex border-b border-[#eedfc8] bg-[#fbf7ee]/60 overflow-x-auto text-xs font-bold">
           <button
             onClick={() => setActiveTableTab('Dine Fine')}
             className={`px-5 py-2.5 flex items-center gap-2 border-b-2 transition cursor-pointer ${
               activeTableTab === 'Dine Fine'
-                ? 'border-blue-600 bg-blue-50/70 text-blue-700 font-extrabold'
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                ? 'border-blue-600 bg-blue-50/80 text-blue-700 font-extrabold'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
             }`}
           >
             <Utensils className="w-3.5 h-3.5" />
@@ -273,8 +273,8 @@ export const OwnerDashboard: React.FC = () => {
             onClick={() => setActiveTableTab('Custom Tables')}
             className={`px-5 py-2.5 flex items-center gap-2 border-b-2 transition cursor-pointer ${
               activeTableTab === 'Custom Tables'
-                ? 'border-blue-600 bg-blue-50/70 text-blue-700 font-extrabold'
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                ? 'border-blue-600 bg-blue-50/80 text-blue-700 font-extrabold'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
             }`}
           >
             <span>Custom Tables</span>
@@ -284,8 +284,8 @@ export const OwnerDashboard: React.FC = () => {
             onClick={() => setActiveTableTab('Take Away')}
             className={`px-5 py-2.5 flex items-center gap-2 border-b-2 transition cursor-pointer ${
               activeTableTab === 'Take Away'
-                ? 'border-blue-600 bg-blue-50/70 text-blue-700 font-extrabold'
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                ? 'border-blue-600 bg-blue-50/80 text-blue-700 font-extrabold'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
             }`}
           >
             <ShoppingBag className="w-3.5 h-3.5" />
@@ -296,8 +296,8 @@ export const OwnerDashboard: React.FC = () => {
             onClick={() => setActiveTableTab('Home Delivery')}
             className={`px-5 py-2.5 flex items-center gap-2 border-b-2 transition cursor-pointer ${
               activeTableTab === 'Home Delivery'
-                ? 'border-blue-600 bg-blue-50/70 text-blue-700 font-extrabold'
-                : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                ? 'border-blue-600 bg-blue-50/80 text-blue-700 font-extrabold'
+                : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7]/40'
             }`}
           >
             <Truck className="w-3.5 h-3.5" />
@@ -431,7 +431,7 @@ export const OwnerDashboard: React.FC = () => {
         {/* 4 KPI Cards: 3 Soft Pastel + 1 Royal Blue Highlight Card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Card 1: Running Dine-In */}
-          <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-2xs hover:shadow-xs transition flex items-center justify-between">
+          <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs hover:shadow-xs transition flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
                 <Utensils className="w-5 h-5" />
@@ -451,7 +451,7 @@ export const OwnerDashboard: React.FC = () => {
           </div>
 
           {/* Card 2: Running Parcel */}
-          <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-2xs hover:shadow-xs transition flex items-center justify-between">
+          <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs hover:shadow-xs transition flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center">
                 <ShoppingBag className="w-5 h-5" />
@@ -471,7 +471,7 @@ export const OwnerDashboard: React.FC = () => {
           </div>
 
           {/* Card 3: Running Delivery */}
-          <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-2xs hover:shadow-xs transition flex items-center justify-between">
+          <div className="bg-white p-4 rounded-xl border border-[#eedfc8] shadow-2xs hover:shadow-xs transition flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
                 <Truck className="w-5 h-5" />

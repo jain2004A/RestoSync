@@ -405,7 +405,7 @@ export const TenantManagement: React.FC = () => {
       )}
 
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-slate-900 tracking-tight">Restaurant Tenants Management</h1>
@@ -428,7 +428,7 @@ export const TenantManagement: React.FC = () => {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="bg-white p-3.5 rounded-2xl border border-[#eedfc8] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
         {/* Search input */}
         <div className="relative w-full sm:w-80">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -439,7 +439,7 @@ export const TenantManagement: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search restaurant, owner email, city..."
-            className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition"
+            className="w-full pl-9 pr-8 py-2 text-xs bg-[#fbf7ee] border border-[#eedfc8] rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition"
           />
           {searchQuery && (
             <button
@@ -456,7 +456,7 @@ export const TenantManagement: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 cursor-pointer"
+            className="bg-[#fbf7ee] border border-[#eedfc8] text-xs font-semibold text-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
           >
             <option value="All">All Statuses</option>
             <option value="Active">Active Only</option>
@@ -467,7 +467,7 @@ export const TenantManagement: React.FC = () => {
           <select
             value={planFilter}
             onChange={(e) => setPlanFilter(e.target.value as any)}
-            className="bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 cursor-pointer"
+            className="bg-[#fbf7ee] border border-[#eedfc8] text-xs font-semibold text-slate-700 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 cursor-pointer"
           >
             <option value="All">All Plans</option>
             <option value="Starter">Starter Plan</option>
@@ -478,11 +478,11 @@ export const TenantManagement: React.FC = () => {
       </div>
 
       {/* Main Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-400 uppercase tracking-wider font-semibold text-[10px]">
+              <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 uppercase tracking-wider font-semibold text-[10px]">
                 <th className="py-3 px-4">Restaurant & Legal Entity</th>
                 <th className="py-3 px-4">Owner Contact</th>
                 <th className="py-3 px-4">Type</th>
@@ -492,7 +492,7 @@ export const TenantManagement: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-700">
+            <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
               {paginatedTenants.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-8 text-center text-slate-400">
@@ -501,7 +501,7 @@ export const TenantManagement: React.FC = () => {
                 </tr>
               ) : (
                 paginatedTenants.map((tenant) => (
-                  <tr key={tenant.id} className="hover:bg-slate-50/60 transition">
+                  <tr key={tenant.id} className="hover:bg-amber-50/40 transition">
                     {/* Restaurant Info */}
                     <td className="py-3 px-4">
                       <p className="font-bold text-slate-900">{tenant.businessName}</p>
@@ -530,7 +530,7 @@ export const TenantManagement: React.FC = () => {
 
                     {/* Restaurant Type */}
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#fbf7ee] text-slate-700 border border-[#eedfc8]">
                         {tenant.restaurantType}
                       </span>
                     </td>
@@ -547,7 +547,7 @@ export const TenantManagement: React.FC = () => {
                     {/* Outlets */}
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1 font-mono font-bold text-slate-800">
-                        <Store className="w-3.5 h-3.5 text-blue-500" />
+                        <Store className="w-3.5 h-3.5 text-blue-600" />
                         <span>
                           {tenant.outlets?.length || 1} / {tenant.maxOutlets}
                         </span>
@@ -612,8 +612,8 @@ export const TenantManagement: React.FC = () => {
       {/* Modal: Onboard New Restaurant */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto animate-in zoom-in-95">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-[#eedfc8] max-h-[90vh] overflow-y-auto animate-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-[#eedfc8]/80 mb-4">
               <div>
                 <h3 className="text-base font-black text-slate-900">Onboard New Restaurant Tenant</h3>
                 <p className="text-xs text-slate-400">
@@ -622,7 +622,7 @@ export const TenantManagement: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="p-1 text-slate-400 hover:text-slate-600 rounded-lg"
+                className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-[#f3ead7]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -639,7 +639,7 @@ export const TenantManagement: React.FC = () => {
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                     placeholder="e.g. Biryani Blues"
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
                 <div>
@@ -649,7 +649,7 @@ export const TenantManagement: React.FC = () => {
                     value={formData.legalName}
                     onChange={(e) => setFormData({ ...formData, legalName: e.target.value })}
                     placeholder="e.g. Blues Hospitality LLP"
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -661,7 +661,7 @@ export const TenantManagement: React.FC = () => {
                   <select
                     value={formData.restaurantType}
                     onChange={(e) => setFormData({ ...formData, restaurantType: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 bg-white"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   >
                     <option value="Cafe">Cafe / Bakery</option>
                     <option value="FineDine">Fine Dine Restaurant</option>
@@ -677,7 +677,7 @@ export const TenantManagement: React.FC = () => {
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     placeholder="e.g. Pune"
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
                 <div>
@@ -687,13 +687,13 @@ export const TenantManagement: React.FC = () => {
                     value={formData.gstin}
                     onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
                     placeholder="27AAAAA0000A1Z5"
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 uppercase"
                   />
                 </div>
               </div>
 
               {/* Row 3: Owner Credentials */}
-              <div className="p-3.5 bg-blue-50/50 rounded-2xl border border-blue-200/70 space-y-3">
+              <div className="p-3.5 bg-blue-50/60 rounded-2xl border border-blue-200/80 space-y-3">
                 <div className="flex items-center gap-1.5 font-bold text-blue-900 text-xs">
                   <KeyRound className="w-4 h-4 text-blue-600" />
                   <span>Restaurant Owner Login Account</span>
@@ -707,7 +707,7 @@ export const TenantManagement: React.FC = () => {
                       value={formData.ownerName}
                       onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
                       placeholder="e.g. Rajesh Sharma"
-                      className="w-full px-3 py-1.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      className="w-full px-3 py-1.5 border border-[#eedfc8] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                     />
                   </div>
                   <div>
@@ -718,7 +718,7 @@ export const TenantManagement: React.FC = () => {
                       value={formData.ownerEmail}
                       onChange={(e) => setFormData({ ...formData, ownerEmail: e.target.value })}
                       placeholder="owner@restaurant.com"
-                      className="w-full px-3 py-1.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      className="w-full px-3 py-1.5 border border-[#eedfc8] rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                     />
                   </div>
                   <div>
@@ -728,7 +728,7 @@ export const TenantManagement: React.FC = () => {
                       required
                       value={formData.initialPassword}
                       onChange={(e) => setFormData({ ...formData, initialPassword: e.target.value })}
-                      className="w-full px-3 py-1.5 border border-slate-200 rounded-xl bg-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      className="w-full px-3 py-1.5 border border-[#eedfc8] rounded-xl bg-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -748,7 +748,7 @@ export const TenantManagement: React.FC = () => {
                         maxOutlets: newPlan === 'Starter' ? 1 : newPlan === 'Professional' ? 3 : 10,
                       });
                     }}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3 py-2 border border-[#eedfc8] rounded-xl bg-[#fbf7ee] focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   >
                     <option value="Starter">Starter QSR (₹12,000 / year - 1 Outlet)</option>
                     <option value="Professional">Professional Dine-In (₹24,000 / year - 3 Outlets)</option>
@@ -763,7 +763,7 @@ export const TenantManagement: React.FC = () => {
                     max={20}
                     value={formData.maxOutlets}
                     onChange={(e) => setFormData({ ...formData, maxOutlets: Number(e.target.value) })}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                   />
                 </div>
               </div>
@@ -772,7 +772,7 @@ export const TenantManagement: React.FC = () => {
               <div>
                 <label className="block font-bold text-slate-700 mb-2">Enabled Feature Modules</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  <label className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
+                  <label className="flex items-center gap-2 p-2 rounded-xl border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] cursor-pointer transition">
                     <input
                       type="checkbox"
                       checked={formData.enableKds}
@@ -781,7 +781,7 @@ export const TenantManagement: React.FC = () => {
                     />
                     <span className="font-medium">Kitchen KDS</span>
                   </label>
-                  <label className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
+                  <label className="flex items-center gap-2 p-2 rounded-xl border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] cursor-pointer transition">
                     <input
                       type="checkbox"
                       checked={formData.enableWaiterApp}
@@ -790,7 +790,7 @@ export const TenantManagement: React.FC = () => {
                     />
                     <span className="font-medium">Waiter Mobile App</span>
                   </label>
-                  <label className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
+                  <label className="flex items-center gap-2 p-2 rounded-xl border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] cursor-pointer transition">
                     <input
                       type="checkbox"
                       checked={formData.enableAggregators}
@@ -799,7 +799,7 @@ export const TenantManagement: React.FC = () => {
                     />
                     <span className="font-medium">Zomato/Swiggy</span>
                   </label>
-                  <label className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
+                  <label className="flex items-center gap-2 p-2 rounded-xl border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] cursor-pointer transition">
                     <input
                       type="checkbox"
                       checked={formData.enableRecipeInventory}
@@ -808,7 +808,7 @@ export const TenantManagement: React.FC = () => {
                     />
                     <span className="font-medium">Recipe & Inventory</span>
                   </label>
-                  <label className="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer">
+                  <label className="flex items-center gap-2 p-2 rounded-xl border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] cursor-pointer transition">
                     <input
                       type="checkbox"
                       checked={formData.enableKhataBook}
@@ -821,11 +821,11 @@ export const TenantManagement: React.FC = () => {
               </div>
 
               {/* Modal Buttons */}
-              <div className="pt-4 border-t border-slate-100 flex justify-end gap-2">
+              <div className="pt-4 border-t border-[#eedfc8]/80 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl font-bold"
+                  className="px-4 py-2 border border-[#eedfc8] bg-[#fbf7ee] text-slate-700 hover:bg-[#f3ead7] rounded-xl font-bold"
                 >
                   Cancel
                 </button>
@@ -844,8 +844,8 @@ export const TenantManagement: React.FC = () => {
       {/* Modal: Generated Owner Credentials Display */}
       {createdCredentials && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-in zoom-in-95">
-            <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-[#eedfc8] space-y-4 animate-in zoom-in-95">
+            <div className="flex items-center gap-2.5 pb-2 border-b border-[#eedfc8]/80">
               <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
                 <Check className="w-5 h-5" />
               </div>
@@ -855,7 +855,7 @@ export const TenantManagement: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2.5 text-xs font-mono">
+            <div className="bg-[#fbf7ee] p-4 rounded-2xl border border-[#eedfc8] space-y-2.5 text-xs font-mono">
               <div>
                 <span className="text-slate-400 text-[10px] block">RESTAURANT BRAND</span>
                 <span className="font-bold text-slate-900">{createdCredentials.businessName}</span>
@@ -884,7 +884,7 @@ export const TenantManagement: React.FC = () => {
               </button>
               <button
                 onClick={() => setCreatedCredentials(null)}
-                className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold"
+                className="px-4 py-2.5 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] text-slate-700 rounded-xl text-xs font-bold"
               >
                 Done
               </button>
@@ -896,8 +896,8 @@ export const TenantManagement: React.FC = () => {
       {/* Details & Outlets Modal */}
       {selectedTenantDetails && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-[#eedfc8] space-y-4 max-h-[90vh] overflow-y-auto animate-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-[#eedfc8]/80">
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-bold text-slate-900">
@@ -919,7 +919,7 @@ export const TenantManagement: React.FC = () => {
 
             <div className="space-y-4 text-xs">
               {/* Info Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 bg-[#fbf7ee] p-3.5 rounded-2xl border border-[#eedfc8]">
                 <div>
                   <span className="text-slate-400 block text-[10px]">OWNER EMAIL</span>
                   <span className="font-bold text-slate-800 font-mono">{selectedTenantDetails.ownerEmail}</span>
@@ -971,7 +971,7 @@ export const TenantManagement: React.FC = () => {
                   {(selectedTenantDetails.outlets || []).map((o) => (
                     <div
                       key={o.id}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-white"
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-[#eedfc8] bg-[#fbf7ee]"
                     >
                       <div>
                         <p className="font-bold text-slate-800">{o.name}</p>
@@ -986,7 +986,7 @@ export const TenantManagement: React.FC = () => {
               </div>
 
               {/* Quick Actions */}
-              <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-2 border-t border-[#eedfc8]/80 flex items-center justify-between">
                 <button
                   onClick={() => setShowUpgradeModal(true)}
                   className="px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-xs font-bold border border-blue-200 transition"
@@ -996,7 +996,7 @@ export const TenantManagement: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedTenantDetails(null)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition"
+                  className="px-4 py-2 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] text-slate-700 rounded-xl text-xs font-bold transition"
                 >
                   Close
                 </button>
@@ -1009,7 +1009,7 @@ export const TenantManagement: React.FC = () => {
       {/* Sub-Modal: Add Branch Outlet */}
       {showAddOutletModal && selectedTenantDetails && (
         <div className="fixed inset-0 z-60 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-3 animate-in zoom-in-95">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-[#eedfc8] space-y-3 animate-in zoom-in-95">
             <h3 className="text-sm font-bold text-slate-900">
               Add New Branch Outlet to {selectedTenantDetails.businessName}
             </h3>
@@ -1023,7 +1023,7 @@ export const TenantManagement: React.FC = () => {
                   value={newOutletName}
                   onChange={(e) => setNewOutletName(e.target.value)}
                   placeholder="e.g. Koregaon Park Branch"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                 />
               </div>
 
@@ -1034,7 +1034,7 @@ export const TenantManagement: React.FC = () => {
                   value={newOutletCity}
                   onChange={(e) => setNewOutletCity(e.target.value)}
                   placeholder="e.g. Pune"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-3 py-2 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"
                 />
               </div>
             </div>
@@ -1042,7 +1042,7 @@ export const TenantManagement: React.FC = () => {
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowAddOutletModal(false)}
-                className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-600"
+                className="px-3 py-1.5 border border-[#eedfc8] rounded-lg text-xs font-bold text-slate-600 bg-[#fbf7ee] hover:bg-[#f3ead7]"
               >
                 Cancel
               </button>
@@ -1060,7 +1060,7 @@ export const TenantManagement: React.FC = () => {
       {/* Sub-Modal: Upgrade Plan */}
       {showUpgradeModal && selectedTenantDetails && (
         <div className="fixed inset-0 z-60 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-3 animate-in zoom-in-95">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border border-[#eedfc8] space-y-3 animate-in zoom-in-95">
             <h3 className="text-sm font-bold text-slate-900">
               Upgrade Subscription: {selectedTenantDetails.businessName}
             </h3>
@@ -1072,8 +1072,8 @@ export const TenantManagement: React.FC = () => {
                   key={tier}
                   className={`flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition ${
                     selectedNewPlan === tier
-                      ? 'border-blue-500 bg-blue-50 text-blue-900 font-bold'
-                      : 'border-slate-200 hover:bg-slate-50'
+                      ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold'
+                      : 'border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7]'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -1096,7 +1096,7 @@ export const TenantManagement: React.FC = () => {
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowUpgradeModal(false)}
-                className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-600"
+                className="px-3 py-1.5 border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] rounded-lg text-xs font-bold text-slate-600"
               >
                 Cancel
               </button>

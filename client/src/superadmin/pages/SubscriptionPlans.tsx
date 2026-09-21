@@ -236,7 +236,7 @@ export const SubscriptionPlans: React.FC = () => {
   return (
     <div className="space-y-6 w-full font-sans">
       {/* Header & ARR Highlights */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -265,8 +265,8 @@ export const SubscriptionPlans: React.FC = () => {
         </div>
 
         {/* Quick SaaS Metrics Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-100">
-          <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 flex items-center justify-between">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-[#eedfc8]">
+          <div className="p-4 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] flex items-center justify-between">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Contracted Annual ARR</p>
               <p className="text-xl font-bold text-slate-900 mt-0.5">₹{totalARR.toLocaleString('en-IN')}</p>
@@ -276,7 +276,7 @@ export const SubscriptionPlans: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] flex items-center justify-between">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Subscribed Outlets</p>
               <p className="text-xl font-bold text-slate-900 mt-0.5">{totalOutlets} Outlets Provisioned</p>
@@ -286,12 +286,12 @@ export const SubscriptionPlans: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 flex items-center justify-between">
+          <div className="p-4 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] flex items-center justify-between">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Active Platform Tenants</p>
               <p className="text-xl font-bold text-slate-900 mt-0.5">{tenants.length} Restaurants</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-indigo-100/70 text-indigo-700 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-blue-100/70 text-blue-700 flex items-center justify-center">
               <Building2 className="w-5 h-5" />
             </div>
           </div>
@@ -308,7 +308,7 @@ export const SubscriptionPlans: React.FC = () => {
               className={`bg-white rounded-2xl border p-6 flex flex-col justify-between relative transition hover:shadow-md ${
                 plan.popular
                   ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-xs'
-                  : 'border-slate-200'
+                  : 'border-[#eedfc8]'
               }`}
             >
               {plan.popular && (
@@ -328,7 +328,7 @@ export const SubscriptionPlans: React.FC = () => {
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200">
+                  <span className="text-xs font-semibold px-2.5 py-1 bg-[#fbf7ee] text-slate-700 rounded-full border border-[#eedfc8]">
                     {plan.activeTenants.length} Active {plan.activeTenants.length === 1 ? 'Tenant' : 'Tenants'}
                   </span>
                 </div>
@@ -346,7 +346,7 @@ export const SubscriptionPlans: React.FC = () => {
                   {plan.description}
                 </p>
 
-                <div className="mt-4 mb-6 pb-4 border-b border-slate-100">
+                <div className="mt-4 mb-6 pb-4 border-b border-[#eedfc8]/80">
                   <span className="text-3xl font-extrabold text-slate-900 tracking-tight">{plan.price}</span>
                   <span className="text-xs text-slate-400 font-medium ml-1.5">/ {plan.period}</span>
                 </div>
@@ -361,7 +361,7 @@ export const SubscriptionPlans: React.FC = () => {
                       plan.activeTenants.map((t) => (
                         <span
                           key={t.id}
-                          className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 bg-slate-50 text-slate-700 rounded-md border border-slate-200"
+                          className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 bg-[#fbf7ee] text-slate-700 rounded-md border border-[#eedfc8]"
                         >
                           <Building2 className="w-3 h-3 text-slate-400" />
                           {t.businessName}
@@ -374,7 +374,7 @@ export const SubscriptionPlans: React.FC = () => {
                 </div>
 
                 {/* Feature checklist */}
-                <div className="border-t border-slate-100 pt-4 space-y-2.5 text-xs">
+                <div className="border-t border-[#eedfc8]/80 pt-4 space-y-2.5 text-xs">
                   <p className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">Features Included:</p>
                   {plan.features.map((feat, i) => (
                     <div key={i} className="flex items-start gap-2 text-slate-700">
@@ -394,14 +394,14 @@ export const SubscriptionPlans: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-slate-100">
+              <div className="mt-8 pt-4 border-t border-[#eedfc8]/80">
                 <button
                   type="button"
                   onClick={() => handleOpenUpgrade(plan.tier)}
                   className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold transition cursor-pointer flex items-center justify-center gap-1.5 ${
                     plan.popular
                       ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
-                      : 'bg-slate-50 hover:bg-blue-50 text-slate-800 hover:text-blue-700 border border-slate-200 hover:border-blue-200'
+                      : 'bg-[#fbf7ee] hover:bg-[#f3ead7] text-slate-800 hover:text-blue-700 border border-[#eedfc8]'
                   }`}
                 >
                   <span>Assign Restaurants to {plan.name}</span>
@@ -416,8 +416,8 @@ export const SubscriptionPlans: React.FC = () => {
       {/* Quick Upgrade / Tier Assignment Modal */}
       {showUpgradeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-lg w-full border border-slate-200 shadow-xl overflow-hidden animate-in zoom-in-95">
-            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-blue-50/50">
+          <div className="bg-white rounded-2xl max-w-lg w-full border border-[#eedfc8] shadow-2xl overflow-hidden animate-in zoom-in-95">
+            <div className="p-5 border-b border-[#eedfc8] flex items-center justify-between bg-[#fbf7ee]/60">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs">
                   <Sliders className="w-4 h-4" />
@@ -429,7 +429,7 @@ export const SubscriptionPlans: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowUpgradeModal(false)}
-                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-white transition cursor-pointer"
+                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-[#f3ead7] transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -457,7 +457,7 @@ export const SubscriptionPlans: React.FC = () => {
                 <select
                   value={selectedTenantId}
                   onChange={(e) => setSelectedTenantId(e.target.value)}
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
+                  className="w-full px-3.5 py-2.5 border border-[#eedfc8] rounded-xl text-xs font-semibold text-slate-800 bg-[#fbf7ee] focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 cursor-pointer"
                 >
                   {tenants.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -480,7 +480,7 @@ export const SubscriptionPlans: React.FC = () => {
                       className={`p-3 rounded-xl border text-xs font-bold text-center transition cursor-pointer ${
                         targetPlan === tier
                           ? 'border-blue-600 bg-blue-50/60 text-blue-700 ring-1 ring-blue-500'
-                          : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                          : 'border-[#eedfc8] text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7]'
                       }`}
                     >
                       <div>{tier}</div>
@@ -499,7 +499,7 @@ export const SubscriptionPlans: React.FC = () => {
                 <select
                   value={extendMonths}
                   onChange={(e) => setExtendMonths(Number(e.target.value))}
-                  className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
+                  className="w-full px-3.5 py-2.5 border border-[#eedfc8] rounded-xl text-xs font-semibold text-slate-800 bg-[#fbf7ee] focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 cursor-pointer"
                 >
                   <option value={6}>6 Months Extension</option>
                   <option value={12}>12 Months (1 Year Standard)</option>
@@ -508,11 +508,11 @@ export const SubscriptionPlans: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-2.5">
+            <div className="p-4 border-t border-[#eedfc8] bg-[#fbf7ee]/60 flex items-center justify-end gap-2.5">
               <button
                 type="button"
                 onClick={() => setShowUpgradeModal(false)}
-                className="px-4 py-2 border border-slate-200 hover:bg-white rounded-xl text-xs font-semibold text-slate-600 transition cursor-pointer"
+                className="px-4 py-2 border border-[#eedfc8] bg-[#fbf7ee] hover:bg-[#f3ead7] rounded-xl text-xs font-semibold text-slate-700 transition cursor-pointer"
               >
                 Cancel
               </button>

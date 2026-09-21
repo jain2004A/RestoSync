@@ -70,13 +70,13 @@ export const OwnerLayout: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans text-slate-900 antialiased selection:bg-slate-900 selection:text-white">
-      {/* Top Bar (Clean Executive Royal Blue CRM Style) */}
-      <header className="h-14 bg-white border-b border-slate-200 sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-2xs">
+    <div className="h-screen h-[100dvh] bg-[#faf7ee] flex flex-col overflow-hidden font-sans text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
+      {/* Top Bar (Clean Executive Warm Cream & Royal Blue Header) */}
+      <header className="h-14 shrink-0 bg-[#fdfbf7]/95 backdrop-blur-md border-b border-[#eedfc8] sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-2xs">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden p-1.5 rounded-md text-slate-700 hover:bg-slate-100 cursor-pointer"
+            className="md:hidden p-1.5 rounded-md text-slate-700 hover:bg-[#f3ead7] cursor-pointer"
           >
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -120,7 +120,7 @@ export const OwnerLayout: React.FC = () => {
               </span>
               <button
                 onClick={() => navigate('/owner/upgrade')}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 rounded-lg shadow-sm transition cursor-pointer"
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg shadow-sm shadow-blue-500/20 transition cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Upgrade Plan</span>
@@ -139,24 +139,24 @@ export const OwnerLayout: React.FC = () => {
           {/* Quick Switch to POS Billing Desk */}
           <button
             onClick={() => navigate('/billing')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 border border-blue-200 rounded-lg transition shadow-2xs cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg transition shadow-sm shadow-blue-500/20 cursor-pointer"
             title="Open Live POS Billing Desk"
           >
-            <Store className="w-3.5 h-3.5 text-blue-600" />
+            <Store className="w-3.5 h-3.5 text-white" />
             <span>Launch POS Billing</span>
           </button>
 
           {/* Quick Switch to Tables Floor Matrix */}
           <button
             onClick={() => navigate('/tables')}
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 border border-slate-200 rounded-lg transition cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-800 bg-[#f5edd9] hover:bg-[#eee3c8] active:bg-[#e4d7b8] border border-[#eedfc8] rounded-lg transition cursor-pointer"
             title="Open Live Floor Plan Matrix"
           >
-            <Grid3X3 className="w-3.5 h-3.5 text-slate-600" />
+            <Grid3X3 className="w-3.5 h-3.5 text-slate-700" />
             <span>Floor Matrix</span>
           </button>
 
-          <div className="h-5 w-px bg-slate-200 hidden sm:block" />
+          <div className="h-5 w-px bg-[#eedfc8] hidden sm:block" />
 
           {/* User Profile info */}
           <div className="flex items-center gap-3">
@@ -167,7 +167,7 @@ export const OwnerLayout: React.FC = () => {
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 border border-slate-300 rounded-lg transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-rose-50 hover:text-rose-700 hover:border-rose-200 border border-[#eedfc8] rounded-lg transition cursor-pointer"
               title="Sign Out"
             >
               <LogOut className="w-3.5 h-3.5" />
@@ -178,14 +178,14 @@ export const OwnerLayout: React.FC = () => {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Clean Executive Sidebar */}
+        {/* Stable Fixed Executive Sidebar */}
         <aside
-          className={`fixed md:static inset-y-0 left-0 z-20 w-60 bg-white border-r border-slate-200 pt-14 md:pt-0 transform transition-transform duration-200 ease-in-out md:translate-x-0 flex flex-col justify-between ${
+          className={`fixed md:static inset-y-0 left-0 z-20 w-60 shrink-0 bg-[#fbf7ee] border-r border-[#eedfc8] pt-14 md:pt-0 transform transition-transform duration-200 ease-in-out md:translate-x-0 flex flex-col justify-between overflow-hidden ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          <div className="p-3 space-y-1 overflow-y-auto">
-            <div className="px-3 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+          <div className="p-3 space-y-1 overflow-y-auto flex-1">
+            <div className="px-3 py-2 text-[10px] font-black text-amber-900/60 uppercase tracking-wider">
               Management Modules
             </div>
 
@@ -199,19 +199,27 @@ export const OwnerLayout: React.FC = () => {
                   className={({ isActive }) =>
                     `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                        : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                        ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25 font-bold'
+                        : 'text-slate-700 hover:bg-[#f3ead7] hover:text-slate-900'
                     }`
                   }
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-4 h-4 shrink-0 text-slate-500" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.badge && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">
-                      {item.badge}
-                    </span>
+                  {({ isActive }) => (
+                    <>
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-500'}`} />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <span
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                            isActive ? 'bg-white/20 text-white' : 'bg-[#eedfc8]/70 text-slate-700'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </>
                   )}
                 </NavLink>
               );
@@ -219,13 +227,13 @@ export const OwnerLayout: React.FC = () => {
           </div>
 
           {/* Quick POS Terminal Shortcut in Sidebar */}
-          <div className="p-3 border-t border-slate-100">
+          <div className="p-3 border-t border-[#eedfc8] bg-[#f7f0df]/70 shrink-0">
             <button
               onClick={() => {
                 setSidebarOpen(false);
                 navigate('/billing');
               }}
-              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-blue-700 bg-blue-50/70 hover:bg-blue-100 border border-blue-200 transition cursor-pointer"
+              className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-blue-800 bg-blue-50/90 hover:bg-blue-100 border border-blue-200 transition cursor-pointer shadow-2xs"
             >
               <div className="flex items-center gap-2.5">
                 <Store className="w-4 h-4 text-blue-600" />
@@ -238,9 +246,9 @@ export const OwnerLayout: React.FC = () => {
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-3 border-t border-slate-200 bg-slate-50/80 text-center">
+          <div className="p-3 border-t border-[#eedfc8] bg-[#f2e8d4]/80 text-center shrink-0">
             <p className="text-[11px] font-bold text-slate-800">QuantroBill POS SaaS</p>
-            <p className="text-[10px] text-blue-600 font-medium">
+            <p className="text-[10px] text-blue-700 font-bold">
               {tenant?.planName || 'Enterprise Tier'}
             </p>
           </div>
@@ -255,7 +263,7 @@ export const OwnerLayout: React.FC = () => {
         )}
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#f8fafc]">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#faf7ee]">
           <Outlet />
         </main>
       </div>

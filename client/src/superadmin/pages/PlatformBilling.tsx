@@ -192,7 +192,7 @@ export const PlatformBilling: React.FC = () => {
       )}
 
       {/* INVOICES TABLE */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] overflow-hidden shadow-xs">
         {loading ? (
           <div className="p-12 text-center text-slate-500">
             <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
@@ -208,7 +208,7 @@ export const PlatformBilling: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                   <th className="py-3.5 px-4">Invoice #</th>
                   <th className="py-3.5 px-4">Restaurant Tenant</th>
                   <th className="py-3.5 px-4">Plan & Cycle</th>
@@ -218,9 +218,9 @@ export const PlatformBilling: React.FC = () => {
                   <th className="py-3.5 px-4 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-xs text-slate-700">
                 {invoices.map((inv) => (
-                  <tr key={inv.id} className="hover:bg-slate-50/60 transition">
+                  <tr key={inv.id} className="hover:bg-amber-50/40 transition">
                     <td className="py-3 px-4 font-mono font-bold text-slate-900">
                       {inv.invoiceNumber}
                     </td>
@@ -264,7 +264,7 @@ export const PlatformBilling: React.FC = () => {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => navigate(`/superadmin/billing/${inv.id}`)}
-                          className="w-7 h-7 rounded-full border border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-300 flex items-center justify-center transition cursor-pointer"
+                          className="w-7 h-7 rounded-full border border-[#eedfc8] text-slate-600 hover:text-blue-600 hover:bg-[#fbf7ee] flex items-center justify-center transition cursor-pointer"
                           title="View Invoice Breakdown"
                         >
                           <Eye className="w-3.5 h-3.5" />

@@ -149,7 +149,7 @@ export const SuperAdminDashboard: React.FC = () => {
       )}
 
       {/* Welcome Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-blue-50/90 via-amber-50/30 to-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -176,9 +176,9 @@ export const SuperAdminDashboard: React.FC = () => {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Tenants */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Restaurants</p>
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Total Restaurants</p>
             <p className="text-2xl font-black text-slate-900 mt-1">{totalTenants}</p>
             <span className="inline-flex items-center text-[10px] text-emerald-600 font-semibold mt-1">
               <TrendingUp className="w-3 h-3 mr-1" />
@@ -191,9 +191,9 @@ export const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Card 2: Active Outlets */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Branch Outlets</p>
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Branch Outlets</p>
             <p className="text-2xl font-black text-slate-900 mt-1">{totalOutlets}</p>
             <span className="text-[10px] text-slate-500 mt-1 block">Connected POS nodes</span>
           </div>
@@ -203,9 +203,9 @@ export const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Card 3: Platform MRR & ARR */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Annual SaaS ARR</p>
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Annual SaaS ARR</p>
             <p className="text-2xl font-black text-slate-900 mt-1">₹{calculatedArr.toLocaleString('en-IN')}</p>
             <span className="text-[10px] text-blue-600 font-semibold mt-1 block">
               MRR: ~₹{calculatedMrr.toLocaleString('en-IN')}/mo
@@ -217,9 +217,9 @@ export const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Card 4: Trials & Self-Registered */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div className="bg-white p-5 rounded-2xl border border-[#eedfc8] shadow-xs flex items-center justify-between">
           <div>
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Self-Registered & Trials</p>
+            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Self-Registered & Trials</p>
             <p className="text-2xl font-black text-amber-600 mt-1">
               {totalSelfRegistered}
             </p>
@@ -235,8 +235,8 @@ export const SuperAdminDashboard: React.FC = () => {
 
       {/* NEW SECTION: Recent Owner Registrations Feed */}
       {recentRegistrations.length > 0 && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs overflow-hidden">
+          <div className="p-4 sm:p-5 border-b border-[#eedfc8]/80 flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-sm font-bold text-slate-900">Recent Owner Registrations & Plan Choices</h2>
@@ -258,7 +258,7 @@ export const SuperAdminDashboard: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-400 uppercase tracking-wider font-semibold text-[10px]">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 uppercase tracking-wider font-semibold text-[10px]">
                   <th className="py-3 px-4">Restaurant & Owner</th>
                   <th className="py-3 px-4">Plan Selected</th>
                   <th className="py-3 px-4">Source</th>
@@ -267,9 +267,9 @@ export const SuperAdminDashboard: React.FC = () => {
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                 {recentRegistrations.slice(0, 5).map((reg) => (
-                  <tr key={reg.id} className="hover:bg-slate-50/60 transition">
+                  <tr key={reg.id} className="hover:bg-amber-50/40 transition">
                     <td className="py-3 px-4">
                       <p className="font-bold text-slate-900">{reg.businessName}</p>
                       <p className="text-[10px] text-slate-400">
@@ -348,8 +348,8 @@ export const SuperAdminDashboard: React.FC = () => {
       {/* Plan Breakdown & Recent Onboarding Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Recent Tenants List */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-[#eedfc8] shadow-xs overflow-hidden">
+          <div className="p-4 sm:p-5 border-b border-[#eedfc8]/80 flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-slate-900">Recently Onboarded Restaurants</h2>
               <p className="text-[11px] text-slate-400">Latest restaurants operating on QuantroBill SaaS</p>
@@ -366,7 +366,7 @@ export const SuperAdminDashboard: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-400 uppercase tracking-wider font-semibold text-[10px]">
+                <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] text-slate-600 uppercase tracking-wider font-semibold text-[10px]">
                   <th className="py-3 px-4">Restaurant</th>
                   <th className="py-3 px-4">City</th>
                   <th className="py-3 px-4">Plan</th>
@@ -375,9 +375,9 @@ export const SuperAdminDashboard: React.FC = () => {
                   <th className="py-3 px-4 text-right">Quick Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
                 {tenants.slice(0, 5).map((tenant) => (
-                  <tr key={tenant.id} className="hover:bg-slate-50/60 transition">
+                  <tr key={tenant.id} className="hover:bg-amber-50/40 transition">
                     <td className="py-3 px-4">
                       <p className="font-bold text-slate-900">{tenant.businessName}</p>
                       <p className="text-[10px] text-slate-400 font-mono">{tenant.ownerEmail}</p>
@@ -422,9 +422,9 @@ export const SuperAdminDashboard: React.FC = () => {
         </div>
 
         {/* Right 1 Col: Dynamic Subscription Plan Breakdown */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs p-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#eedfc8]/80">
               <Layers className="w-5 h-5 text-blue-600" />
               <h2 className="text-sm font-bold text-slate-900">Subscription Tier Distribution</h2>
             </div>
@@ -443,7 +443,7 @@ export const SuperAdminDashboard: React.FC = () => {
                           <span className="text-slate-700">{planName}</span>
                           <span className="text-slate-900 font-bold">{count} ({share}%)</span>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-[#f0e6d2] h-2 rounded-full overflow-hidden">
                           <div
                             className="bg-blue-600 h-full rounded-full transition-all duration-500"
                             style={{ width: `${Math.min(share, 100)}%` }}
@@ -462,7 +462,7 @@ export const SuperAdminDashboard: React.FC = () => {
                           <span className="text-slate-700">{planName}</span>
                           <span className="text-slate-900 font-bold">{count} ({pct}%)</span>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-[#f0e6d2] h-2 rounded-full overflow-hidden">
                           <div
                             className="bg-blue-600 h-full rounded-full transition-all duration-500"
                             style={{ width: `${pct}%` }}
@@ -479,8 +479,8 @@ export const SuperAdminDashboard: React.FC = () => {
                           <span className="text-slate-700">Starter Annual</span>
                           <span className="text-slate-900 font-bold">{tenants.filter(t => t.plan?.includes('Starter')).length} restaurants</span>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                          <div className="bg-sky-400 h-full rounded-full" style={{ width: '40%' }} />
+                        <div className="w-full bg-[#f0e6d2] h-2 rounded-full overflow-hidden">
+                          <div className="bg-sky-500 h-full rounded-full" style={{ width: '40%' }} />
                         </div>
                       </div>
                       <div>
@@ -488,7 +488,7 @@ export const SuperAdminDashboard: React.FC = () => {
                           <span className="text-slate-700">Growth / Hardware</span>
                           <span className="text-slate-900 font-bold">{tenants.filter(t => t.plan?.includes('Growth') || t.plan?.includes('Hardware')).length} restaurants</span>
                         </div>
-                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-[#f0e6d2] h-2 rounded-full overflow-hidden">
                           <div className="bg-blue-600 h-full rounded-full" style={{ width: '35%' }} />
                         </div>
                       </div>
@@ -499,16 +499,16 @@ export const SuperAdminDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 space-y-2">
+          <div className="mt-6 pt-4 border-t border-[#eedfc8]/80 space-y-2">
             <button
               onClick={() => navigate('/superadmin/owner-activity')}
-              className="w-full py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl text-xs font-bold transition cursor-pointer border border-emerald-200 text-center"
+              className="w-full py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-xs font-bold transition cursor-pointer border border-emerald-200 text-center"
             >
               View Owner Registrations & Payments Feed
             </button>
             <button
               onClick={() => navigate('/superadmin/subscriptions')}
-              className="w-full py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-xs font-bold transition cursor-pointer border border-blue-200 text-center"
+              className="w-full py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-xl text-xs font-bold transition cursor-pointer border border-blue-200 text-center"
             >
               Configure Subscription Plans & Pricing
             </button>

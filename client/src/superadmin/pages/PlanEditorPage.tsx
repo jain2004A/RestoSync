@@ -46,7 +46,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
       className={`flex items-start justify-between gap-4 p-3.5 rounded-xl border transition cursor-pointer select-none ${
         checked
           ? 'bg-blue-50/40 border-blue-200'
-          : 'bg-white border-slate-200/80 hover:bg-slate-50/70'
+          : 'bg-white border-[#eedfc8] hover:bg-[#fbf7ee]'
       } ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
     >
       <div className="flex-1">
@@ -57,7 +57,7 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
               className={`px-1.5 py-0.2 rounded text-[10px] font-extrabold uppercase ${
                 checked
                   ? 'bg-blue-100 text-blue-800'
-                  : 'bg-slate-100 text-slate-500'
+                  : 'bg-[#fbf7ee] text-slate-500 border border-[#eedfc8]'
               }`}
             >
               {checked ? 'Active' : 'Off'}
@@ -219,7 +219,7 @@ export const PlanEditorPage: React.FC = () => {
         </button>
 
         {isEditing && (
-          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#fbf7ee] text-slate-700 border border-[#eedfc8]">
             Plan ID: <code className="font-mono">{id}</code>
           </span>
         )}
@@ -247,7 +247,7 @@ export const PlanEditorPage: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Section 1: Basic Information */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-5 sm:p-6 shadow-xs">
           <h2 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] flex items-center justify-center font-bold">1</span>
             <span>Plan Identification</span>
@@ -263,7 +263,7 @@ export const PlanEditorPage: React.FC = () => {
                 value={formData.name || ''}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Starter Outlet, Growth Dine-In, Multi-Branch Pro"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-medium"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-medium text-slate-900"
               />
             </div>
 
@@ -276,7 +276,7 @@ export const PlanEditorPage: React.FC = () => {
                 value={formData.code || ''}
                 onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                 placeholder="e.g. starter, growth (auto-generated if left empty)"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-mono"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-mono text-slate-900"
               />
             </div>
 
@@ -289,14 +289,14 @@ export const PlanEditorPage: React.FC = () => {
                 value={formData.description || ''}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Brief summary of who this plan is tailored for (e.g. ideal for high-volume cafes and dine-in restaurants)..."
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-medium"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-medium text-slate-900"
               />
             </div>
           </div>
         </div>
 
         {/* Section 2: Pricing & Billing */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-5 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] flex items-center justify-center font-bold">2</span>
@@ -305,7 +305,7 @@ export const PlanEditorPage: React.FC = () => {
             <button
               type="button"
               onClick={handleAutoCalculateYearly}
-              className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg transition cursor-pointer"
+              className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 border border-blue-200/60 px-2.5 py-1 rounded-lg transition cursor-pointer"
               title="Set Annual = 10x Monthly (~17% discount)"
             >
               <Calculator className="w-3.5 h-3.5" />
@@ -326,7 +326,7 @@ export const PlanEditorPage: React.FC = () => {
                   required
                   value={formData.priceMonthly ?? 0}
                   onChange={(e) => setFormData({ ...formData, priceMonthly: Number(e.target.value) })}
-                  className="w-full pl-7 pr-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
+                  className="w-full pl-7 pr-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -343,7 +343,7 @@ export const PlanEditorPage: React.FC = () => {
                   required
                   value={formData.priceYearly ?? 0}
                   onChange={(e) => setFormData({ ...formData, priceYearly: Number(e.target.value) })}
-                  className="w-full pl-7 pr-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
+                  className="w-full pl-7 pr-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -355,7 +355,7 @@ export const PlanEditorPage: React.FC = () => {
               <select
                 value={formData.billingCycle || 'Yearly'}
                 onChange={(e) => setFormData({ ...formData, billingCycle: e.target.value })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden bg-white font-medium"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-medium text-slate-900"
               >
                 <option value="Trial">Trial (15 Days)</option>
                 <option value="Monthly">Monthly</option>
@@ -372,7 +372,7 @@ export const PlanEditorPage: React.FC = () => {
                 min="1"
                 value={formData.durationDays ?? 365}
                 onChange={(e) => setFormData({ ...formData, durationDays: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-medium"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-medium text-slate-900"
                 placeholder="15 for trial, 365 for annual"
               />
             </div>
@@ -389,7 +389,7 @@ export const PlanEditorPage: React.FC = () => {
           )}
 
           {/* Pricing Toggles (Trial & Hardware) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 pt-3 border-t border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 pt-3 border-t border-[#eedfc8]">
             <ToggleSwitch
               checked={formData.isTrial || false}
               onChange={(checked) => setFormData({ ...formData, isTrial: checked })}
@@ -417,14 +417,14 @@ export const PlanEditorPage: React.FC = () => {
                 value={formData.hardwareDetails || ''}
                 onChange={(e) => setFormData({ ...formData, hardwareDetails: e.target.value })}
                 placeholder="e.g. 80mm Thermal USB/LAN Receipt Printer + Metal Cash Drawer"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-medium"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-medium text-slate-900"
               />
             </div>
           )}
         </div>
 
         {/* Section 3: Limits & Quotas */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-5 sm:p-6 shadow-xs">
           <h2 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] flex items-center justify-center font-bold">3</span>
             <span>Branch & User Quotas</span>
@@ -441,7 +441,7 @@ export const PlanEditorPage: React.FC = () => {
                   min="1"
                   value={formData.maxOutlets ?? 1}
                   onChange={(e) => setFormData({ ...formData, maxOutlets: Number(e.target.value) })}
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-bold"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -457,7 +457,7 @@ export const PlanEditorPage: React.FC = () => {
                   min="1"
                   value={formData.maxStaffUsers ?? 5}
                   onChange={(e) => setFormData({ ...formData, maxStaffUsers: Number(e.target.value) })}
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-bold"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -473,7 +473,7 @@ export const PlanEditorPage: React.FC = () => {
                   min="0"
                   value={formData.trialDays ?? 14}
                   onChange={(e) => setFormData({ ...formData, trialDays: Number(e.target.value) })}
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-blue-600 focus:outline-hidden font-bold"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -481,7 +481,7 @@ export const PlanEditorPage: React.FC = () => {
         </div>
 
         {/* Section 4: Feature Entitlements with Toggle Switches */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-5 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] flex items-center justify-center font-bold">4</span>
@@ -551,7 +551,7 @@ export const PlanEditorPage: React.FC = () => {
         </div>
 
         {/* Section 5: Catalog Visibility & Live Tenant Sync */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-5 sm:p-6 shadow-xs">
           <h2 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-[11px] flex items-center justify-center font-bold">5</span>
             <span>Catalog Visibility & Live Tenant Application</span>
@@ -589,7 +589,7 @@ export const PlanEditorPage: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/superadmin/plans-catalog')}
-            className="px-4 py-2.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl shadow-2xs transition cursor-pointer"
+            className="px-4 py-2.5 text-xs font-bold text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] rounded-xl shadow-xs transition cursor-pointer"
           >
             Cancel
           </button>

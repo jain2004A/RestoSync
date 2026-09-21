@@ -42,8 +42,8 @@ const colorStyles = {
   },
   slate: {
     number: 'text-slate-800',
-    iconBg: 'bg-slate-100 text-slate-700 border-slate-200',
-    badge: 'bg-slate-100 text-slate-700',
+    iconBg: 'bg-[#fbf7ee] text-slate-700 border-[#eedfc8]',
+    badge: 'bg-[#fbf7ee] text-slate-700 border border-[#eedfc8]',
   },
   indigo: {
     number: 'text-indigo-600',
@@ -65,7 +65,7 @@ export const StatCard: React.FC<StatCardProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200 p-5 shadow-2xs hover:shadow-xs transition flex flex-col justify-between ${className}`}
+      className={`bg-white rounded-xl border border-[#eedfc8] p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between ${className}`}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">

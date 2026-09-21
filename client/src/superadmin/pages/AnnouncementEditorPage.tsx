@@ -95,11 +95,11 @@ export const AnnouncementEditorPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full font-sans">
       <div className="mb-4">
         <button
           onClick={() => navigate('/superadmin/announcements')}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Announcements</span>
@@ -127,7 +127,7 @@ export const AnnouncementEditorPage: React.FC = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs space-y-4">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">
               Notice Headline / Title <span className="text-rose-500">*</span>
@@ -138,7 +138,7 @@ export const AnnouncementEditorPage: React.FC = () => {
               value={formData.title || ''}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g. QuantroBill v2.0 Platform Upgrade & Cloud Kitchen Sync"
-              className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
             />
           </div>
 
@@ -150,7 +150,7 @@ export const AnnouncementEditorPage: React.FC = () => {
               <select
                 value={formData.type || 'Feature'}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden cursor-pointer"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden cursor-pointer text-slate-900"
               >
                 <option value="Feature">Feature Release / Enhancement</option>
                 <option value="Maintenance">Scheduled Maintenance Window</option>
@@ -166,7 +166,7 @@ export const AnnouncementEditorPage: React.FC = () => {
               <select
                 value={formData.targetAudience || 'All'}
                 onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value as any })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden cursor-pointer"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden cursor-pointer text-slate-900"
               >
                 <option value="All">All Restaurant Tenants (Universal)</option>
                 <option value="Starter">Starter Plan Tenants Only</option>
@@ -186,7 +186,7 @@ export const AnnouncementEditorPage: React.FC = () => {
               value={formData.message || ''}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               placeholder="Detailed description of the update, actions required by restaurant staff, or expected maintenance window..."
-              className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+              className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
             />
           </div>
 
@@ -199,7 +199,7 @@ export const AnnouncementEditorPage: React.FC = () => {
                 type="date"
                 value={formData.expiresAt || ''}
                 onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
               />
             </div>
 
@@ -221,14 +221,14 @@ export const AnnouncementEditorPage: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/superadmin/announcements')}
-            className="px-4 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+            className="px-4 py-2 text-xs font-bold text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] rounded-xl shadow-xs transition cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={saving}
-            className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-xs transition disabled:opacity-60 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition disabled:opacity-60 cursor-pointer"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Publishing...' : isEditing ? 'Update Notice' : 'Broadcast Notice'}</span>

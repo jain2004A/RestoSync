@@ -185,7 +185,7 @@ export const FeatureToggles: React.FC = () => {
   return (
     <div className="space-y-6 w-full font-sans">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
@@ -210,7 +210,7 @@ export const FeatureToggles: React.FC = () => {
       </div>
 
       {/* Restaurant Selector Card */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white p-6 rounded-2xl border border-[#eedfc8] shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
             Select Restaurant Tenant to Configure:
@@ -219,13 +219,13 @@ export const FeatureToggles: React.FC = () => {
             <span>Quick Presets:</span>
             <button
               onClick={() => handleApplyPreset('all')}
-              className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 font-semibold cursor-pointer transition"
+              className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 font-semibold cursor-pointer transition border border-blue-200/60"
             >
               All Features
             </button>
             <button
               onClick={() => handleApplyPreset('essential')}
-              className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200 font-semibold cursor-pointer transition"
+              className="px-2 py-0.5 rounded-md bg-[#fbf7ee] text-slate-700 hover:bg-[#f3ead7] font-semibold cursor-pointer transition border border-[#eedfc8]"
             >
               Essential POS
             </button>
@@ -243,7 +243,7 @@ export const FeatureToggles: React.FC = () => {
                 setSelectedTenantId(e.target.value);
                 setSavedSuccess(false);
               }}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#fbf7ee] border border-[#eedfc8] rounded-xl text-xs font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 cursor-pointer"
             >
               {tenants.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -265,7 +265,7 @@ export const FeatureToggles: React.FC = () => {
 
         {/* Selected Tenant Info Strip */}
         {selectedTenant && (
-          <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-4 text-xs text-slate-600">
+          <div className="pt-3 border-t border-[#eedfc8]/80 flex flex-wrap items-center gap-4 text-xs text-slate-600">
             <span className="font-semibold text-slate-900">{selectedTenant.businessName}</span>
             <span className="text-slate-300">•</span>
             <span>Plan: <strong className="text-blue-700">{selectedTenant.plan}</strong></span>
@@ -278,8 +278,8 @@ export const FeatureToggles: React.FC = () => {
       </div>
 
       {/* Feature Toggles List */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs divide-y divide-slate-100 overflow-hidden">
-        <div className="p-4 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] shadow-xs divide-y divide-[#eedfc8]/60 overflow-hidden">
+        <div className="p-4 bg-[#fbf7ee] border-b border-[#eedfc8] flex items-center justify-between text-xs font-bold text-slate-600 uppercase tracking-wider">
           <span>Feature Module & Scope</span>
           <span>Access Control</span>
         </div>
@@ -291,14 +291,14 @@ export const FeatureToggles: React.FC = () => {
           return (
             <div
               key={feat.key}
-              className="p-5 flex items-center justify-between gap-4 hover:bg-slate-50/40 transition"
+              className="p-5 flex items-center justify-between gap-4 hover:bg-amber-50/40 transition"
             >
               <div className="flex items-start gap-4">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition ${
                     isEnabled
                       ? 'bg-blue-50 text-blue-600 border border-blue-200/60 shadow-xs'
-                      : 'bg-slate-100 text-slate-400 border border-slate-200'
+                      : 'bg-[#fbf7ee] text-slate-400 border border-[#eedfc8]'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
@@ -306,7 +306,7 @@ export const FeatureToggles: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-bold text-slate-900">{feat.title}</h3>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#fbf7ee] text-slate-700 border border-[#eedfc8]">
                       {feat.badge}
                     </span>
                   </div>

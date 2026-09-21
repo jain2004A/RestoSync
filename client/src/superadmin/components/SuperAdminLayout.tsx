@@ -66,14 +66,14 @@ export const SuperAdminLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800 antialiased">
+    <div className="min-h-screen bg-[#faf7ee] flex flex-col font-sans text-slate-800 antialiased">
       {/* 1. TOP HEADER BAR */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 px-2 sm:px-4 h-16 flex items-center justify-between gap-4 shadow-2xs">
+      <header className="bg-[#fdfbf7]/95 backdrop-blur-md border-b border-[#eedfc8] sticky top-0 z-40 px-2 sm:px-4 h-16 flex items-center justify-between gap-4 shadow-xs">
         {/* Left: Brand + Badge */}
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition focus:outline-hidden"
+            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-[#f3ead7] transition focus:outline-hidden"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -89,11 +89,11 @@ export const SuperAdminLayout: React.FC = () => {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-slate-900 text-base tracking-tight">QuantroBill</span>
-                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 uppercase tracking-wider">
+                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100/70 text-amber-900 border border-amber-300/60 uppercase tracking-wider">
                   SuperAdmin
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 hidden sm:block font-medium">Enterprise Platform Control</p>
+              <p className="text-[10px] text-slate-500 hidden sm:block font-medium">Enterprise Platform Control</p>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ export const SuperAdminLayout: React.FC = () => {
               value={globalSearch}
               onChange={(e) => setGlobalSearch(e.target.value)}
               placeholder="Search tenants, invoices, audit logs..."
-              className="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+              className="w-full pl-9 pr-4 py-1.5 text-xs bg-[#fbf7ee] hover:bg-white focus:bg-white border border-[#eedfc8] rounded-lg text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
             />
           </div>
         </form>
@@ -121,18 +121,18 @@ export const SuperAdminLayout: React.FC = () => {
             href="/demo.html"
             target="_blank"
             rel="noreferrer"
-            className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition border border-indigo-200 shadow-2xs"
+            className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition border border-blue-200 shadow-2xs"
             title="Interactive Demo"
           >
             <span>🌐</span>
             <span>Demo Portal</span>
-            <ExternalLink className="w-3 h-3 text-indigo-400" />
+            <ExternalLink className="w-3 h-3 text-blue-500" />
           </a>
 
           {/* Notification Bell */}
           <button
             onClick={() => navigate('/superadmin/announcements')}
-            className="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition cursor-pointer"
+            className="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7] rounded-lg transition cursor-pointer"
             title="Platform Announcements & Alerts"
           >
             <Bell className="w-4 h-4" />
@@ -142,24 +142,24 @@ export const SuperAdminLayout: React.FC = () => {
           {/* Quick Help */}
           <button
             onClick={() => navigate('/superadmin/system-health')}
-            className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition cursor-pointer"
+            className="p-2 text-slate-600 hover:text-slate-900 hover:bg-[#f3ead7] rounded-lg transition cursor-pointer"
             title="System Diagnostics"
           >
             <HelpCircle className="w-4 h-4" />
           </button>
 
-          <div className="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
+          <div className="h-6 w-px bg-[#eedfc8] mx-1 hidden sm:block"></div>
 
           {/* Admin User Badge */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shadow-2xs">
+            <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
               {(user?.fullName || user?.username || 'A').charAt(0).toUpperCase()}
             </div>
             <div className="text-left hidden sm:block">
               <p className="text-xs font-bold text-slate-900 leading-tight">
                 {user?.fullName || user?.username || 'SuperAdmin'}
               </p>
-              <p className="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">
+              <p className="text-[10px] text-slate-500 font-medium truncate max-w-[140px]">
                 {user?.email || 'admin@quantromind.com'}
               </p>
             </div>
@@ -168,7 +168,7 @@ export const SuperAdminLayout: React.FC = () => {
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100/80 rounded-lg transition cursor-pointer border border-rose-200 shadow-2xs ml-1"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-lg transition cursor-pointer border border-rose-200 shadow-2xs ml-1"
             title="Sign Out of SuperAdmin"
           >
             <LogOut className="w-3.5 h-3.5" />
@@ -178,8 +178,8 @@ export const SuperAdminLayout: React.FC = () => {
       </header>
 
       {/* 2. HORIZONTAL SUB-NAV ROW (Matching Reference Screenshot Top Tabs) */}
-      <nav className="bg-white border-b border-slate-200 px-2 sm:px-4 sticky top-16 z-30 shadow-2xs">
-        <div className="flex items-center gap-1 overflow-x-auto py-2.5 scrollbar-none">
+      <nav className="bg-[#fdfbf7]/90 backdrop-blur-xs border-b border-[#eedfc8] px-2 sm:px-4 sticky top-16 z-30 shadow-xs">
+        <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path || (item.path !== '/superadmin/dashboard' && location.pathname.startsWith(item.path));
@@ -188,13 +188,13 @@ export const SuperAdminLayout: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer shrink-0 ${
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer shrink-0 ${
                   isActive
-                    ? 'bg-amber-100/80 text-amber-950 border border-amber-300/80 shadow-2xs font-bold'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-transparent'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
+                    : 'text-slate-700 hover:bg-[#f3ead7] hover:text-slate-900 border border-transparent'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-amber-800' : 'text-slate-500'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-500'}`} />
                 <span>{item.label}</span>
               </NavLink>
             );
@@ -209,9 +209,9 @@ export const SuperAdminLayout: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
           />
-          <aside className="fixed inset-y-0 left-0 w-72 bg-white shadow-xl flex flex-col justify-between z-50">
+          <aside className="fixed inset-y-0 left-0 w-72 bg-[#fdfbf7] border-r border-[#eedfc8] shadow-xl flex flex-col justify-between z-50">
             <div>
-              <div className="h-16 px-6 border-b border-slate-200 flex items-center justify-between">
+              <div className="h-16 px-6 border-b border-[#eedfc8] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                     <ShieldCheck className="w-5 h-5" />
@@ -220,7 +220,7 @@ export const SuperAdminLayout: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+                  className="p-1.5 rounded-lg text-slate-500 hover:bg-[#f3ead7]"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -237,8 +237,8 @@ export const SuperAdminLayout: React.FC = () => {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold transition ${
                         isActive
-                          ? 'bg-blue-600 text-white shadow-xs'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                          ? 'bg-blue-600 text-white shadow-xs font-bold'
+                          : 'text-slate-700 hover:bg-[#f3ead7] hover:text-slate-900'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
@@ -252,7 +252,7 @@ export const SuperAdminLayout: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-100 bg-slate-50/70 text-center">
+            <div className="p-4 border-t border-[#eedfc8] bg-[#fbf7ee] text-center">
               <p className="text-xs font-bold text-slate-700">QuantroBill SaaS v2.0</p>
               <p className="text-[10px] text-slate-400 mt-0.5">Isolated Security Boundary</p>
             </div>

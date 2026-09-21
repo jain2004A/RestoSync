@@ -161,7 +161,7 @@ export const InvoiceDetailPage: React.FC = () => {
       <div className="mb-4 flex items-center justify-between no-print">
         <button
           onClick={() => navigate('/superadmin/billing')}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Invoices</span>
@@ -172,7 +172,7 @@ export const InvoiceDetailPage: React.FC = () => {
             <button
               disabled={isPaying}
               onClick={handlePayWithRazorpay}
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm transition cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-xs transition cursor-pointer disabled:opacity-50"
             >
               {isPaying ? (
                 <>
@@ -190,7 +190,7 @@ export const InvoiceDetailPage: React.FC = () => {
 
           <button
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-slate-700 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] rounded-lg shadow-xs transition cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Print / Save PDF</span>
@@ -206,16 +206,16 @@ export const InvoiceDetailPage: React.FC = () => {
       )}
 
       {/* INVOICE CARD */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 shadow-sm print:shadow-none print:border-none">
+      <div className="bg-white rounded-2xl border border-[#eedfc8] p-8 sm:p-10 shadow-xs print:shadow-none print:border-none">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 pb-8 border-b border-slate-100">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 pb-8 border-b border-[#eedfc8]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">QuantroBill SaaS</h2>
-              <p className="text-xs text-slate-400">Tax Invoice & Subscription Receipt</p>
+              <p className="text-xs text-slate-500">Tax Invoice & Subscription Receipt</p>
             </div>
           </div>
 
@@ -263,10 +263,10 @@ export const InvoiceDetailPage: React.FC = () => {
         </div>
 
         {/* Itemized Table */}
-        <div className="rounded-xl border border-slate-200 overflow-hidden my-6">
+        <div className="rounded-xl border border-[#eedfc8] overflow-hidden my-6">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 font-bold text-slate-600">
+              <tr className="bg-[#fbf7ee] border-b border-[#eedfc8] font-bold text-slate-600">
                 <th className="py-3 px-4">Description</th>
                 <th className="py-3 px-4">Cycle</th>
                 <th className="py-3 px-4 text-right">Base Amount</th>
@@ -274,7 +274,7 @@ export const InvoiceDetailPage: React.FC = () => {
                 <th className="py-3 px-4 text-right">Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-slate-700">
+            <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
               <tr>
                 <td className="py-4 px-4">
                   <div className="font-bold text-slate-900">QuantroBill {invoice.planName} Tier</div>
@@ -291,7 +291,7 @@ export const InvoiceDetailPage: React.FC = () => {
               </tr>
             </tbody>
             <tfoot>
-              <tr className="bg-slate-50/50 border-t border-slate-200 text-xs font-bold text-slate-900">
+              <tr className="bg-[#fbf7ee]/50 border-t border-[#eedfc8] text-xs font-bold text-slate-900">
                 <td colSpan={4} className="py-3 px-4 text-right">
                   Total Payable Amount ({invoice.currency}):
                 </td>
@@ -304,7 +304,7 @@ export const InvoiceDetailPage: React.FC = () => {
         </div>
 
         {/* Payment Transaction Info */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600 space-y-1">
+        <div className="p-4 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] text-xs text-slate-600 space-y-1">
           <div className="font-bold text-slate-800">Payment Reference:</div>
           <div>Method: {invoice.paymentMethod || 'UPI/Online Gateway'}</div>
           {invoice.transactionRef && <div>Transaction Ref: {invoice.transactionRef}</div>}

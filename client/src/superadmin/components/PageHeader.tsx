@@ -27,10 +27,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   onAction,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 mb-6 border-b border-slate-200">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 mb-6 border-b border-[#eedfc8]">
       <div className="flex items-start gap-3">
         {Icon && (
-          <div className={`p-2.5 rounded-xl bg-white border border-slate-200 shadow-xs ${iconColor}`}>
+          <div className={`p-2.5 rounded-xl bg-[#fbf7ee] border border-[#eedfc8] shadow-xs ${iconColor}`}>
             <Icon className="w-6 h-6" />
           </div>
         )}
@@ -51,7 +51,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           <button
             onClick={onRefresh}
             disabled={isRefreshing}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 active:bg-slate-100 rounded-lg border border-slate-200 shadow-2xs transition disabled:opacity-60 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-800 bg-[#fbf7ee] hover:bg-[#f3ead7] rounded-lg border border-[#eedfc8] shadow-xs transition disabled:opacity-60 cursor-pointer"
             title="Refresh dataset"
           >
             <span className={`inline-block text-sm ${isRefreshing ? 'animate-spin' : ''}`}>🔄</span>

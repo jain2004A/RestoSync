@@ -38,7 +38,7 @@ export const DataTableToolbar: React.FC<DataTableToolbarProps> = ({
   children,
 }) => {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 mb-4 shadow-2xs flex flex-col md:flex-row md:items-center md:justify-between gap-3 flex-wrap">
+    <div className="bg-white rounded-xl border border-[#eedfc8] p-3 sm:p-4 mb-4 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-3 flex-wrap">
       {/* Search Bar */}
       <div className="relative flex-1 min-w-[240px]">
         <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -47,7 +47,7 @@ export const DataTableToolbar: React.FC<DataTableToolbarProps> = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-50/50 hover:bg-slate-50 focus:bg-white border border-slate-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition"
+          className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#fbf7ee] hover:bg-white focus:bg-white border border-[#eedfc8] rounded-lg text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition"
         />
       </div>
 
@@ -58,7 +58,7 @@ export const DataTableToolbar: React.FC<DataTableToolbarProps> = ({
             <select
               value={filter.value}
               onChange={(e) => filter.onChange(e.target.value)}
-              className="w-full px-3 py-2 text-xs font-semibold bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition cursor-pointer"
+              className="w-full px-3 py-2 text-xs font-semibold bg-[#fbf7ee] hover:bg-white border border-[#eedfc8] rounded-lg text-slate-700 focus:outline-hidden focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition cursor-pointer"
             >
               {filter.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -75,7 +75,7 @@ export const DataTableToolbar: React.FC<DataTableToolbarProps> = ({
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="w-full px-2.5 py-2 text-xs font-semibold bg-white border border-slate-200 rounded-lg text-slate-700 focus:outline-hidden focus:border-blue-500 cursor-pointer"
+              className="w-full px-2.5 py-2 text-xs font-semibold bg-[#fbf7ee] hover:bg-white border border-[#eedfc8] rounded-lg text-slate-700 focus:outline-hidden focus:border-blue-600 cursor-pointer"
             >
               {pageSizeOptions.map((sz) => (
                 <option key={sz} value={sz}>
@@ -88,7 +88,7 @@ export const DataTableToolbar: React.FC<DataTableToolbarProps> = ({
 
         {/* Count Badge */}
         {totalCount !== undefined && (
-          <div className="px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-bold text-slate-600 shrink-0">
+          <div className="px-3 py-1.5 rounded-lg bg-[#fbf7ee] border border-[#eedfc8] text-xs font-bold text-slate-700 shrink-0">
             {totalCount} {totalCount === 1 ? 'found' : 'found'}
           </div>
         )}

@@ -109,7 +109,7 @@ export const TenantCreatePage: React.FC = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Section 1: Business Profile */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
             1. Restaurant Business Information
           </h2>
@@ -124,7 +124,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.businessName}
                 onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                 placeholder="e.g. Spice Symphony Fine Dine"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -137,7 +137,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.legalName}
                 onChange={(e) => setFormData({ ...formData, legalName: e.target.value })}
                 placeholder="e.g. Symphony Hospitality LLP"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -148,7 +148,7 @@ export const TenantCreatePage: React.FC = () => {
               <select
                 value={formData.businessType}
                 onChange={(e) => setFormData({ ...formData, businessType: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden cursor-pointer"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden cursor-pointer"
               >
                 <option value={1}>Cafe / Bakery</option>
                 <option value={2}>Fine Dine Restaurant</option>
@@ -167,14 +167,14 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.gstin}
                 onChange={(e) => setFormData({ ...formData, gstin: e.target.value.toUpperCase() })}
                 placeholder="e.g. 27AAAAA0000A1Z5"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg font-mono focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg font-mono focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
           </div>
         </div>
 
         {/* Section 2: Owner Credentials & Contact */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
             2. Owner Credentials & Contact
           </h2>
@@ -188,7 +188,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.ownerName}
                 onChange={(e) => setFormData({ ...formData, ownerName: e.target.value })}
                 placeholder="e.g. Anand Mahindra"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -202,7 +202,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.ownerEmail}
                 onChange={(e) => setFormData({ ...formData, ownerEmail: e.target.value })}
                 placeholder="e.g. owner@restaurant.com"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -215,7 +215,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.ownerPhone}
                 onChange={(e) => setFormData({ ...formData, ownerPhone: e.target.value })}
                 placeholder="+91 98765 43210"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -227,14 +227,14 @@ export const TenantCreatePage: React.FC = () => {
                 type="text"
                 value={formData.initialPassword}
                 onChange={(e) => setFormData({ ...formData, initialPassword: e.target.value })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg font-mono focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg font-mono focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
           </div>
         </div>
 
         {/* Section 3: Initial Branch Location */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
             3. Initial Outlet Location
           </h2>
@@ -248,7 +248,7 @@ export const TenantCreatePage: React.FC = () => {
                 value={formData.initialOutletName}
                 onChange={(e) => setFormData({ ...formData, initialOutletName: e.target.value })}
                 placeholder="Main Branch"
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -260,7 +260,7 @@ export const TenantCreatePage: React.FC = () => {
                 type="text"
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -272,14 +272,14 @@ export const TenantCreatePage: React.FC = () => {
                 type="text"
                 value={formData.state}
                 onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
           </div>
         </div>
 
         {/* Section 4: Subscription Plan Allocation */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs">
+        <div className="bg-white rounded-2xl border border-[#eedfc8] p-6 shadow-xs">
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
             4. SaaS Subscription Tier
           </h2>
@@ -291,7 +291,7 @@ export const TenantCreatePage: React.FC = () => {
               <select
                 value={formData.subscriptionPlan}
                 onChange={(e) => setFormData({ ...formData, subscriptionPlan: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden cursor-pointer"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden cursor-pointer"
               >
                 <option value={1}>Starter (Basic)</option>
                 <option value={2}>Professional (Standard)</option>
@@ -308,7 +308,7 @@ export const TenantCreatePage: React.FC = () => {
                 min="1"
                 value={formData.maxOutlets}
                 onChange={(e) => setFormData({ ...formData, maxOutlets: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
 
@@ -321,7 +321,7 @@ export const TenantCreatePage: React.FC = () => {
                 min="1"
                 value={formData.subscriptionMonths}
                 onChange={(e) => setFormData({ ...formData, subscriptionMonths: Number(e.target.value) })}
-                className="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-100 focus:border-blue-500 focus:outline-hidden"
+                className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-lg focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden"
               />
             </div>
           </div>
@@ -332,7 +332,7 @@ export const TenantCreatePage: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/superadmin/tenants')}
-            className="px-4 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-lg shadow-2xs transition cursor-pointer"
+            className="px-4 py-2 text-xs font-bold text-slate-800 bg-[#fbf7ee] hover:bg-[#f3ead7] border border-[#eedfc8] rounded-lg shadow-xs transition cursor-pointer"
           >
             Cancel
           </button>
