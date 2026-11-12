@@ -171,7 +171,7 @@ export const OwnerSettings: React.FC = () => {
 
       if (tenant) {
         tenant.businessName = restaurantName;
-        localStorage.setItem('quantrobill_tenant', JSON.stringify(tenant));
+        localStorage.setItem('restosync_tenant', JSON.stringify(tenant));
       }
       setSavedSuccess(true);
       setTimeout(() => setSavedSuccess(false), 3500);
@@ -180,7 +180,7 @@ export const OwnerSettings: React.FC = () => {
       // Fallback local update
       if (tenant) {
         tenant.businessName = restaurantName;
-        localStorage.setItem('quantrobill_tenant', JSON.stringify(tenant));
+        localStorage.setItem('restosync_tenant', JSON.stringify(tenant));
       }
       setSavedSuccess(true);
       setTimeout(() => setSavedSuccess(false), 3500);
@@ -763,7 +763,7 @@ export const OwnerSettings: React.FC = () => {
             <div className="flex items-start justify-between border-b border-slate-100 pb-5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-sm">
-                  QB
+                  RS
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-black text-slate-900 leading-none">
@@ -822,7 +822,7 @@ export const OwnerSettings: React.FC = () => {
                 <tbody className="divide-y divide-slate-100 text-slate-800">
                   <tr>
                     <td className="py-3 font-semibold">
-                      QuantroBill {viewInvoice.planName} Tier
+                      RestoSync {viewInvoice.planName} Tier
                       <span className="text-[11px] text-slate-400 block">
                         Complete multi-terminal restaurant OS subscription
                       </span>

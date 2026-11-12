@@ -18,8 +18,8 @@ export interface AuthSession {
   userId?: string;
 }
 
-const STORAGE_KEY_PAIRED_OUTLET = 'quantrobill_paired_outlet';
-const STORAGE_KEY_AUTH_SESSION = 'quantrobill_auth_session';
+const STORAGE_KEY_PAIRED_OUTLET = 'restosync_paired_outlet';
+const STORAGE_KEY_AUTH_SESSION = 'restosync_auth_session';
 
 // Safe secure storage helper that uses expo-secure-store on native (iOS/Android)
 // and falls back gracefully to localStorage on web

@@ -352,7 +352,7 @@ export const SuperAdminDashboard: React.FC = () => {
           <div className="p-4 sm:p-5 border-b border-[#eedfc8]/80 flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-slate-900">Recently Onboarded Restaurants</h2>
-              <p className="text-[11px] text-slate-400">Latest restaurants operating on QuantroBill SaaS</p>
+              <p className="text-[11px] text-slate-400">Latest restaurants operating on RestoSync SaaS</p>
             </div>
             <button
               onClick={() => navigate('/superadmin/tenants')}

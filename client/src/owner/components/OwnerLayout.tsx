@@ -84,7 +84,7 @@ export const OwnerLayout: React.FC = () => {
           {/* Restaurant Identity Badge */}
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-blue-600 text-white font-black text-xs flex items-center justify-center tracking-wider shadow-xs uppercase">
-              {(tenant?.businessName || tenant?.name || 'QB')
+              {(tenant?.businessName || tenant?.name || 'RS')
                 .split(' ')
                 .filter(Boolean)
                 .map((w: string) => w[0])
@@ -247,7 +247,7 @@ export const OwnerLayout: React.FC = () => {
 
           {/* Sidebar Footer */}
           <div className="p-3 border-t border-[#eedfc8] bg-[#f2e8d4]/80 text-center shrink-0">
-            <p className="text-[11px] font-bold text-slate-800">QuantroBill POS SaaS</p>
+            <p className="text-[11px] font-bold text-slate-800">RestoSync POS SaaS</p>
             <p className="text-[10px] text-blue-700 font-bold">
               {tenant?.planName || 'Enterprise Tier'}
             </p>

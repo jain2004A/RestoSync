@@ -61,8 +61,7 @@ export const MustChangePasswordModal: React.FC<MustChangePasswordModalProps> = (
         if (user) {
           const updatedUser = { ...user, mustChangePassword: false };
           const userStr = JSON.stringify(updatedUser);
-          localStorage.setItem('quantrobill_user', userStr);
-          localStorage.setItem('petbharke_user', userStr);
+          localStorage.setItem('restosync_user', userStr);
 
           // Update Zustand store
           useAuthStore.setState({ user: updatedUser });

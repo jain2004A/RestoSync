@@ -220,10 +220,10 @@ export const useTableStore = create<TableStoreState>()(
             tables: state.tables.map((t) =>
               t.tableNumber.toUpperCase() === tableNumber.toUpperCase()
                 ? {
-                    ...t,
-                    foodReady: false,
-                    servedAt: nowTime,
-                  }
+                  ...t,
+                  foodReady: false,
+                  servedAt: nowTime,
+                }
                 : t
             ),
           }));
@@ -236,35 +236,35 @@ export const useTableStore = create<TableStoreState>()(
       },
 
       vacateTable: (tableNumber: string) => {
-        apiClient.post(`/tables/${encodeURIComponent(tableNumber)}/vacate`).catch(() => {});
+        apiClient.post(`/tables/${encodeURIComponent(tableNumber)}/vacate`).catch(() => { });
         const targetTable = get().tables.find((t) => t.tableNumber.toUpperCase() === tableNumber.toUpperCase());
         if (targetTable?.id) {
-          apiClient.patch(`/tables/${targetTable.id}/status`, { isOccupied: false }).catch(() => {});
+          apiClient.patch(`/tables/${targetTable.id}/status`, { isOccupied: false }).catch(() => { });
         }
 
         // Clear associated draft in draftCartStore as well
         try {
           useDraftCartStore.getState().clearDraft(`table:${tableNumber.trim().toUpperCase()}`);
-        } catch {}
+        } catch { }
 
         set((state) => ({
           tables: state.tables.map((t) =>
             t.tableNumber.toUpperCase() === tableNumber.toUpperCase()
               ? {
-                  ...t,
-                  isOccupied: false,
-                  orderTotal: undefined,
-                  orderTime: undefined,
-                  items: [],
-                  billNumber: undefined,
-                  kotNumber: undefined,
-                  paymentMode: undefined,
-                  lastSentQuantities: undefined,
-                  foodReady: false,
-                  foodReadyAt: undefined,
-                  servedAt: undefined,
-                  orderId: undefined,
-                }
+                ...t,
+                isOccupied: false,
+                orderTotal: undefined,
+                orderTime: undefined,
+                items: [],
+                billNumber: undefined,
+                kotNumber: undefined,
+                paymentMode: undefined,
+                lastSentQuantities: undefined,
+                foodReady: false,
+                foodReadyAt: undefined,
+                servedAt: undefined,
+                orderId: undefined,
+              }
               : t
           ),
         }));
@@ -273,7 +273,7 @@ export const useTableStore = create<TableStoreState>()(
       occupyTable: (tableNumber: string, items: OrderItem[], total: number) => {
         const targetTable = get().tables.find((t) => t.tableNumber.toUpperCase() === tableNumber.toUpperCase());
         if (targetTable?.id) {
-          apiClient.patch(`/tables/${targetTable.id}/status`, { isOccupied: true }).catch(() => {});
+          apiClient.patch(`/tables/${targetTable.id}/status`, { isOccupied: true }).catch(() => { });
         }
 
         const numOnly = tableNumber.replace(/\D/g, '') || '101';
@@ -281,14 +281,14 @@ export const useTableStore = create<TableStoreState>()(
           tables: state.tables.map((t) =>
             t.tableNumber.toUpperCase() === tableNumber.toUpperCase()
               ? {
-                  ...t,
-                  isOccupied: true,
-                  orderTotal: total,
-                  orderTime: 'Just Now',
-                  items,
-                  billNumber: t.billNumber || `BILL-${numOnly}`,
-                  kotNumber: t.kotNumber || `KOT-${numOnly}`,
-                }
+                ...t,
+                isOccupied: true,
+                orderTotal: total,
+                orderTime: 'Just Now',
+                items,
+                billNumber: t.billNumber || `BILL-${numOnly}`,
+                kotNumber: t.kotNumber || `KOT-${numOnly}`,
+              }
               : t
           ),
         }));
@@ -305,15 +305,15 @@ export const useTableStore = create<TableStoreState>()(
           tables: state.tables.map((t) =>
             t.tableNumber.toUpperCase() === tableNumber.toUpperCase()
               ? {
-                  ...t,
-                  isOccupied: true,
-                  orderTotal: total,
-                  orderTime: t.orderTime || 'Just Now',
-                  items,
-                  billNumber: t.billNumber || `BILL-${numOnly}`,
-                  kotNumber: t.kotNumber || `KOT-${numOnly}`,
-                  lastSentQuantities: lastSentQuantities !== undefined ? lastSentQuantities : t.lastSentQuantities,
-                }
+                ...t,
+                isOccupied: true,
+                orderTotal: total,
+                orderTime: t.orderTime || 'Just Now',
+                items,
+                billNumber: t.billNumber || `BILL-${numOnly}`,
+                kotNumber: t.kotNumber || `KOT-${numOnly}`,
+                lastSentQuantities: lastSentQuantities !== undefined ? lastSentQuantities : t.lastSentQuantities,
+              }
               : t
           ),
         }));
@@ -360,11 +360,11 @@ export const useTableStore = create<TableStoreState>()(
               tables: state.tables.map((t) =>
                 t.id === id
                   ? {
-                      ...t,
-                      tableNumber: updates.tableNumber ?? t.tableNumber,
-                      section: updates.section ?? t.section,
-                      capacity: updates.capacity ?? t.capacity,
-                    }
+                    ...t,
+                    tableNumber: updates.tableNumber ?? t.tableNumber,
+                    section: updates.section ?? t.section,
+                    capacity: updates.capacity ?? t.capacity,
+                  }
                   : t
               ),
             }));
@@ -478,7 +478,7 @@ export const useTableStore = create<TableStoreState>()(
 
         try {
           useDraftCartStore.getState().mergeDrafts(`table:${sourceTableNumber}`, `table:${targetTableNumber}`);
-        } catch {}
+        } catch { }
 
         set((s) => ({
           tables: s.tables.map((t) => {
@@ -515,7 +515,7 @@ export const useTableStore = create<TableStoreState>()(
         apiClient.post('/tables/merge', {
           sourceTableNumber: sourceTableNumber,
           targetTableNumber: targetTableNumber,
-        }).catch(() => {});
+        }).catch(() => { });
 
         return true;
       },
@@ -535,7 +535,7 @@ export const useTableStore = create<TableStoreState>()(
 
         try {
           useDraftCartStore.getState().moveDraft(`table:${fromTableNumber}`, `table:${toTableNumber}`);
-        } catch {}
+        } catch { }
 
         set((s) => ({
           tables: s.tables.map((t) => {
@@ -575,7 +575,7 @@ export const useTableStore = create<TableStoreState>()(
         apiClient.post('/tables/shift', {
           fromTableNumber: fromTableNumber,
           toTableNumber: toTableNumber,
-        }).catch(() => {});
+        }).catch(() => { });
 
         return true;
       },
@@ -591,7 +591,7 @@ export const useTableStore = create<TableStoreState>()(
       },
     }),
     {
-      name: 'quantrobill_tables_store',
+      name: 'restosync_tables_store',
     }
   )
 );

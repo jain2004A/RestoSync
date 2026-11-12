@@ -381,7 +381,7 @@ export const BillPrintModal: React.FC<BillPrintModalProps> = ({
                 <p className="font-bold">{rs.thankYouText}</p>
               )}
               {rs.showPoweredBy && (
-                <p className="text-[9px]">Powered by QuantroBill POS</p>
+                <p className="text-[9px]">Powered by RestoSync POS</p>
               )}
             </div>
           </div>

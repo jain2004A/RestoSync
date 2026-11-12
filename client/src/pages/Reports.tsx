@@ -187,7 +187,7 @@ export const Reports: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    const storeName = tenant?.name || 'QuantroBill';
+    const storeName = tenant?.name || 'RestoSync';
     link.download = `${storeName}_Sales_Report_${timeRange}_${new Date().toISOString().slice(0, 10)}.csv`;
     link.click();
     URL.revokeObjectURL(url);

@@ -1,7 +1,7 @@
 {
-  "name": "quantrobill-desktop",
+  "name": "restosync-desktop",
   "version": "1.0.0",
-  "description": "QuantroBill Next-Gen Desktop POS with Thermal Printing and Offline Capability",
+  "description": "RestoSync Next-Gen Desktop POS with Thermal Printing and Offline Capability",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -15,15 +15,15 @@
     "desktop",
     "thermal-printer"
   ],
-  "author": "QuantroBill Team",
+  "author": "RestoSync Team",
   "license": "MIT",
   "devDependencies": {
     "electron": "^31.3.1",
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.quantrobill.desktoppos",
-    "productName": "QuantroBill Desktop POS",
+    "appId": "com.restosync.desktoppos",
+    "productName": "RestoSync Desktop POS",
     "directories": {
       "output": "dist-electron"
     },

@@ -1,0 +1,6 @@
+@RestoSync.API_HostAddress = http://localhost:5118
+
+GET {{RestoSync.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

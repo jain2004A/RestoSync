@@ -1,6 +1,6 @@
-# QuantroBill POS — Setup Guide
+# RestoSync POS — Setup Guide
 
-This document covers everything needed to deploy and configure QuantroBill POS from scratch.
+This document covers everything needed to deploy and configure RestoSync POS from scratch.
 
 ---
 
@@ -20,10 +20,10 @@ This document covers everything needed to deploy and configure QuantroBill POS f
 ```bash
 # Clone the repository
 git clone <repo-url>
-cd QuantroBIll
+cd RestoSync
 
 # Backend
-cd src/PetBharke.API
+cd src/RestoSync.API
 dotnet restore
 
 # Frontend
@@ -43,22 +43,22 @@ npm install
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `MongoDB:ConnectionString` | MongoDB Atlas connection string | `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/QuantroBill?retryWrites=true&w=majority` |
+| `MongoDB:ConnectionString` | MongoDB Atlas connection string | `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/RestoSyncDb?retryWrites=true&w=majority` |
 | `Jwt:Key` | JWT signing key (min 32 chars, random) | `YourSuperSecretKeyAtLeast32CharsLong!` |
-| `Jwt:Issuer` | JWT issuer identifier | `QuantroBill` |
-| `Jwt:Audience` | JWT audience identifier | `QuantroBillUsers` |
+| `Jwt:Issuer` | JWT issuer identifier | `RestoSyncAPI` |
+| `Jwt:Audience` | JWT audience identifier | `RestoSyncClient` |
 | `AllowedOrigins` | Comma-separated allowed CORS origins | `http://localhost:5173,https://yourdomain.com` |
 
 ### Local Development (Recommended: dotnet user-secrets)
 
 ```bash
-cd src/PetBharke.API
+cd src/RestoSync.API
 
 # Initialize (already done if you see a UserSecretsId in .csproj)
 dotnet user-secrets init
 
 # Set secrets
-dotnet user-secrets set "MongoDB:ConnectionString" "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/QuantroBill?retryWrites=true&w=majority"
+dotnet user-secrets set "MongoDB:ConnectionString" "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/RestoSyncDb?retryWrites=true&w=majority"
 dotnet user-secrets set "Jwt:Key" "YOUR_RANDOM_SECRET_KEY_AT_LEAST_32_CHARS"
 ```
 
@@ -94,7 +94,7 @@ Or use your cloud provider's secrets manager (AWS Secrets Manager, Azure Key Vau
 ### Backend
 
 ```bash
-cd src/PetBharke.API
+cd src/RestoSync.API
 dotnet run
 ```
 
@@ -122,7 +122,7 @@ API documentation is available at `http://localhost:5000/swagger`.
 
 ## 5. First Login
 
-1. Open the frontend at `http://localhost:5173` or `https://quantrobill.quantromind.com`.
+1. Open the frontend at `http://localhost:5173` or `https://restosync.quantromind.com`.
 2. Log in with `admin@quantromind.com` / `Quantromind@#9100`.
 3. The API will return `mustChangePassword: true` — the frontend should redirect you to change your password.
 4. Set a **strong, unique password** immediately.
@@ -175,12 +175,13 @@ docker-compose --env-file .env up --build
 ## 9. Project Structure
 
 ```
-QuantroBIll/
+RestoSync/
+├── RestoSync.sln                # .NET 8 Backend Solution
 ├── src/
-│   ├── PetBharke.API/           # ASP.NET Core Web API
-│   ├── PetBharke.Application/   # Business logic, DTOs, interfaces
-│   ├── PetBharke.Domain/        # Entity models
-│   └── PetBharke.Infrastructure/# MongoDB, services, seeding
+│   ├── RestoSync.API/           # ASP.NET Core Web API
+│   ├── RestoSync.Application/   # Business logic, DTOs, interfaces
+│   ├── RestoSync.Domain/        # Entity models
+│   └── RestoSync.Infrastructure/# MongoDB, services, seeding
 ├── client/                      # React 19 + Vite + Zustand frontend
 ├── desktop-electron/            # Electron wrapper for desktop POS
 ├── waiter-mobile/               # React Native / Expo mobile app

@@ -54,8 +54,8 @@ export const LandingPage: React.FC = () => {
     businessName: '',
     city: '',
     outletsCount: '1',
-    message: 'Requesting a live personalized demo of QuantroBill POS.',
-    interestedProduct: 'QuantroBill Restaurant OS',
+    message: 'Requesting a live personalized demo of RestoSync POS.',
+    interestedProduct: 'RestoSync Restaurant OS',
     formType: 'Landing Page Form',
   });
   const [inPageStatus, setInPageStatus] = useState<SubmissionStatus>('idle');
@@ -174,8 +174,8 @@ export const LandingPage: React.FC = () => {
         businessName: '',
         city: '',
         outletsCount: '1',
-        message: 'Requesting a live personalized demo of QuantroBill POS.',
-        interestedProduct: 'QuantroBill Restaurant OS',
+        message: 'Requesting a live personalized demo of RestoSync POS.',
+        interestedProduct: 'RestoSync Restaurant OS',
         formType: 'Landing Page Form',
       });
       setTimeout(() => setInPageStatus('idle'), 5000);
@@ -334,8 +334,8 @@ export const LandingPage: React.FC = () => {
               </button>
 
               <a
-                href="/downloads/QuantroBill-POS-Setup.exe"
-                download="QuantroBill-POS-Setup.exe"
+                href="/downloads/RestoSync-POS-Setup.exe"
+                download="RestoSync-POS-Setup.exe"
                 className="pp-btn-desktop"
                 title="Download Windows Desktop App for thermal printing and cash drawer"
               >
@@ -362,7 +362,7 @@ export const LandingPage: React.FC = () => {
             <div className="pp-hero-img-wrap">
               <img
                 src={heroImg}
-                alt="QuantroBill POS billing interface and restaurant team"
+                alt="RestoSync POS billing interface and restaurant team"
                 className="pp-hero-img"
               />
               <div className="pp-floating-stat-pill">
@@ -408,13 +408,13 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. ABOUT QUANTROMIND & THREE CORE PILLARS */}
+      {/* 4. ABOUT RESTOSYNC & THREE CORE PILLARS */}
       <section className="pp-types-section" style={{ background: '#ffffff' }}>
         <div className="pp-section-header">
-          <span className="pp-section-tag">ABOUT QUANTROMIND</span>
+          <span className="pp-section-tag">ABOUT RESTOSYNC</span>
           <h2 className="pp-section-title">Empowering Food Businesses with Next-Gen Technology</h2>
           <p className="pp-section-sub">
-            At Quantromind, we believe running a cafe or restaurant shouldn't be held back by clunky, slow legacy software. We built a billing system so intuitive that your cashier can master it in 2 minutes, yet robust enough for your busiest Saturday night rush.
+            At RestoSync (built by Quantromind), we believe running a cafe or restaurant shouldn't be held back by clunky, slow legacy software. We built a billing system so intuitive that your cashier can master it in 2 minutes, yet robust enough for your busiest Saturday night rush.
           </p>
         </div>
 
@@ -628,7 +628,7 @@ export const LandingPage: React.FC = () => {
               <span style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#f87171' }}>
                 SCHEDULE A DEMO
               </span>
-              <h3>See How QuantroBill Elevates Your Business</h3>
+              <h3>See How RestoSync Elevates Your Business</h3>
               <p>
                 Our restaurant technology consultants will walk you through live order punching, thermal receipt generation, kitchen KDS, and table management tailored to your specific menu.
               </p>
@@ -801,7 +801,7 @@ export const LandingPage: React.FC = () => {
         <div className="pp-cta-inner">
           <h2>Ready to Upgrade Your Restaurant Billing?</h2>
           <p>
-            Join hundreds of forward-thinking food businesses that boosted order speed, prevented leakages, and eliminated cashier downtime with QuantroBill.
+            Join hundreds of forward-thinking food businesses that boosted order speed, prevented leakages, and eliminated cashier downtime with RestoSync.
           </p>
           <div className="pp-cta-btns">
             <Link
@@ -832,8 +832,8 @@ export const LandingPage: React.FC = () => {
               <span>Schedule Live Demo</span>
             </button>
             <a
-              href="/downloads/QuantroBill-POS-Setup.exe"
-              download="QuantroBill-POS-Setup.exe"
+              href="/downloads/RestoSync-POS-Setup.exe"
+              download="RestoSync-POS-Setup.exe"
               className="pp-btn-desktop"
               style={{ padding: '14px 24px', fontSize: '1rem', color: '#ffffff', borderColor: 'rgba(255,255,255,0.3)' }}
             >

@@ -534,7 +534,7 @@ export const Billing: React.FC = () => {
         amount: orderData.amountInPaise,
         currency: orderData.currency,
         order_id: orderData.orderId,
-        name: 'QuantroBill POS',
+        name: 'RestoSync POS',
         description: `Bill Settlement - ${destination}`,
         prefill: {
           contact: customerPhone || '',

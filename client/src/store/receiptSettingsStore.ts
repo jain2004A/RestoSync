@@ -256,7 +256,7 @@ const defaultSettings: ReceiptSettings = {
   footerMessageSize: 12,
   thankYouText: '*** Thank You! Visit Again ***',
   showUPIQR: true,
-  upiId: 'petbharkhao@upi',
+  upiId: 'restosync@upi',
   currencySymbol: '₹',
   showPoweredBy: true,
 
@@ -329,7 +329,7 @@ const defaultSettings: ReceiptSettings = {
 const getScopedStorage = () => ({
   getItem: (name: string) => {
     try {
-      const tenantId = localStorage.getItem('quantrobill_tenant_id') || 'demo';
+      const tenantId = localStorage.getItem('restosync_tenant_id') || localStorage.getItem('quantrobill_tenant_id') || 'demo';
       const scopedKey = `${name}_${tenantId}`;
       const val = localStorage.getItem(scopedKey) || localStorage.getItem(name);
       return val ? JSON.parse(val) : null;
@@ -339,14 +339,14 @@ const getScopedStorage = () => ({
   },
   setItem: (name: string, value: any) => {
     try {
-      const tenantId = localStorage.getItem('quantrobill_tenant_id') || 'demo';
+      const tenantId = localStorage.getItem('restosync_tenant_id') || localStorage.getItem('quantrobill_tenant_id') || 'demo';
       const scopedKey = `${name}_${tenantId}`;
       localStorage.setItem(scopedKey, JSON.stringify(value));
     } catch {}
   },
   removeItem: (name: string) => {
     try {
-      const tenantId = localStorage.getItem('quantrobill_tenant_id') || 'demo';
+      const tenantId = localStorage.getItem('restosync_tenant_id') || localStorage.getItem('quantrobill_tenant_id') || 'demo';
       const scopedKey = `${name}_${tenantId}`;
       localStorage.removeItem(scopedKey);
     } catch {}
@@ -372,7 +372,7 @@ export const useReceiptSettingsStore = create<ReceiptSettingsStore>()(
       resetToDefaults: () => set(defaultSettings),
     }),
     {
-      name: 'quantrobill-receipt-settings',
+      name: 'restosync-receipt-settings',
       storage: getScopedStorage() as any,
     }
   )

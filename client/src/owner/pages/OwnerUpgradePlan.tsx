@@ -132,7 +132,7 @@ export const OwnerUpgradePlan: React.FC = () => {
         amount: orderData.amountInPaise,
         currency: orderData.currency,
         order_id: orderData.orderId,
-        name: 'QuantroBill POS',
+        name: 'RestoSync POS',
         description: `Upgrade to ${plan.name} Tier (${billingCycle})`,
         prefill: {
           name: prefillUser?.name || tenant?.businessName || '',
@@ -463,7 +463,7 @@ export const OwnerUpgradePlan: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-black text-slate-900">Subscription Tax Invoice</h3>
-                <p className="text-xs text-slate-500">Official GST Payment Receipt • QuantroBill POS</p>
+                <p className="text-xs text-slate-500">Official GST Payment Receipt • RestoSync POS</p>
               </div>
             </div>
 
@@ -524,7 +524,7 @@ export const OwnerUpgradePlan: React.FC = () => {
                 <tbody className="divide-y divide-slate-100 text-slate-800">
                   <tr>
                     <td className="py-3 font-semibold">
-                      QuantroBill {activeInvoice.planName} Tier
+                      RestoSync {activeInvoice.planName} Tier
                       <span className="text-[11px] text-slate-400 block">Complete multi-terminal restaurant OS</span>
                     </td>
                     <td className="py-3">{activeInvoice.billingCycle}</td>

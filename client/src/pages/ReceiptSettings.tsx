@@ -607,7 +607,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
             )}
 
             <ToggleRow
-              label="Powered By QuantroBill"
+              label="Powered By RestoSync"
               enabled={store.showPoweredBy}
               onToggle={() => store.toggleField('showPoweredBy')}
             />
@@ -1259,7 +1259,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
                       </p>
                     )}
                     {store.showPoweredBy && (
-                      <p className="text-[8px] text-slate-400">Powered by QuantroBill POS</p>
+                      <p className="text-[8px] text-slate-400">Powered by RestoSync POS</p>
                     )}
                   </div>
                 </div>
@@ -1709,7 +1709,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
                       </p>
                     )}
                     {store.showPoweredBy && (
-                      <p className="text-[8px] text-slate-400">Powered by QuantroBill POS</p>
+                      <p className="text-[8px] text-slate-400">Powered by RestoSync POS</p>
                     )}
                   </div>
                 </div>
@@ -1912,7 +1912,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
             )}
 
             <ToggleRow
-              label="Powered By QuantroBill"
+              label="Powered By RestoSync"
               enabled={store.kotShowPoweredBy}
               onToggle={() => store.toggleField('kotShowPoweredBy')}
             />
@@ -2150,7 +2150,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
                       </div>
                     )}
                     {store.kotShowPoweredBy && (
-                      <p className="text-[8px] text-slate-400 text-center">Powered by QuantroBill POS</p>
+                      <p className="text-[8px] text-slate-400 text-center">Powered by RestoSync POS</p>
                     )}
                   </div>
                 </div>
@@ -2371,7 +2371,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
                     )}
 
                     {store.kotShowPoweredBy && (
-                      <p className="text-[8px] text-slate-400 text-center">Powered by QuantroBill POS</p>
+                      <p className="text-[8px] text-slate-400 text-center">Powered by RestoSync POS</p>
                     )}
                   </div>
                 </div>
@@ -2497,7 +2497,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
             )}
 
             <ToggleRow
-              label="Powered By QuantroBill"
+              label="Powered By RestoSync"
               enabled={store.cancelKotShowPoweredBy}
               onToggle={() => store.toggleField('cancelKotShowPoweredBy')}
             />
@@ -2626,7 +2626,7 @@ export const ReceiptSettings: React.FC<{ isOwnerPortal?: boolean }> = ({ isOwner
                     <p className="text-[9px] font-bold text-rose-600">{store.cancelKotFooterText}</p>
                   )}
                   {store.cancelKotShowPoweredBy && (
-                    <p className="text-[8px] text-slate-400">Powered by QuantroBill POS</p>
+                    <p className="text-[8px] text-slate-400">Powered by RestoSync POS</p>
                   )}
                 </div>
               </div>

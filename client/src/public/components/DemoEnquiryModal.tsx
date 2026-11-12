@@ -22,7 +22,7 @@ export const DemoEnquiryModal: React.FC<DemoEnquiryModalProps> = ({
     city: '',
     outletsCount: '1',
     message: preselectedPlan ? `Inquiry regarding the ${preselectedPlan} plan.` : 'Requesting a live interactive demo for our cafe/restaurant.',
-    interestedProduct: 'QuantroBill Restaurant OS',
+    interestedProduct: 'RestoSync Restaurant OS',
     formType: 'Demo Modal',
   });
 
@@ -130,7 +130,7 @@ export const DemoEnquiryModal: React.FC<DemoEnquiryModalProps> = ({
               <Sparkles size={14} /> Free 1-on-1 Personalized Demo
             </div>
             <h3 style={{ margin: '4px 0 0', fontSize: '1.35rem', fontWeight: 800 }}>
-              Experience QuantroBill in Action
+              Experience RestoSync in Action
             </h3>
           </div>
           <button

@@ -60,7 +60,7 @@ export const Login: React.FC = () => {
         });
       } else {
         // PIN login for POS terminals
-        const savedOutlet = localStorage.getItem('quantrobill_active_outlet');
+        const savedOutlet = localStorage.getItem('restosync_active_outlet') || localStorage.getItem('quantrobill_active_outlet');
         let outletId: string | undefined;
         if (savedOutlet) {
           try {
@@ -104,12 +104,12 @@ export const Login: React.FC = () => {
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-3 no-underline">
             <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20 font-black text-lg">
-              Q
+              R
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base font-extrabold text-slate-900 tracking-tight">
-                  Quantromind <span className="text-blue-600 font-black">POS</span>
+                  RestoSync <span className="text-blue-600 font-black">POS</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
                   <Sparkles className="w-2.5 h-2.5" /> Restaurant Portal
@@ -148,7 +148,7 @@ export const Login: React.FC = () => {
                   </span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                  Welcome to QuantroBill POS
+                  Welcome to RestoSync POS
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1">
                   Sign in to access your billing counter, kitchen orders, inventory, and restaurant workspace.
@@ -314,10 +314,10 @@ export const Login: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-                  Q
+                  R
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">Quantromind</h3>
+                  <h3 className="text-base font-extrabold text-slate-900">RestoSync</h3>
                   <p className="text-[11px] text-blue-600 font-semibold">Restaurant Management Cloud</p>
                 </div>
               </div>
@@ -325,7 +325,7 @@ export const Login: React.FC = () => {
               <div className="mt-4 mb-4">
                 <img
                   src={heroImg}
-                  alt="Quantromind POS Illustration"
+                  alt="RestoSync POS Illustration"
                   className="w-full max-h-48 object-contain mx-auto drop-shadow-sm"
                 />
               </div>
@@ -362,7 +362,7 @@ export const Login: React.FC = () => {
 
       {/* Bottom Footer Note (identical to Register page) */}
       <footer className="py-2 text-center text-[11px] text-slate-500 shrink-0">
-        Quantromind POS • Enterprise Restaurant Management System • Need support? Contact{' '}
+        RestoSync POS • Enterprise Restaurant Management System • Need support? Contact{' '}
         <span className="text-blue-600 font-semibold">support@quantromind.com</span>
       </footer>
 

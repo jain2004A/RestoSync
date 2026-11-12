@@ -134,7 +134,7 @@ export const SystemHealthPage: React.FC = () => {
             <h3 className="font-bold text-slate-900 text-sm">MongoDB Database Telemetry</h3>
           </div>
           <span className="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200">
-            Database: QuantroBill
+            Database: RestoSyncDb
           </span>
         </div>
 

@@ -28,7 +28,7 @@ export const apiClient = axios.create({
 
 // Attach unified access token to every outgoing request
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
+  const token = localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -44,10 +44,10 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
       const requestUrl = error.config?.url || '';
-      const token = localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
+      const token = localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
 
       // 1. If using demo token or offline fallback, NEVER boot user to login
-      if (token && token.startsWith('quantrobill_demo_')) {
+      if (token && (token.startsWith('restosync_demo_') || token.startsWith('quantrobill_demo_'))) {
         return Promise.reject(error);
       }
 

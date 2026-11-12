@@ -127,7 +127,7 @@ interface MenuState {
 
 const getTenantId = (): string => {
   try {
-    return localStorage.getItem('quantrobill_tenant_id') || '';
+    return localStorage.getItem('restosync_tenant_id') || localStorage.getItem('quantrobill_tenant_id') || '';
   } catch {
     return '';
   }
@@ -135,12 +135,12 @@ const getTenantId = (): string => {
 
 const getCategoryStorageKey = (tenantId?: string): string => {
   const tid = tenantId || getTenantId();
-  return tid ? `pbk_pos_categories_${tid}` : 'pbk_pos_categories_demo';
+  return tid ? `restosync_pos_categories_${tid}` : 'restosync_pos_categories_demo';
 };
 
 const getItemStorageKey = (tenantId?: string): string => {
   const tid = tenantId || getTenantId();
-  return tid ? `pbk_pos_items_${tid}` : 'pbk_pos_items_demo';
+  return tid ? `restosync_pos_items_${tid}` : 'restosync_pos_items_demo';
 };
 
 const loadInitialCategories = (): MenuCategory[] => {
@@ -160,7 +160,7 @@ const loadInitialCategories = (): MenuCategory[] => {
   }
 
   try {
-    const saved = localStorage.getItem('pbk_pos_categories_demo');
+    const saved = localStorage.getItem('restosync_pos_categories_demo');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed)) return parsed;
@@ -188,7 +188,7 @@ const loadInitialItems = (): MenuItemData[] => {
   }
 
   try {
-    const saved = localStorage.getItem('pbk_pos_items_demo');
+    const saved = localStorage.getItem('restosync_pos_items_demo');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed)) return parsed;
@@ -379,8 +379,8 @@ export const useMenuStore = create<MenuState>((set, get) => ({
     const tenantId = getTenantId();
     if (!tenantId) {
       set({ categories: DEFAULT_CATEGORIES, items: DEFAULT_ITEMS });
-      localStorage.setItem('pbk_pos_categories_demo', JSON.stringify(DEFAULT_CATEGORIES));
-      localStorage.setItem('pbk_pos_items_demo', JSON.stringify(DEFAULT_ITEMS));
+      localStorage.setItem('restosync_pos_categories_demo', JSON.stringify(DEFAULT_CATEGORIES));
+      localStorage.setItem('restosync_pos_items_demo', JSON.stringify(DEFAULT_ITEMS));
     } else {
       set({ categories: [], items: [] });
       localStorage.removeItem(getCategoryStorageKey(tenantId));

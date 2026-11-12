@@ -66,7 +66,7 @@ export const OnlineOrders: React.FC = () => {
   const [riderInputPhone, setRiderInputPhone] = useState('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const storeName = tenant?.name || 'QuantroBill POS';
+  const storeName = tenant?.name || 'RestoSync POS';
 
   // Fetch orders from backend
   const fetchOrders = async () => {

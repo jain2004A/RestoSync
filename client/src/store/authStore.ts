@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   tenant: null,
   activeOutlet: null,
   availableOutlets: [],
-  accessToken: localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token'),
+  accessToken: localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token'),
   isAuthenticated: false,
   isLoading: true,
   drawerOpen: false,
@@ -40,26 +40,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const currentTenant = get().tenant;
     if (!currentTenant) return;
     const merged = { ...currentTenant, ...partialTenant };
-    localStorage.setItem('quantrobill_tenant', JSON.stringify(merged));
+    localStorage.setItem('restosync_tenant', JSON.stringify(merged));
     set({ tenant: merged });
   },
 
   setAuthData: (data: AuthResponse) => {
-    ['quantrobill_owner_token', 'quantrobill_superadmin_token', 'quantrobill_owner_user', 'quantrobill_superadmin_user', 'petbharke_owner_token', 'petbharke_superadmin_token'].forEach((k) => {
+    ['restosync_owner_token', 'restosync_superadmin_token', 'restosync_owner_user', 'restosync_superadmin_user', 'quantrobill_owner_token', 'quantrobill_superadmin_token', 'quantrobill_owner_user', 'quantrobill_superadmin_user', 'petbharke_owner_token', 'petbharke_superadmin_token'].forEach((k) => {
       try { localStorage.removeItem(k); } catch {}
     });
 
-    localStorage.setItem('quantrobill_access_token', data.accessToken);
-    localStorage.setItem('quantrobill_refresh_token', data.refreshToken);
-    localStorage.setItem('quantrobill_user', JSON.stringify(data.user));
+    localStorage.setItem('restosync_access_token', data.accessToken);
+    localStorage.setItem('restosync_refresh_token', data.refreshToken);
+    localStorage.setItem('restosync_user', JSON.stringify(data.user));
     if (data.tenant) {
-      localStorage.setItem('quantrobill_tenant', JSON.stringify(data.tenant));
-      localStorage.setItem('quantrobill_tenant_id', data.tenant.id);
+      localStorage.setItem('restosync_tenant', JSON.stringify(data.tenant));
+      localStorage.setItem('restosync_tenant_id', data.tenant.id);
     }
     if (data.activeOutlet) {
-      localStorage.setItem('quantrobill_active_outlet', JSON.stringify(data.activeOutlet));
+      localStorage.setItem('restosync_active_outlet', JSON.stringify(data.activeOutlet));
     }
-    localStorage.setItem('quantrobill_available_outlets', JSON.stringify(data.availableOutlets));
+    localStorage.setItem('restosync_available_outlets', JSON.stringify(data.availableOutlets));
 
     set({
       user: data.user,
@@ -86,7 +86,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         get().setAuthData(response.data.data);
       }
     } catch {
-      localStorage.setItem('quantrobill_active_outlet', JSON.stringify(outlet));
+      localStorage.setItem('restosync_active_outlet', JSON.stringify(outlet));
       set({ activeOutlet: outlet });
       const tenant = get().tenant;
       if (tenant) {
@@ -99,7 +99,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   setDrawerOpen: (open: boolean) => set({ drawerOpen: open }),
 
   logout: () => {
-    ['quantrobill_', 'petbharke_'].forEach((prefix) => {
+    ['restosync_', 'quantrobill_', 'petbharke_'].forEach((prefix) => {
       localStorage.removeItem(`${prefix}access_token`);
       localStorage.removeItem(`${prefix}refresh_token`);
       localStorage.removeItem(`${prefix}user`);
@@ -111,6 +111,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       localStorage.removeItem(`${prefix}superadmin_user`);
       localStorage.removeItem(`${prefix}owner_token`);
       localStorage.removeItem(`${prefix}owner_user`);
+      localStorage.removeItem(`${prefix}superadmin_restore_token`);
     });
     signalRService.stopConnection();
 
@@ -128,15 +129,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   initializeAuth: () => {
     try {
-      ['quantrobill_owner_token', 'quantrobill_superadmin_token', 'quantrobill_owner_user', 'quantrobill_superadmin_user', 'petbharke_owner_token', 'petbharke_superadmin_token'].forEach((k) => {
+      ['restosync_owner_token', 'restosync_superadmin_token', 'restosync_owner_user', 'restosync_superadmin_user', 'quantrobill_owner_token', 'quantrobill_superadmin_token', 'quantrobill_owner_user', 'quantrobill_superadmin_user', 'petbharke_owner_token', 'petbharke_superadmin_token'].forEach((k) => {
         try { localStorage.removeItem(k); } catch {}
       });
 
-      const token = localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
-      const userStr = localStorage.getItem('quantrobill_user') || localStorage.getItem('petbharke_user');
-      const tenantStr = localStorage.getItem('quantrobill_tenant') || localStorage.getItem('petbharke_tenant');
-      const outletStr = localStorage.getItem('quantrobill_active_outlet') || localStorage.getItem('petbharke_active_outlet');
-      const availableStr = localStorage.getItem('quantrobill_available_outlets') || localStorage.getItem('petbharke_available_outlets');
+      const token = localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
+      const userStr = localStorage.getItem('restosync_user') || localStorage.getItem('quantrobill_user') || localStorage.getItem('petbharke_user');
+      const tenantStr = localStorage.getItem('restosync_tenant') || localStorage.getItem('quantrobill_tenant') || localStorage.getItem('petbharke_tenant');
+      const outletStr = localStorage.getItem('restosync_active_outlet') || localStorage.getItem('quantrobill_active_outlet') || localStorage.getItem('petbharke_active_outlet');
+      const availableStr = localStorage.getItem('restosync_available_outlets') || localStorage.getItem('quantrobill_available_outlets') || localStorage.getItem('petbharke_available_outlets');
 
       if (token && userStr) {
         const user = JSON.parse(userStr);
@@ -159,7 +160,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         }
 
         // Transparently upgrade demo session to real backend JWT session if available
-        if (token.startsWith('quantrobill_demo_')) {
+        if (token.startsWith('restosync_demo_') || token.startsWith('quantrobill_demo_')) {
           const creds: Record<string, { identifier: string; pass: string }> = {
             SuperAdmin: { identifier: 'admin@quantromind.com', pass: 'Quantromind@#9100' },
           };

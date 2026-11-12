@@ -79,7 +79,7 @@ export const InvoiceDetailPage: React.FC = () => {
         amount: orderData.amountInPaise,
         currency: orderData.currency,
         order_id: orderData.orderId,
-        name: 'QuantroBill SaaS',
+        name: 'RestoSync SaaS',
         description: `Pay Invoice ${invoice.invoiceNumber}`,
         prefill: {
           name: tenant?.businessName || invoice.tenantName,
@@ -214,7 +214,7 @@ export const InvoiceDetailPage: React.FC = () => {
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">QuantroBill SaaS</h2>
+              <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">RestoSync SaaS</h2>
               <p className="text-xs text-slate-500">Tax Invoice & Subscription Receipt</p>
             </div>
           </div>
@@ -277,7 +277,7 @@ export const InvoiceDetailPage: React.FC = () => {
             <tbody className="divide-y divide-[#eedfc8]/60 text-slate-700">
               <tr>
                 <td className="py-4 px-4">
-                  <div className="font-bold text-slate-900">QuantroBill {invoice.planName} Tier</div>
+                  <div className="font-bold text-slate-900">RestoSync {invoice.planName} Tier</div>
                   <div className="text-[11px] text-slate-500">
                     SaaS Cloud Restaurant Billing, KDS, & Operations Management
                   </div>

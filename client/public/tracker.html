@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuantroBill POS — Master Engineering Tracker & Live Flow</title>
+  <title>RestoSync POS — Master Engineering Tracker & Live Flow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -538,7 +538,7 @@
     <header>
       <div>
         <div class="logo-badge">⚡ Petpooja-Equivalent Architecture</div>
-        <h1>QuantroBill Engineering Dashboard</h1>
+        <h1>RestoSync Engineering Dashboard</h1>
         <p class="subtitle">Solo Developer Live Tracker & Architecture Flow — React 19 • .NET 8 • MongoDB • SignalR • React Native</p>
       </div>
       <div class="header-actions">
@@ -1036,13 +1036,13 @@
     </section>
 
     <footer>
-      QuantroBill POS SaaS • Built with React 19, .NET 8 & MongoDB • Designed for Enterprise Restaurant Operations
+      RestoSync POS SaaS • Built with React 19, .NET 8 & MongoDB • Designed for Enterprise Restaurant Operations
     </footer>
   </div>
 
   <script>
     // LocalStorage Key for persisting progress
-    const STORAGE_KEY = 'quantrobill_tracker_progress_v2';
+    const STORAGE_KEY = 'restosync_tracker_progress_v2';
 
     function initTracker() {
       const savedData = localStorage.getItem(STORAGE_KEY);
@@ -1135,7 +1135,7 @@
       const total = checkboxes.length;
       const percent = Math.round((completed / total) * 100);
 
-      const report = `📊 QuantroBill POS Progress Report\nTotal Completion: ${percent}%\nTasks Done: ${completed}/${total}\nGenerated on: ${new Date().toLocaleString()}`;
+      const report = `📊 RestoSync POS Progress Report\nTotal Completion: ${percent}%\nTasks Done: ${completed}/${total}\nGenerated on: ${new Date().toLocaleString()}`;
       navigator.clipboard.writeText(report).then(() => {
         alert('Copied Progress Report to Clipboard!\n\n' + report);
       });

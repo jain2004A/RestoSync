@@ -87,7 +87,7 @@ export const openRazorpayModal = async (options: RazorpayOptions): Promise<void>
     key: keyId,
     amount: options.amount,
     currency: options.currency || 'INR',
-    name: options.name || 'QuantroBill POS',
+    name: options.name || 'RestoSync POS',
     description: options.description || 'Secure Online Payment',
     order_id: options.order_id,
     prefill: options.prefill || {},

@@ -100,7 +100,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
         amount: orderData.amountInPaise,
         currency: orderData.currency,
         order_id: orderData.orderId,
-        name: 'QuantroBill POS',
+        name: 'RestoSync POS',
         description: `Upgrade to ${plan.name} Tier`,
         prefill: {
           name: prefillUser?.name || tenant?.businessName || '',
@@ -176,7 +176,7 @@ export const UpgradePlanModal: React.FC<UpgradePlanModalProps> = ({ isOpen, onCl
             <Sparkles className="w-3.5 h-3.5" /> Unlock Multi-Branch & Premium Features
           </span>
           <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Upgrade Your QuantroBill Subscription
+            Upgrade Your RestoSync Subscription
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
             Currently on <strong className="text-emerald-400">{currentPlanName}</strong>. Choose a plan to expand your restaurant branches, unlock recipe inventory, and connect online food aggregators.

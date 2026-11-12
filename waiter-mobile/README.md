@@ -1,6 +1,6 @@
-# 📱 QuantroBill Waiter Mobile App (React Native + Expo)
+# 📱 RestoSync Waiter Mobile App (React Native + Expo)
 
-Handheld captain and waiter order-taking application for QuantroBill POS.
+Handheld captain and waiter order-taking application for RestoSync POS.
 
 ---
 

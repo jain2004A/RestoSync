@@ -31,8 +31,8 @@ export const OwnerMenu: React.FC = () => {
   // Fetch initial menu items
   useEffect(() => {
     const fetchMenu = async () => {
-      const tid = localStorage.getItem('quantrobill_tenant_id');
-      const cacheKey = tid ? `quantrobill_owner_menu_cache_${tid}` : 'quantrobill_owner_menu_cache';
+      const tid = localStorage.getItem('restosync_tenant_id');
+      const cacheKey = tid ? `restosync_owner_menu_cache_${tid}` : 'restosync_owner_menu_cache';
 
       try {
         const res = await apiClient.get<{ success: boolean; data: any[] }>('/menu/items');
@@ -129,7 +129,7 @@ export const OwnerMenu: React.FC = () => {
       const updated = prev.map((item) =>
         item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
       );
-      localStorage.setItem('quantrobill_owner_menu_cache', JSON.stringify(updated));
+      localStorage.setItem('restosync_owner_menu_cache', JSON.stringify(updated));
       return updated;
     });
 
@@ -145,7 +145,7 @@ export const OwnerMenu: React.FC = () => {
 
     setItems((prev) => {
       const updated = prev.filter((item) => item.id !== id);
-      localStorage.setItem('quantrobill_owner_menu_cache', JSON.stringify(updated));
+      localStorage.setItem('restosync_owner_menu_cache', JSON.stringify(updated));
       return updated;
     });
 
@@ -202,7 +202,7 @@ export const OwnerMenu: React.FC = () => {
               }
             : item
         );
-        localStorage.setItem('quantrobill_owner_menu_cache', JSON.stringify(updated));
+        localStorage.setItem('restosync_owner_menu_cache', JSON.stringify(updated));
         return updated;
       });
 
@@ -252,7 +252,7 @@ export const OwnerMenu: React.FC = () => {
 
       setItems((prev) => {
         const updated = [newItem, ...prev];
-        localStorage.setItem('quantrobill_owner_menu_cache', JSON.stringify(updated));
+        localStorage.setItem('restosync_owner_menu_cache', JSON.stringify(updated));
         return updated;
       });
 
@@ -304,8 +304,8 @@ export const OwnerMenu: React.FC = () => {
     setIsUploading(true);
     setParseErrors([]);
 
-    const tid = localStorage.getItem('quantrobill_tenant_id');
-    const cacheKey = tid ? `quantrobill_owner_menu_cache_${tid}` : 'quantrobill_owner_menu_cache';
+    const tid = localStorage.getItem('restosync_tenant_id');
+    const cacheKey = tid ? `restosync_owner_menu_cache_${tid}` : 'restosync_owner_menu_cache';
 
     try {
       const payload = parsedItems.map((p) => ({

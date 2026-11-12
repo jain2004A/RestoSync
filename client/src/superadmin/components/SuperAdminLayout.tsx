@@ -88,7 +88,7 @@ export const SuperAdminLayout: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-slate-900 text-base tracking-tight">QuantroBill</span>
+                <span className="font-extrabold text-slate-900 text-base tracking-tight">RestoSync</span>
                 <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100/70 text-amber-900 border border-amber-300/60 uppercase tracking-wider">
                   SuperAdmin
                 </span>
@@ -216,7 +216,7 @@ export const SuperAdminLayout: React.FC = () => {
                   <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <span className="font-extrabold text-slate-900 text-base">QuantroBill</span>
+                  <span className="font-extrabold text-slate-900 text-base">RestoSync</span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
@@ -253,7 +253,7 @@ export const SuperAdminLayout: React.FC = () => {
             </div>
 
             <div className="p-4 border-t border-[#eedfc8] bg-[#fbf7ee] text-center">
-              <p className="text-xs font-bold text-slate-700">QuantroBill SaaS v2.0</p>
+              <p className="text-xs font-bold text-slate-700">RestoSync SaaS v2.0</p>
               <p className="text-[10px] text-slate-400 mt-0.5">Isolated Security Boundary</p>
             </div>
           </aside>

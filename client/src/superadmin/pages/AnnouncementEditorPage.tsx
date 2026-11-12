@@ -137,7 +137,7 @@ export const AnnouncementEditorPage: React.FC = () => {
               required
               value={formData.title || ''}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="e.g. QuantroBill v2.0 Platform Upgrade & Cloud Kitchen Sync"
+              placeholder="e.g. RestoSync v2.0 Platform Upgrade & Cloud Kitchen Sync"
               className="w-full px-3 py-2 text-xs sm:text-sm bg-[#fbf7ee] border border-[#eedfc8] rounded-xl focus:bg-white focus:ring-1 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden text-slate-900"
             />
           </div>

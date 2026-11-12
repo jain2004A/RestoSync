@@ -39,9 +39,9 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({ onOpenDemo }) => {
       <nav className={`pp-nav ${isScrolled ? 'scrolled' : ''}`}>
         <div className="pp-nav-inner">
           <Link to="/" className="pp-brand">
-            <img src={logoImg} alt="QuantroBill Logo" className="pp-brand-logo" />
+            <img src={logoImg} alt="RestoSync Logo" className="pp-brand-logo" />
             <span className="pp-brand-title">
-              Quantro<span>Bill</span>
+              Resto<span>Sync</span>
             </span>
           </Link>
 

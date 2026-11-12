@@ -151,7 +151,7 @@ export default function App() {
     return (
       <View style={[styles.container, styles.loadingCenter]}>
         <ActivityIndicator size="large" color="#2563eb" />
-        <Text style={styles.loadingText}>Initializing QuantroBill Terminal...</Text>
+        <Text style={styles.loadingText}>Initializing RestoSync Terminal...</Text>
       </View>
     );
   }

@@ -57,7 +57,7 @@ desktop-electron/spooler/
 **/cache/menu_catalog*.json
 
 # ==========================================
-# .NET / C# (PetBharke.sln & src/)
+# .NET / C# (RestoSync.sln & src/)
 # ==========================================
 **/[Bb]in/
 **/[Oo]bj/

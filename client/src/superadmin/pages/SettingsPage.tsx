@@ -14,7 +14,7 @@ import type { PlatformSettingsData } from '../types';
 
 export const SettingsPage: React.FC = () => {
   const [formData, setFormData] = useState<PlatformSettingsData>({
-    platformName: 'QuantroBill Restaurant SaaS',
+    platformName: 'RestoSync Restaurant SaaS',
     supportEmail: 'admin@quantromind.com',
     supportPhone: '+91 99999 99999',
     defaultCurrency: 'INR',
@@ -39,7 +39,7 @@ export const SettingsPage: React.FC = () => {
       if (res?.data) {
         setFormData({
           ...res.data,
-          platformName: res.data.platformName || 'QuantroBill Restaurant SaaS',
+          platformName: res.data.platformName || 'RestoSync Restaurant SaaS',
           supportEmail: res.data.supportEmail || 'admin@quantromind.com',
           supportPhone: res.data.supportPhone || '+91 99999 99999',
         });

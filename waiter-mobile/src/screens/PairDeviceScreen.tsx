@@ -117,7 +117,7 @@ export const PairDeviceScreen: React.FC<PairDeviceScreenProps> = ({ onPairedSucc
           {/* Header Branding */}
           <View style={styles.header}>
             <View style={styles.logoBadge}>
-              <Text style={styles.logoText}>QB</Text>
+              <Text style={styles.logoText}>RS</Text>
             </View>
             <Text style={styles.title}>Pair This Waiter Device</Text>
             <Text style={styles.subtitle}>

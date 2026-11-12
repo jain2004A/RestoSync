@@ -15,7 +15,7 @@ export const ContactUs: React.FC = () => {
     city: '',
     outletsCount: '1',
     message: '',
-    interestedProduct: 'QuantroBill Restaurant OS',
+    interestedProduct: 'RestoSync Restaurant OS',
     formType: 'Contact Page Form',
   });
 
@@ -70,7 +70,7 @@ export const ContactUs: React.FC = () => {
         city: '',
         outletsCount: '1',
         message: '',
-        interestedProduct: 'QuantroBill Restaurant OS',
+        interestedProduct: 'RestoSync Restaurant OS',
         formType: 'Contact Page Form',
       });
       setTimeout(() => setStatus('idle'), 6000);
@@ -106,7 +106,7 @@ export const ContactUs: React.FC = () => {
               margin: '12px 0 16px',
             }}
           >
-            We’d love to show you <span style={{ color: 'var(--pp-red)' }}>QuantroBill</span>
+            We’d love to show you <span style={{ color: 'var(--pp-red)' }}>RestoSync</span>
           </h1>
           <p style={{ fontSize: '1.12rem', color: 'var(--pp-muted)', lineHeight: '1.6' }}>
             Have questions about billing features, multi-outlet setups, thermal printer integrations, or pricing? Our team of restaurant tech consultants is here to help.

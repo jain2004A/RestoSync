@@ -106,8 +106,8 @@ export const downloadDemoMenuExcel = (includeSample: boolean = false) => {
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Menu Template');
 
   const filename = includeSample
-    ? 'QuantroBill_Menu_Demo_With_Samples.xlsx'
-    : 'QuantroBill_Menu_Demo_Template.xlsx';
+    ? 'RestoSync_Menu_Demo_With_Samples.xlsx'
+    : 'RestoSync_Menu_Demo_Template.xlsx';
 
   XLSX.writeFile(workbook, filename);
 };

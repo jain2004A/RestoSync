@@ -72,7 +72,7 @@ const defaultRolePermissions: Record<string, OwnerEmployee['permissions']> = {
 
 export const EmployeeManager: React.FC = () => {
   const { user, tenant, activeOutlet } = useAuthStore();
-  const tenantId = user?.tenantId || tenant?.id || localStorage.getItem('quantrobill_tenant_id') || '';
+  const tenantId = user?.tenantId || tenant?.id || localStorage.getItem('restosync_tenant_id') || '';
 
   const [employees, setEmployees] = useState<OwnerEmployee[]>([]);
   const [selectedEmpId, setSelectedEmpId] = useState<string>('');
@@ -186,7 +186,7 @@ export const EmployeeManager: React.FC = () => {
         );
         if (myTenant) {
           resolvedTenantId = myTenant.id;
-          localStorage.setItem('quantrobill_tenant_id', myTenant.id);
+          localStorage.setItem('restosync_tenant_id', myTenant.id);
         }
       } catch {
         // fallback
@@ -360,7 +360,7 @@ export const EmployeeManager: React.FC = () => {
       setCreateError('Password is required.');
       return;
     }
-    const targetTenantId = tenantId || localStorage.getItem('quantrobill_tenant_id') || '';
+    const targetTenantId = tenantId || localStorage.getItem('restosync_tenant_id') || '';
     if (!targetTenantId) {
       setCreateError('Tenant identifier missing.');
       return;

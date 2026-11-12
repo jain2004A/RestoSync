@@ -426,7 +426,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                               <a
                                 href={`https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(
                                   item.name
-                                )},%20greetings%20from%20QuantroBill%20POS!%20Regarding%20your%20demo%20inquiry...`}
+                                )},%20greetings%20from%20RestoSync%20POS!%20Regarding%20your%20demo%20inquiry...`}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 ml-1 shrink-0"
@@ -453,7 +453,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                       {/* Enquiry Message */}
                       <td className="py-2.5 px-3.5">
                         <div className="text-[10px] font-semibold text-blue-700 bg-blue-50/70 border border-blue-200/60 rounded px-1.5 py-0.5 inline-block mb-1">
-                          {item.interestedProduct || 'QuantroBill POS'}
+                          {item.interestedProduct || 'RestoSync POS'}
                         </div>
                         <p className="text-slate-600 text-xs line-clamp-2 leading-relaxed">
                           {item.message || 'No additional message provided.'}
@@ -644,7 +644,7 @@ export const DemoEnquiriesPage: React.FC = () => {
                   type="url"
                   value={modalDemoLink}
                   onChange={(e) => setModalDemoLink(e.target.value)}
-                  placeholder="https://meet.google.com/xyz-abc or https://quantrobill.com/demo.html"
+                  placeholder="https://meet.google.com/xyz-abc or https://restosync.com/demo.html"
                   className="w-full bg-[#fbf7ee] border border-[#eedfc8] rounded-xl p-2.5 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-blue-600 font-medium"
                 />
                 <div className="flex items-center gap-2 mt-1.5">

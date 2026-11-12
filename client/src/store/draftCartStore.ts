@@ -14,7 +14,7 @@ export interface DraftCartData {
 
 const getTenantId = (): string => {
   try {
-    return localStorage.getItem('quantrobill_tenant_id') || 'demo';
+    return localStorage.getItem('restosync_tenant_id') || localStorage.getItem('quantrobill_tenant_id') || 'demo';
   } catch {
     return 'demo';
   }
@@ -22,7 +22,7 @@ const getTenantId = (): string => {
 
 const getStorageKey = (tid?: string): string => {
   const tenantId = tid || getTenantId();
-  return `pbk_draft_carts_${tenantId || 'demo'}`;
+  return `restosync_draft_carts_${tenantId || 'demo'}`;
 };
 
 const loadDraftsFromStorage = (tid?: string): Record<string, DraftCartData> => {

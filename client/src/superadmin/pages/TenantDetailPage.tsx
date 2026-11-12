@@ -102,17 +102,17 @@ export const TenantDetailPage: React.FC = () => {
       const res = await tenantsApi.impersonateTenant(id);
       if (res.success && res.data?.token) {
         // Backup superadmin token
-        const superToken = localStorage.getItem('quantrobill_access_token');
+        const superToken = localStorage.getItem('restosync_access_token');
         if (superToken) {
-          sessionStorage.setItem('quantrobill_superadmin_restore_token', superToken);
+          sessionStorage.setItem('restosync_superadmin_restore_token', superToken);
         }
         // Set impersonated access token
-        localStorage.setItem('quantrobill_access_token', res.data.token);
+        localStorage.setItem('restosync_access_token', res.data.token);
         if (res.data.user) {
-          localStorage.setItem('quantrobill_user', JSON.stringify(res.data.user));
+          localStorage.setItem('restosync_user', JSON.stringify(res.data.user));
           if (res.data.user.outletId) {
             localStorage.setItem(
-              'quantrobill_active_outlet',
+              'restosync_active_outlet',
               JSON.stringify({ id: res.data.user.outletId, name: res.data.user.outletName || 'Main Outlet' })
             );
           }
@@ -346,7 +346,7 @@ export const TenantDetailPage: React.FC = () => {
             <div className="space-y-3 text-xs">
               <div>
                 <span className="text-slate-400 block mb-0.5">Current Plan Tier</span>
-                <span className="font-bold text-blue-600 text-sm">QuantroBill {tenant.subscriptionPlan}</span>
+                <span className="font-bold text-blue-600 text-sm">RestoSync {tenant.subscriptionPlan}</span>
               </div>
               <div>
                 <span className="text-slate-400 block mb-0.5">Subscription Expiration</span>

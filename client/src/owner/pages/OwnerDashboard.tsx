@@ -137,7 +137,7 @@ export const OwnerDashboard: React.FC = () => {
               </div>
               <p className="text-xs text-slate-600 mt-0.5">
                 {trialDaysLeft > 0
-                  ? 'You are enjoying full access to QuantroBill POS. Upgrade to an annual plan to create more branches and keep your store active.'
+                  ? 'You are enjoying full access to RestoSync POS. Upgrade to an annual plan to create more branches and keep your store active.'
                   : 'Your evaluation period has ended. Upgrade to an annual or hardware bundle plan to continue operations without interruption.'}
               </p>
             </div>

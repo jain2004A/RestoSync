@@ -1,6 +1,6 @@
 /**
- * QuantroBill — Authoritative Role Definitions (frontend single source of truth)
- * Must stay in sync with PetBharke.Domain.Enums.UserRole (backend).
+ * RestoSync — Authoritative Role Definitions (frontend single source of truth)
+ * Must stay in sync with RestoSync.Domain.Enums.UserRole (backend).
  */
 
 export const UserRole = {

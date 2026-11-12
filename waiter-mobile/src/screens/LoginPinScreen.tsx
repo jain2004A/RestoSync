@@ -133,9 +133,9 @@ export const LoginPinScreen: React.FC<LoginPinScreenProps> = ({
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.logoBadge}>
-          <Text style={styles.logoText}>QB</Text>
+          <Text style={styles.logoText}>RS</Text>
         </View>
-        <Text style={styles.title}>QuantroBill Captain</Text>
+        <Text style={styles.title}>RestoSync Captain</Text>
         <Text style={styles.subtitle}>Enter 4-Digit Staff PIN to Start Taking Orders</Text>
       </View>
 

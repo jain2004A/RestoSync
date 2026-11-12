@@ -2,6 +2,18 @@ import { useAuthStore } from '../store/authStore';
 import { signalRService } from '../services/signalr';
 
 export const ALL_AUTH_STORAGE_KEYS = [
+  'restosync_access_token',
+  'restosync_refresh_token',
+  'restosync_user',
+  'restosync_tenant',
+  'restosync_tenant_id',
+  'restosync_active_outlet',
+  'restosync_available_outlets',
+  'restosync_superadmin_token',
+  'restosync_superadmin_user',
+  'restosync_owner_token',
+  'restosync_owner_user',
+  'restosync_superadmin_restore_token',
   'quantrobill_access_token',
   'quantrobill_refresh_token',
   'quantrobill_user',
@@ -28,7 +40,7 @@ export const ALL_AUTH_STORAGE_KEYS = [
 
 /**
  * Universal logout and session cleanup:
- * Clears all storage keys across QuantroBill and legacy prefixes,
+ * Clears all storage keys across RestoSync and legacy prefixes,
  * stops active SignalR streams, and completely resets the unified auth store
  * so that no stale session bounces the user back into protected dashboards.
  */
@@ -42,11 +54,11 @@ export const clearAllAuthSessions = (): void => {
     }
   });
 
-  // 2. Scan and remove any lingering quantrobill_ or petbharke_ tokens
+  // 2. Scan and remove any lingering restosync_, quantrobill_, or petbharke_ tokens
   try {
     for (let i = localStorage.length - 1; i >= 0; i--) {
       const key = localStorage.key(i);
-      if (key && (key.startsWith('quantrobill_') || key.startsWith('petbharke_'))) {
+      if (key && (key.startsWith('restosync_') || key.startsWith('quantrobill_') || key.startsWith('petbharke_'))) {
         localStorage.removeItem(key);
       }
     }

@@ -1,4 +1,4 @@
-# QuantroBill SuperAdmin Portal — UI Architecture & Layout Notes
+# RestoSync SuperAdmin Portal — UI Architecture & Layout Notes
 
 ## 1. Layout Decision (Reference §2)
 Based on Section §2 of the SuperAdmin Upgrade specification and the attached visual references (`portal.quantromind.com`), we evaluated two architectural layouts:
@@ -15,7 +15,7 @@ Based on Section §2 of the SuperAdmin Upgrade specification and the attached vi
 ## 2. Visual Hierarchy & Components
 
 ### Top Bar
-- **Brand / Logo**: Left-aligned QuantroBill icon with bold brand text and a subtle pill badge indicating the `SuperAdmin` role.
+- **Brand / Logo**: Left-aligned RestoSync icon with bold brand text and a subtle pill badge indicating the `SuperAdmin` role.
 - **Global Search**: Center-left global search input with quick shortcut cues for searching across tenants, invoices, tickets, and audit trails.
 - **Utility Actions**:
   - Notification bell with dynamic alert indicator.

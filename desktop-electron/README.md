@@ -1,6 +1,6 @@
-# QuantroBill Desktop POS (Electron Module)
+# RestoSync Desktop POS (Electron Module)
 
-This is the dedicated desktop runtime for the QuantroBill Restaurant POS. It wraps the QuantroBill POS in a native desktop window with support for ESC/POS hardware silent printing, cash drawer kick pulses, and offline local fallback.
+This is the dedicated desktop runtime for the RestoSync Restaurant POS. It wraps the RestoSync POS in a native desktop window with support for ESC/POS hardware silent printing, cash drawer kick pulses, and offline local fallback.
 
 ---
 

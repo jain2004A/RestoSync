@@ -1,6 +1,0 @@
-@PetBharke.API_HostAddress = http://localhost:5118
-
-GET {{PetBharke.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

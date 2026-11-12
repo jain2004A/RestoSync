@@ -32,18 +32,20 @@ const initialKOTs: KdsTicket[] = [];
 
 export const getSalesStorageKey = (): string => {
   try {
-    const authRaw = localStorage.getItem('quantrobill-auth');
+    const directTenantId = localStorage.getItem('restosync_tenant_id');
+    if (directTenantId) return `restosync_sales_${directTenantId}`;
+    const authRaw = localStorage.getItem('restosync-auth') || localStorage.getItem('quantrobill-auth');
     if (authRaw) {
       const parsed = JSON.parse(authRaw);
-      if (parsed?.state?.tenant?.id) return `quantrobill_sales_${parsed.state.tenant.id}`;
+      if (parsed?.state?.tenant?.id) return `restosync_sales_${parsed.state.tenant.id}`;
     }
-    const ownerAuthRaw = localStorage.getItem('quantrobill_owner_auth');
+    const ownerAuthRaw = localStorage.getItem('restosync_owner_auth') || localStorage.getItem('quantrobill_owner_auth');
     if (ownerAuthRaw) {
       const parsed = JSON.parse(ownerAuthRaw);
-      if (parsed?.state?.user?.tenantId) return `quantrobill_sales_${parsed.state.user.tenantId}`;
+      if (parsed?.state?.user?.tenantId) return `restosync_sales_${parsed.state.user.tenantId}`;
     }
-  } catch {}
-  return 'quantrobill_sales_default';
+  } catch { }
+  return 'restosync_sales_default';
 };
 
 export const loadInitialSales = (): OwnerSaleTransaction[] => {
@@ -54,7 +56,7 @@ export const loadInitialSales = (): OwnerSaleTransaction[] => {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed)) return parsed;
     }
-  } catch {}
+  } catch { }
   return [];
 };
 
@@ -252,7 +254,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
             try {
               const key = getSalesStorageKey();
               localStorage.setItem(key, JSON.stringify(merged.slice(0, 500)));
-            } catch {}
+            } catch { }
             return { sales: merged };
           });
         }
@@ -361,7 +363,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
               try {
                 const key = getSalesStorageKey();
                 localStorage.setItem(key, JSON.stringify(newSales.slice(0, 500)));
-              } catch {}
+              } catch { }
               return { activeKOTs: remainingKOTs, completedKOTs: nextCompleted, sales: newSales };
             }
           }
@@ -530,7 +532,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
       ),
     }));
 
-    apiClient.patch(`/orders/${ticketId}/status`, { status: 2 }).catch(() => {});
+    apiClient.patch(`/orders/${ticketId}/status`, { status: 2 }).catch(() => { });
   },
 
   bumpKOT: (ticketId: string) => {
@@ -548,7 +550,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
     }));
 
     // Status 3 = FoodReady in backend OrderStatus enum
-    apiClient.patch(`/orders/${ticketId}/status`, { status: 3 }).catch(() => {});
+    apiClient.patch(`/orders/${ticketId}/status`, { status: 3 }).catch(() => { });
   },
 
   recallLastKOT: () => {
@@ -599,7 +601,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
       try {
         const key = getSalesStorageKey();
         localStorage.setItem(key, JSON.stringify(updatedSales.slice(0, 500)));
-      } catch {}
+      } catch { }
       return {
         sales: updatedSales,
         nextBillSequence: state.nextBillSequence + 1,
@@ -640,7 +642,7 @@ export const usePosSyncStore = create<PosSyncState>((set, get) => ({
 
     // 4. Auto-deduct from MongoDB inventory backend
     const deductions = items.map((i) => ({ itemName: i.name, quantity: i.quantity }));
-    apiClient.post('/inventory/deduct', deductions).catch(() => {});
+    apiClient.post('/inventory/deduct', deductions).catch(() => { });
 
     return newSale;
   },

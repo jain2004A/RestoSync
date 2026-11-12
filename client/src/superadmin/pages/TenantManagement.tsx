@@ -62,8 +62,8 @@ export const TenantManagement: React.FC = () => {
   // Load tenants dynamically from MongoDB API
   const fetchTenants = async () => {
     try {
-      let currentToken = localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
-      if (!currentToken || currentToken.startsWith('quantrobill_demo_')) {
+      let currentToken = localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
+      if (!currentToken || currentToken.startsWith('restosync_demo_') || currentToken.startsWith('quantrobill_demo_')) {
         try {
           const authRes = await apiClient.post<{ success: boolean; data: any }>('/auth/login', {
             identifier: 'admin@quantromind.com',
@@ -72,7 +72,7 @@ export const TenantManagement: React.FC = () => {
           if (authRes.data?.data?.accessToken) {
             currentToken = authRes.data.data.accessToken;
             if (currentToken) {
-              localStorage.setItem('quantrobill_access_token', currentToken);
+              localStorage.setItem('restosync_access_token', currentToken);
             }
           }
         } catch {}
@@ -224,8 +224,8 @@ export const TenantManagement: React.FC = () => {
     };
 
     try {
-      let currentToken = localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
-      if (!currentToken || currentToken.startsWith('quantrobill_demo_')) {
+      let currentToken = localStorage.getItem('restosync_access_token') || localStorage.getItem('quantrobill_access_token') || localStorage.getItem('petbharke_access_token');
+      if (!currentToken || currentToken.startsWith('restosync_demo_') || currentToken.startsWith('quantrobill_demo_')) {
         try {
           const authRes = await apiClient.post<{ success: boolean; data: any }>('/auth/login', {
             identifier: 'admin@quantromind.com',
@@ -234,7 +234,7 @@ export const TenantManagement: React.FC = () => {
           if (authRes.data?.data?.accessToken) {
             currentToken = authRes.data.data.accessToken;
             if (currentToken) {
-              localStorage.setItem('quantrobill_access_token', currentToken);
+              localStorage.setItem('restosync_access_token', currentToken);
             }
           }
         } catch {}
@@ -389,7 +389,7 @@ export const TenantManagement: React.FC = () => {
 
   const copyCredentials = () => {
     if (!createdCredentials) return;
-    const text = `QuantroBill Restaurant Credentials:\nRestaurant: ${createdCredentials.businessName}\nEmail: ${createdCredentials.ownerEmail}\nPassword: ${createdCredentials.password}\nOutlet: ${createdCredentials.outletName}\nLogin URL: http://localhost:5173/login`;
+    const text = `RestoSync Restaurant Credentials:\nRestaurant: ${createdCredentials.businessName}\nEmail: ${createdCredentials.ownerEmail}\nPassword: ${createdCredentials.password}\nOutlet: ${createdCredentials.outletName}\nLogin URL: http://localhost:5173/login`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);

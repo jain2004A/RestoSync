@@ -13,9 +13,9 @@ export const PublicFooter: React.FC = () => {
           {/* Column 1: Brand & Bio */}
           <div className="pp-footer-col">
             <div className="pp-brand" style={{ marginBottom: '14px' }}>
-              <img src={logoImg} alt="QuantroBill" className="pp-brand-logo" />
+              <img src={logoImg} alt="RestoSync" className="pp-brand-logo" />
               <span className="pp-brand-title">
-                Quantro<span>Bill</span>
+                Resto<span>Sync</span>
               </span>
             </div>
             <p style={{ color: 'var(--pp-muted)', fontSize: '0.92rem', lineHeight: '1.65', marginBottom: '20px' }}>
@@ -114,7 +114,7 @@ export const PublicFooter: React.FC = () => {
 
         <div className="pp-footer-bottom">
           <div>
-            © {currentYear} <strong>Quantromind Pvt Ltd</strong>. All rights reserved. QuantroBill™ is an enterprise trademark.
+            © {currentYear} <strong>Quantromind Pvt Ltd</strong>. All rights reserved. RestoSync™ is an enterprise trademark.
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <Link to="/contact" className="pp-footer-link">Book Demo</Link>
